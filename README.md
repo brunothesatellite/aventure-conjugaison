@@ -45,7 +45,9 @@ qui mélange les temps déjà vus. Deux types d'exercices alternent :
 
 - **choix multiple** entre 3 formes : une autre personne du verbe, un autre temps déjà vu,
   ou une faute typique (jamais de forme inventée) ;
-- **assemblage** : on choisit la bonne terminaison à coller au radical.
+- **assemblage** : on choisit la bonne terminaison à coller au radical. Les mauvaises
+  terminaisons viennent toujours du même verbe et du même radical (ou d'une faute typique
+  contrôlée) ; quand il n'y en a pas assez, la question devient un QCM.
 
 ![Écran de quête](docs/captures/quete.png)
 

@@ -46,16 +46,17 @@
 
       var asm = Q.morphologie.assemblagePossible(phrase, verbe);
       if (asm && doitAssembler(phrase, verbe, difficulte)) {
-        var pool = Q.morphologie.terminaisonsDuTemps(phrase.temps)
-          .filter(function (t) { return t !== asm.terminaison; });
-        var optionsTerm = melanger([asm.terminaison].concat(melanger(pool).slice(0, 3)));
-        return Object.assign(base, {
-          type: "assemblage",
-          radical: asm.radical,
-          terminaison: asm.terminaison,
-          options: optionsTerm,
-          consigne: "Assemble le verbe : choisis la bonne terminaison."
-        });
+        var optionsTerm = Q.morphologie.optionsAssemblage(phrase, verbe, asm);
+        /* Pas assez de terminaisons compatibles : on bascule en QCM. */
+        if (optionsTerm.length >= 3) {
+          return Object.assign(base, {
+            type: "assemblage",
+            radical: asm.radical,
+            terminaison: asm.terminaison,
+            options: melanger(optionsTerm),
+            consigne: "Assemble le verbe : choisis la bonne terminaison."
+          });
+        }
       }
 
       var mauvais = Q.distracteurs.pour(phrase, 2);

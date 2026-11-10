@@ -221,6 +221,30 @@ function verifierExercices(valeur, etiquette, toutesIles) {
     if (bonnesTerm.length !== 1) {
       erreur("Phrase " + p.id + " : " + bonnesTerm.length + " bonne(s) terminaison(s) proposée(s)");
     }
+
+    /* Chaque mauvaise terminaison doit reformer une forme réelle du
+       verbe, ou une faute explicitement autorisée sur la terminaison. */
+    var v = Q.verbe(p.verbe);
+    var connues = {};
+    if (v && v.formes) {
+      Object.keys(v.formes).forEach(function (t) {
+        Object.keys(v.formes[t] || {}).forEach(function (pers) {
+          var m = v.formes[t][pers];
+          if (m) connues[String(m).toLowerCase()] = true;
+        });
+      });
+    }
+    var fautes = Q.morphologie.fautesTerminaison(exercice.terminaison, v);
+    var vues = {};
+    exercice.options.forEach(function (o) {
+      if (vues[o]) erreur("Phrase " + p.id + " : terminaison en double (« " + o + " »)");
+      vues[o] = true;
+      if (o === exercice.terminaison) return;
+      var mot = String(exercice.radical + o).toLowerCase();
+      if (!connues[mot] && fautes.indexOf(o) === -1) {
+        erreur("Phrase " + p.id + " : option d'assemblage invalide « " + mot + " »");
+      }
+    });
   });
 }
 

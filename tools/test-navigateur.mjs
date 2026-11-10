@@ -345,6 +345,38 @@ const rapport = await evaluate(`(async () => {
   await pause(60);
   ok(/terminaison commence par « o »/.test(dernierToast()), "perroquet : coup de pouce sur la terminaison");
 
+  // Lot 1 assemblage : uniquement des terminaisons compatibles avec le radical.
+  const vraiHasard = Math.random;
+  Math.random = function () { return 0; };
+  const exChois = Q.exercices.construire(Q.phraseParId("choisir-present-je-01"), "test-lot1");
+  const exFin = Q.exercices.construire(Q.phraseParId("finir-present-tu-01"), "test-lot1");
+  const exJouer = Q.exercices.construire(Q.phraseParId("jouer-present-nous-01"), "test-lot1");
+  const exAller = Q.exercices.construire(Q.phraseParId("aller-present-je-01"), "test-lot1");
+  Math.random = vraiHasard;
+
+  const formesDe = (verbeId) => {
+    const v = Q.verbe(verbeId);
+    const set = {};
+    Object.keys(v.formes).forEach(function (t) {
+      Object.keys(v.formes[t] || {}).forEach(function (p) {
+        if (v.formes[t][p]) set[v.formes[t][p]] = true;
+      });
+    });
+    return set;
+  };
+  const formesChoisir = formesDe("choisir");
+
+  ok(exChois.type === "assemblage", "assemblage : forme régulière conservée");
+  ok(exChois.radical === "chois" && exChois.terminaison === "is", "assemblage : découpage certifié chois-ir");
+  ok(exChois.options.indexOf("x") === -1 && exChois.options.indexOf("a") === -1 &&
+    exChois.options.indexOf("es") === -1, "assemblage : plus de terminaisons inventées");
+  ok(exChois.options.every(function (o) {
+    return !!formesChoisir[exChois.radical + o] || o === "i";
+  }), "assemblage : toutes les options sont des formes réelles");
+  ok(exFin.type === "assemblage" && exFin.radical === "fin", "assemblage : découpage certifié fin-ir");
+  ok(exJouer.type === "assemblage" && exJouer.radical === "jou", "assemblage : radical jou- conservé");
+  ok(exAller.type === "qcm", "assemblage : aller (irrégulier) basculé en QCM");
+
   // Les 12 nouveaux badges : on remplit leurs conditions puis on vérifie.
   const vraieStatsSrs = Q.srs.stats;
   Q.srs.stats = function () { return { solides: 40, aRevoir: 0 }; };
