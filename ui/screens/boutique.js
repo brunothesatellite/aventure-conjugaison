@@ -47,7 +47,7 @@
       '<p class="discret">Tu as <strong>' + Q.etat.or + " pièces d'or</strong>. Les familiers t'aident pendant les quêtes.</p>" +
       '<h2 class="espace-haut">Familiers</h2>' +
       '<div class="grille-articles">' + familles + "</div>" +
-      '<h2 class="espace-haut">Déguisements</h2>' +
+      '<h2 class="espace-haut">Déguisements <span class="discret">(' + Q.etat.cosmetiques.length + "/" + Q.catalogue.cosmetiques.length + ")</span></h2>" +
       '<div class="grille-articles">' + cosmetiques + "</div>" +
       '<h2 class="espace-haut">Récompenses</h2>' +
       '<div class="grille-articles">' + recompenses + "</div>";
@@ -78,15 +78,7 @@
         Q.audio.son("fanfare");
         Q.ui.modale({
           titre: "Parchemin de réussite",
-          contenu: '<div class="parchemin-recompense">' +
-            '<p class="discret">La Quête des Verbes</p>' +
-            '<div class="parchemin-recompense__icone">' + Q.ui.icon(Q.iconeRecompense(r.recompense, i)) + "</div>" +
-            "<h3>" + Q.ui.echapper(r.recompense.texte) + "</h3>" +
-            "<p>Accordé à <strong>" + Q.ui.echapper(Q.etat.profil.nom) + "</strong></p>" +
-            "<p>pour " + r.recompense.prix + " pièces d'or durement gagnées.</p>" +
-            '<span class="parchemin-recompense__tampon">VALIDÉ</span>' +
-            '<p class="discret" style="margin-top:10px">' + new Date().toLocaleDateString("fr-FR") + "</p>" +
-            "</div>",
+          contenu: Q.ui.parcheminRecompense(r.achat || r.recompense),
           actions: [
             { label: "Imprimer", classe: "btn--secondaire", action: function () { window.print(); }, fermer: false },
             { label: "Montrer à mes parents", classe: "btn--primaire" }
@@ -97,11 +89,12 @@
     });
 
     function visuelDe(icone) {
-      /* Le cache-œil n'a pas d'équivalent Twemoji : on garde le picto
-         monochrome, agrandi dans la pastille. */
-      if (icone === "cache-oeil") return Q.ui.icon("cache-oeil", "ico--article");
-      var map = { perroquet: "perroquet", dragonneau: "dragon", cheval: "cheval", mousse: "chapeau", joyau: "joyau" };
-      return Q.ui.emoji(map[icone] || "parchemin", "");
+      /* « picto: » = icône monochrome du jeu ; sinon c'est un Twemoji. */
+      if (icone.indexOf("picto:") === 0) {
+        return Q.ui.icon(icone.slice("picto:".length), "ico--article");
+      }
+      var map = { perroquet: "perroquet", dragonneau: "dragon", cheval: "cheval", mousse: "chapeau" };
+      return Q.ui.emoji(map[icone] || icone, "");
     }
 
     function nomArticle(type, id) {

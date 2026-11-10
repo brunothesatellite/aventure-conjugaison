@@ -43,6 +43,24 @@
         Q.ui.emoji("boussole", "") + " " + Q.ui.tempsLabel(t) + "</span>";
     }).join(" ");
 
+    var achats = (Q.etat.recompensesAchetees || []).slice().sort(function (a, b) {
+      return (b.date || 0) - (a.date || 0);
+    });
+    var historique = achats.length
+      ? achats.map(function (r, i) {
+          return '<div class="rec-carnet">' +
+            '<span class="rec-carnet__icone" aria-hidden="true">' + Q.ui.icon(Q.iconeRecompense(r, 0)) + "</span>" +
+            '<div class="rec-carnet__texte">' +
+              '<div class="rec-carnet__nom">' + Q.ui.echapper(r.texte || "Récompense") + "</div>" +
+              '<div class="rec-carnet__meta">' +
+                (r.date ? "Échangée le " + Q.ui.dateFr(r.date) : "Récompense échangée") + "</div>" +
+            "</div>" +
+            '<span class="rec-carnet__prix">' + Q.ui.piece() + " " + (r.prix || 0) + "</span>" +
+            '<button class="btn btn--secondaire btn--petit" data-parchemin="' + i + '">Parchemin</button>' +
+            "</div>";
+        }).join("")
+      : '<p class="discret">Aucune récompense échangée pour le moment. File à la Cabane du Marchand !</p>';
+
     el.innerHTML = Q.ui.hud() +
       Q.ui.boutonRetour("map") +
       '<div class="titre-section espace-haut-sm"><h1 style="margin:0">Carnet de bord</h1></div>' +
@@ -58,8 +76,28 @@
       "</div>" +
       '<div class="carte espace-haut"><h2>' + Q.ui.icon("trophee") + " Badges</h2>" +
         '<div class="badges-grille">' + badges + "</div></div>" +
+      '<div class="carte espace-haut"><h2>' + Q.ui.icon("coffre") + " Récompenses" +
+        (achats.length ? ' <span class="discret">(' + achats.length + ")</span>" : "") + "</h2>" +
+        historique + "</div>" +
       '<div class="carte espace-haut"><h2>Ma maîtrise par temps</h2>' + maitrise + "</div>" +
       '<div class="carte espace-haut"><h2>Ce qu\'il faut revoir</h2>' + erreursHtml + "</div>" +
       '<div class="carte espace-haut"><h2>' + Q.ui.icon("carnet") + " Mon journal</h2>" + journal + "</div>";
+
+    /* Réafficher le parchemin d'une récompense déjà échangée. */
+    Array.prototype.forEach.call(el.querySelectorAll("[data-parchemin]"), function (b) {
+      b.addEventListener("click", function () {
+        var r = achats[parseInt(b.getAttribute("data-parchemin"), 10)];
+        if (!r) return;
+        Q.audio.son("page");
+        Q.ui.modale({
+          titre: "Parchemin de réussite",
+          contenu: Q.ui.parcheminRecompense(r),
+          actions: [
+            { label: "Imprimer", classe: "btn--secondaire", action: function () { window.print(); }, fermer: false },
+            { label: "Fermer", classe: "btn--primaire" }
+          ]
+        });
+      });
+    });
   };
 })(window.Quete);

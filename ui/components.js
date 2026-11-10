@@ -207,6 +207,31 @@
     return m + " min " + (s < 10 ? "0" : "") + s + " s";
   };
 
+  ui.dateFr = function (ts) {
+    if (!ts) return "";
+    try {
+      return new Date(ts).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+    } catch (e) {
+      return "";
+    }
+  };
+
+  /* Parchemin de récompense, partagé par la boutique et le carnet. */
+  ui.parcheminRecompense = function (r) {
+    r = r || {};
+    var nom = (Q.etat.profil && Q.etat.profil.nom) || "Moussaillon";
+    return '<div class="parchemin-recompense">' +
+      '<p class="discret">La Quête des Verbes</p>' +
+      '<div class="parchemin-recompense__icone">' + ui.icon(Q.iconeRecompense(r, 0)) + "</div>" +
+      "<h3>" + ui.echapper(r.texte || "Récompense") + "</h3>" +
+      "<p>Accordé à <strong>" + ui.echapper(nom) + "</strong></p>" +
+      "<p>pour " + (r.prix || 0) + " pièces d'or durement gagnées.</p>" +
+      '<span class="parchemin-recompense__tampon">VALIDÉ</span>' +
+      '<p class="discret" style="margin-top:10px">' +
+        (ui.dateFr(r.date || r.achetee) || ui.dateFr(Date.now())) + "</p>" +
+      "</div>";
+  };
+
   /* Délégation simple pour les boutons « retour ». */
   ui.boutonRetour = function (cible) {
     return '<button class="btn btn--fantome" data-nav="' + (cible || "map") + '">← Retour</button>';

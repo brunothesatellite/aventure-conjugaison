@@ -61,14 +61,31 @@
 
   var CATALOGUE = {
     familiers: [
-      { id: "perroquet", nom: "Perroquet", prix: 60, icone: "perroquet", desc: "Relit la phrase à voix haute quand tu hésites.", effet: "relire" },
+      { id: "perroquet", nom: "Perroquet", prix: 60, icone: "perroquet", desc: "Donne un coup de pouce sur la bonne terminaison, une fois par quête.", effet: "relire" },
       { id: "dragonneau", nom: "Dragonneau", prix: 120, icone: "dragonneau", desc: "Élimine un mauvais choix, une fois par quête.", effet: "eliminer" },
       { id: "cheval", nom: "Cheval", prix: 200, icone: "cheval", desc: "Te donne la règle, une fois par quête.", effet: "regle" }
     ],
     cosmetiques: [
+      { id: "bandeau", nom: "Bandeau à tête de mort", prix: 30, icone: "picto:tete-mort", desc: "Le bandeau des vrais pirates." },
       { id: "chapeau", nom: "Chapeau de capitaine", prix: 40, icone: "mousse", desc: "Pour avoir l'air d'un vrai chef de bord." },
-      { id: "cache-oeil", nom: "Cache-œil", prix: 50, icone: "cache-oeil", desc: "Un look de vieux loup de mer." },
-      { id: "joyau", nom: "Joyau du trésor", prix: 80, icone: "joyau", desc: "Brille dans ton carnet de bord." }
+      { id: "tatouage-ancre", nom: "Tatouage d'ancre", prix: 45, icone: "ancre", desc: "Un tatouage de marin, sans piqûre !" },
+      { id: "cache-oeil", nom: "Cache-œil", prix: 50, icone: "picto:cache-oeil", desc: "Un look de vieux loup de mer." },
+      { id: "couronne", nom: "Couronne du roi", prix: 600, icone: "picto:couronne", desc: "Réservée aux vrais rois de l'Archipel." },
+      { id: "etoile-mer", nom: "Étoile de mer porte-bonheur", prix: 65, icone: "picto:etoile-mer", desc: "Elle porte chance dans les tempêtes." },
+      { id: "collier", nom: "Collier de coquillages", prix: 70, icone: "coquillage", desc: "Rapporte la plage partout avec toi." },
+      { id: "joyau", nom: "Joyau du trésor", prix: 80, icone: "joyau", desc: "Brille dans ton carnet de bord." },
+      { id: "epee", nom: "Épée de corsaire", prix: 90, icone: "epee", desc: "Pour les duels... ou pour la pose." },
+      { id: "sabre", nom: "Sabre du roi des mers", prix: 1600, icone: "picto:epee", desc: "Une lame légendaire, rien que pour toi." },
+      { id: "drapeau", nom: "Drapeau noir", prix: 120, icone: "pirate", desc: "Le pavillon des aventuriers." },
+      { id: "bouclier", nom: "Bouclier du gardien", prix: 150, icone: "bouclier", desc: "Aucun mauvais sort ne passe." },
+      { id: "laurier", nom: "Couronne de laurier", prix: 2000, icone: "picto:laurier", desc: "La récompense des héros de l'Archipel." },
+      { id: "plume", nom: "Plume de capitaine", prix: 220, icone: "picto:plume", desc: "Pour signer les cartes au trésor." },
+      { id: "tatouage-dragon", nom: "Tatouage de dragon", prix: 260, icone: "dragon", desc: "Un dragon sur le bras, rien que ça." },
+      { id: "sorciere", nom: "Chapeau de sorcière", prix: 350, icone: "picto:sorciere", desc: "Pointu, sombre, un peu magique." },
+      { id: "armure", nom: "Armure de chevalier", prix: 450, icone: "picto:chevalier", desc: "Brillante comme au premier tournoi." },
+      { id: "kraken", nom: "Anneau du kraken", prix: 750, icone: "picto:kraken", desc: "Un anneau rapporté du fond des mers." },
+      { id: "magicien", nom: "Costume de magicien", prix: 900, icone: "picto:magicienne", desc: "Pour faire apparaître les bonnes réponses." },
+      { id: "boucle-or", nom: "Bourse de pièces d'or", prix: 1300, icone: "picto:or", desc: "Le trésor des capitaines riches." }
     ]
   };
 
@@ -160,14 +177,23 @@
       return { ok: true, prix: prix };
     },
 
-    /* Achat d'une récompense réelle définie par les parents */
+    /* Achat d'une récompense réelle définie par les parents.
+       On garde une trace horodatée pour l'historique du carnet. */
     acheterRecompense: function (index) {
       var r = Q.etat.recompenses[index];
       if (!r) return { ok: false, raison: "absente" };
       if (!Q.jeu.depenserOr(r.prix)) return { ok: false, raison: "or" };
-      r.achetee = Date.now();
+      var achat = {
+        texte: r.texte,
+        prix: r.prix,
+        icone: Q.iconeRecompense(r, index),
+        date: Date.now()
+      };
+      if (!Array.isArray(Q.etat.recompensesAchetees)) Q.etat.recompensesAchetees = [];
+      Q.etat.recompensesAchetees.push(achat);
+      r.achetee = achat.date;
       Q.jeu.sauver();
-      return { ok: true, recompense: r };
+      return { ok: true, recompense: r, achat: achat };
     },
 
     aFamille: function (effet) {

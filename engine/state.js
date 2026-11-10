@@ -20,6 +20,7 @@
       familiers: [],
       cosmetiques: [],
       recompenses: [],
+      recompensesAchetees: [],
       reglages: { son: true, voix: true, animations: true, taille: "normal" },
       stats: { questions: 0, premierCoup: 0, bonnes: 0, tempsJeu: 0, erreurs: {}, jours: [] },
       serie: { actuelle: 0, record: 0 },
@@ -65,6 +66,16 @@
       }
       var base = vierge();
       Q.etat = fusionner(base, sauve);
+      /* Migration : les récompenses achetées avant l'historique
+         gardent leur date dans « achetee ». */
+      if (!Array.isArray(Q.etat.recompensesAchetees)) Q.etat.recompensesAchetees = [];
+      if (!Q.etat.recompensesAchetees.length) {
+        Q.etat.recompensesAchetees = (Q.etat.recompenses || [])
+          .filter(function (r) { return r && r.achetee; })
+          .map(function (r) {
+            return { texte: r.texte, prix: r.prix, icone: r.icone || null, date: r.achetee };
+          });
+      }
       /* Migrations futures : if (Q.etat.version < 2) { ... } */
       Q.etat.version = VERSION;
       return Q.etat;

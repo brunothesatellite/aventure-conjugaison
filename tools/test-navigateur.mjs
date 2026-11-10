@@ -136,6 +136,12 @@ const rapport = await evaluate(`(async () => {
   ok(!!window.Quete, "espace Quete chargé");
   ok(actif("home"), "écran d'accueil actif sans profil");
 
+  const prixDeco = Q.catalogue.cosmetiques.map((c) => c.prix);
+  ok(Q.catalogue.cosmetiques.length >= 18, "au moins 18 déguisements");
+  ok(prixDeco.some((p, i) => i > 0 && p < prixDeco[i - 1]), "prix des déguisements variés (pas toujours croissants)");
+  ok(Math.max.apply(null, prixDeco) >= 1500, "au moins un déguisement très cher");
+  ok(Q.catalogue.cosmetiques.every((c) => !!c.icone), "chaque déguisement a une icône");
+
   Q.jeu.nouveau("Léa", "magicienne");
   ok(Q.jeu.aProfil(), "profil créé");
   Q.router.go("map");
@@ -207,10 +213,36 @@ const rapport = await evaluate(`(async () => {
   ok(Q.etat.recompenses[0] && Q.etat.recompenses[0].icone === "sablier", "icône de récompense enregistrée");
   ok(!!document.querySelector('[data-rec-apercu="0"] svg'), "aperçu de l'icône affiché dans l'espace parent");
 
+  Q.etat.or = 500;
   Q.router.go("boutique");
   await pause(60);
   ok(!!document.querySelector('[data-recompense="0"]'), "récompense visible à la boutique");
   ok(!!document.querySelector(".article__visuel svg"), "icône de récompense affichée à la boutique");
+  ok(document.getElementById("screen-boutique").textContent.includes("(0/20)"), "compteur de déguisements affiché");
+  await pause(200);
+  const visuelsCasses = Array.from(document.querySelectorAll("#screen-boutique .article__visuel")).filter((v) => {
+    const svg = v.querySelector("svg");
+    if (svg) return svg.getBBox().width === 0;
+    const img = v.querySelector("img");
+    return !img || !img.complete || img.naturalWidth === 0;
+  });
+  ok(visuelsCasses.length === 0, "tous les visuels de la boutique s'affichent");
+
+  // Achat : l'historique doit garder la récompense et sa date.
+  document.querySelector('[data-recompense="0"]').click();
+  await pause(80);
+  ok(Q.etat.recompensesAchetees.length === 1, "achat enregistré dans l'historique");
+  ok(!!document.querySelector(".parchemin-recompense__icone svg"), "parchemin affiché après l'achat");
+  Q.ui.fermerModale();
+
+  Q.router.go("carnet");
+  await pause(60);
+  ok(document.querySelectorAll(".rec-carnet").length === 1, "historique des récompenses visible dans le carnet");
+  ok(/Échangée le/.test(document.querySelector(".rec-carnet__meta").textContent), "date de l'échange affichée");
+  document.querySelector('[data-parchemin="0"]').click();
+  await pause(60);
+  ok(!!document.querySelector(".modale__contenu .parchemin-recompense"), "parchemin retrouvé depuis le carnet");
+  Q.ui.fermerModale();
 
   // Verrouillage : le code doit être redemandé au prochain appui long.
   Q.router.go("parent");
@@ -262,12 +294,56 @@ const rapport = await evaluate(`(async () => {
   ok(!!document.querySelector("[data-suite]"), "bouton Continuer après copie");
   ok(document.querySelector("#phrase .trou--rempli") !== null, "bonne réponse révélée dans la phrase");
 
-  // Aides : achat d'un familier puis bouton d'aide disponible.
+  // Aides : perroquet (coup de pouce) et dragonneau (élimination).
   Q.etat.or = 500;
   Q.achat.acheter("familier", "perroquet");
+  Q.achat.acheter("familier", "dragonneau");
+
+  const dernierToast = () => {
+    const t = document.querySelectorAll(".toast");
+    return t.length ? t[t.length - 1].textContent : "";
+  };
+
+  const phraseJoue = Q.phraseParId("jouer-present-je-01");
+  Q.etat.quest = {
+    aventureId: "ile-present", niveauId: "present-1", mode: "niveau", temps: "present",
+    creeLe: Date.now(), index: 0, aides: { eliminer: 0, regle: 0, indice: 0 }, fini: false,
+    questions: [{
+      id: phraseJoue.id, phraseId: phraseJoue.id, verbe: "jouer", infinitif: "jouer", temps: "present",
+      personne: "je", texte: phraseJoue.texte, reponse: "joue", difficulte: 1, source: "cible",
+      explication: "", type: "qcm", options: ["joues", "joue", "jouent"], lettres: ["A", "B", "C"],
+      consigne: "Choisis la bonne forme du verbe."
+    }]
+  };
   Q.router.go("quete");
   await pause(80);
   ok(!!document.querySelector('[data-aide="lettre"]'), "aide du perroquet disponible");
+  document.querySelector('[data-aide="lettre"]').click();
+  await pause(60);
+  ok(/se termine par « e »/.test(dernierToast()), "perroquet : coup de pouce sur la fin du mot");
+
+  document.querySelector('[data-aide="eliminer"]').click();
+  await pause(60);
+  const retiree = document.querySelector("#options .option--retiree");
+  ok(!!retiree, "dragonneau : un mauvais choix est éliminé");
+  ok(retiree && retiree.getAttribute("data-choix") !== "joue", "dragonneau : la bonne réponse reste proposée");
+
+  // En assemblage, le coup de pouce porte sur la terminaison.
+  Q.etat.quest = {
+    aventureId: "ile-present", niveauId: "present-1", mode: "niveau", temps: "present",
+    creeLe: Date.now(), index: 0, aides: { eliminer: 0, regle: 0, indice: 0 }, fini: false,
+    questions: [{
+      id: phraseAsm.id, phraseId: phraseAsm.id, verbe: "jouer", infinitif: "jouer", temps: "present",
+      personne: "nous", texte: phraseAsm.texte, reponse: "jouons", difficulte: 1, source: "cible",
+      explication: "", type: "assemblage", radical: "jou", terminaison: "ons",
+      options: ["as", "ont", "ons", "ai"], consigne: "Assemble le verbe : choisis la bonne terminaison."
+    }]
+  };
+  Q.router.go("quete");
+  await pause(80);
+  document.querySelector('[data-aide="lettre"]').click();
+  await pause(60);
+  ok(/terminaison commence par « o »/.test(dernierToast()), "perroquet : coup de pouce sur la terminaison");
 
   return out;
 })()`);
@@ -286,15 +362,20 @@ const apres = await evaluate(`(async () => {
     or: Q.etat.or,
     etoiles: Q.etat.progression["present-1"] && Q.etat.progression["present-1"].etoiles,
     ecran: document.querySelector(".screen.actif") && document.querySelector(".screen.actif").id,
-    queteEnCours: !!(Q.etat.quest && !Q.etat.quest.fini)
+    queteEnCours: !!(Q.etat.quest && !Q.etat.quest.fini),
+    recompensesAchetees: (Q.etat.recompensesAchetees || []).length,
+    iconeRecompense: (Q.etat.recompensesAchetees[0] || {}).icone
   };
 })()`);
 
 console.log("Après rechargement :", JSON.stringify(apres));
 
-const attendu = { profil: "Léa", etoiles: 3, queteEnCours: true };
+const attendu = {
+  profil: "Léa", etoiles: 3, queteEnCours: true,
+  recompensesAchetees: 1, iconeRecompense: "sablier"
+};
 const ecarts = Object.keys(attendu).filter((cle) => apres[cle] !== attendu[cle]);
-if (apres.or < 440) ecarts.push("or (" + apres.or + ")");
+if (apres.or < 300) ecarts.push("or (" + apres.or + ")");
 if (ecarts.length) {
   console.error("État restauré incorrect : " + ecarts.join(", "));
   console.error(JSON.stringify(apres));

@@ -9,6 +9,43 @@
     gardien: "Gardien"
   };
 
+  /* Coup de pouce du perroquet : révéler juste assez de lettres pour
+     trancher entre les choix affichés, sans donner toute la réponse.
+
+     - QCM : la fin du mot est presque toujours discriminante
+       (joue / joues / jouent → « e »). On rallonge si deux choix
+       finissent pareil, sans dépasser 4 lettres.
+     - Assemblage : on indique la première lettre de la terminaison.
+     - Passé composé : si seule l'auxiliaire diffère, on la donne. */
+  function indiceCoupDePouce(q) {
+    var bonne = String(q.type === "assemblage" ? q.terminaison : q.reponse || "");
+    if (!bonne) return "";
+
+    if (q.type === "assemblage") {
+      return "La terminaison commence par « " + bonne.charAt(0) + " ».";
+    }
+
+    var autres = (q.options || []).filter(function (o) {
+      return String(o).toLowerCase() !== bonne.toLowerCase();
+    }).map(function (o) { return String(o).toLowerCase(); });
+    if (!autres.length) return "";
+
+    var maxi = Math.min(4, bonne.length - 1);
+    for (var n = 1; n <= maxi; n++) {
+      var fin = bonne.toLowerCase().slice(-n);
+      var partagee = autres.some(function (o) { return o.slice(-n) === fin; });
+      if (!partagee) {
+        return "La bonne forme se termine par « " + bonne.slice(-n) + " ».";
+      }
+    }
+
+    var mots = bonne.split(" ");
+    if (mots.length > 1) {
+      return "L'auxiliaire est « " + mots[0] + " ».";
+    }
+    return "";
+  }
+
   Q.screens.quete = function (el) {
     var quest = Q.etat.quest;
     if (!quest || quest.fini) {
@@ -101,7 +138,7 @@
       }
       if (Q.achat.aFamille("relire")) {
         html += '<button class="aide-btn" data-aide="lettre"' + ((quest.aides.lettre || 0) >= 1 ? " disabled" : "") + ">" +
-          Q.ui.emoji("perroquet", "") + " Première lettre</button>";
+          Q.ui.emoji("perroquet", "") + " Coup de pouce</button>";
       }
       if (Q.achat.aFamille("regle")) {
         html += '<button class="aide-btn" data-aide="lire"' + ((quest.aides.regle || 0) >= 1 ? " disabled" : "") + ">" +
@@ -264,22 +301,32 @@
       if (type === "eliminer") {
         quest.aides.eliminer = (quest.aides.eliminer || 0) + 1;
         bouton.disabled = true;
-        /* On retire un mauvais choix réellement affiché (et non un
-           distracteur régénéré, qui pourrait ne pas être à l'écran). */
-        var bonne = q.type === "assemblage" ? q.terminaison : q.reponse;
-        var mauvais = Q.distracteurs.melanger((q.options || []).filter(function (o) {
-          return String(o).toLowerCase() !== String(bonne).toLowerCase();
-        }))[0];
-        var cible = mauvais
-          ? el.querySelector('[data-choix="' + CSS.escape(String(mauvais)) + '"], [data-terminaison="' + CSS.escape(String(mauvais)) + '"]')
-          : null;
-        if (cible) { cible.classList.add("option--retiree"); cible.disabled = true; }
-        Q.ui.toast("Le dragonneau a soufflé un mauvais choix !");
+        /* On retire un mauvais choix réellement affiché et encore actif. */
+        var bonneValeur = q.type === "assemblage" ? q.terminaison : q.reponse;
+        var boutons = Array.prototype.slice.call(el.querySelectorAll(".option, .terminaison")).filter(function (b) {
+          var v = b.getAttribute("data-choix") || b.getAttribute("data-terminaison") || "";
+          return !b.disabled && String(v).toLowerCase() !== String(bonneValeur).toLowerCase();
+        });
+        var cible = Q.distracteurs.melanger(boutons)[0] || null;
+        if (cible) {
+          cible.classList.add("option--retiree");
+          cible.disabled = true;
+          Q.ui.toast("Le dragonneau a soufflé un mauvais choix !");
+        } else {
+          Q.ui.toast("Le dragonneau ne trouve plus de mauvais choix à souffler.", "ko");
+        }
       }
       if (type === "lettre") {
         quest.aides.lettre = (quest.aides.lettre || 0) + 1;
         bouton.disabled = true;
-        Q.ui.toast("Ça commence par « " + q.reponse.charAt(0) + " ».");
+        var texte = indiceCoupDePouce(q);
+        if (texte) {
+          Q.ui.toast(texte);
+        } else {
+          var regle = Q.feedback.regle(phrase, Q.verbe(q.verbe));
+          zone.innerHTML = feedbackHTML({ titre: "Le perroquet te souffle la règle", texte: "", regle: regle }, "");
+          Q.audio.parler(regle);
+        }
       }
       if (type === "lire") {
         quest.aides.regle = (quest.aides.regle || 0) + 1;

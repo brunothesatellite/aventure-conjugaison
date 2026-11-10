@@ -57,9 +57,11 @@ Les principes anti-frustration :
 - **La série est un record personnel**, pas une flamme qui s'éteint.
 - **Pas de chronomètre, pas de classement, pas de vies.**
 
-L'or gagné s'échange contre des familiers qui aident pendant les quêtes (relire la phrase,
-éliminer un mauvais choix, rappeler la règle), des déguisements et des récompenses réelles
-négociées avec les parents.
+L'or gagné s'échange contre des familiers qui aident pendant les quêtes (un coup de pouce
+sur la terminaison, éliminer un mauvais choix, rappeler la règle), **20 déguisements à
+collectionner** (du bandeau de pirate à la couronne de laurier à 2 000 pièces) et des
+récompenses réelles négociées avec les parents. Chaque récompense achetée laisse une trace
+datée dans le carnet de bord, avec son parchemin réimprimable.
 
 ![Écran de résultat](docs/captures/resultat.png)
 
