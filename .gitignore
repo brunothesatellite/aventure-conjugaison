@@ -1,0 +1,11 @@
+﻿# Système
+Thumbs.db
+desktop.ini
+*.log
+
+# Éditeurs
+.vscode/
+.idea/
+
+# Sauvegardes locales du jeu
+*.local.json
