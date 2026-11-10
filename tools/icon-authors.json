@@ -1,0 +1,368 @@
+[
+  {
+    "fichier": "ampoule.svg",
+    "auteur": "lorc",
+    "slug": "lorc/bulb",
+    "candidats": 1
+  },
+  {
+    "fichier": "ancre.svg",
+    "auteur": "lorc",
+    "slug": "lorc/anchor",
+    "candidats": 1
+  },
+  {
+    "fichier": "barque.svg",
+    "auteur": "delapouite",
+    "slug": "delapouite/boat-horizon",
+    "candidats": 1
+  },
+  {
+    "fichier": "bouclier.svg",
+    "auteur": "badges",
+    "slug": "badges/shield",
+    "candidats": 1
+  },
+  {
+    "fichier": "boussole.svg",
+    "auteur": "lorc",
+    "slug": "lorc/compass",
+    "candidats": 1
+  },
+  {
+    "fichier": "cache-oeil.svg",
+    "auteur": "delapouite",
+    "slug": "delapouite/eyepatch",
+    "candidats": 1
+  },
+  {
+    "fichier": "cadenas.svg",
+    "auteur": "lorc",
+    "slug": "lorc/padlock",
+    "candidats": 1
+  },
+  {
+    "fichier": "canon.svg",
+    "auteur": "lorc",
+    "slug": "lorc/cannon",
+    "candidats": 1
+  },
+  {
+    "fichier": "carnet.svg",
+    "auteur": "delapouite",
+    "slug": "delapouite/notebook",
+    "candidats": 1
+  },
+  {
+    "fichier": "carte.svg",
+    "auteur": "lorc",
+    "slug": "lorc/treasure-map",
+    "candidats": 1
+  },
+  {
+    "fichier": "chateau.svg",
+    "auteur": "delapouite",
+    "slug": "delapouite/castle",
+    "candidats": 1
+  },
+  {
+    "fichier": "cheval.svg",
+    "auteur": "delapouite",
+    "slug": "delapouite/horse-head",
+    "candidats": 1
+  },
+  {
+    "fichier": "chevalier.svg",
+    "auteur": "sbed",
+    "slug": "sbed/helmet",
+    "candidats": 1
+  },
+  {
+    "fichier": "cle.svg",
+    "auteur": "lorc",
+    "slug": "lorc/key",
+    "candidats": 1
+  },
+  {
+    "fichier": "coche.svg",
+    "auteur": "delapouite",
+    "slug": "delapouite/check-mark",
+    "candidats": 1
+  },
+  {
+    "fichier": "coffre.svg",
+    "auteur": "delapouite",
+    "slug": "delapouite/chest",
+    "candidats": 1
+  },
+  {
+    "fichier": "couronne.svg",
+    "auteur": "lorc",
+    "slug": "lorc/crown",
+    "candidats": 1
+  },
+  {
+    "fichier": "crabe.svg",
+    "auteur": "lorc",
+    "slug": "lorc/crab",
+    "candidats": 1
+  },
+  {
+    "fichier": "croix.svg",
+    "auteur": "lorc",
+    "slug": "lorc/cross-mark",
+    "candidats": 1
+  },
+  {
+    "fichier": "dragonneau.svg",
+    "auteur": "lorc",
+    "slug": "lorc/dragon-head",
+    "candidats": 1
+  },
+  {
+    "fichier": "drapeau.svg",
+    "auteur": "delapouite",
+    "slug": "delapouite/pirate-flag",
+    "candidats": 1
+  },
+  {
+    "fichier": "engrenage.svg",
+    "auteur": "lorc",
+    "slug": "lorc/cog",
+    "candidats": 1
+  },
+  {
+    "fichier": "epee.svg",
+    "auteur": "lorc",
+    "slug": "lorc/broadsword",
+    "candidats": 1
+  },
+  {
+    "fichier": "etoile-mer.svg",
+    "auteur": "delapouite",
+    "slug": "delapouite/sea-star",
+    "candidats": 1
+  },
+  {
+    "fichier": "etoile.svg",
+    "auteur": "badges",
+    "slug": "badges/star",
+    "candidats": 1
+  },
+  {
+    "fichier": "feu.svg",
+    "auteur": "lorc",
+    "slug": "lorc/campfire",
+    "candidats": 1
+  },
+  {
+    "fichier": "garde.svg",
+    "auteur": "delapouite",
+    "slug": "delapouite/closed-barbute",
+    "candidats": 1
+  },
+  {
+    "fichier": "haut-parleur.svg",
+    "auteur": "delapouite",
+    "slug": "delapouite/speaker",
+    "candidats": 1
+  },
+  {
+    "fichier": "ile.svg",
+    "auteur": "delapouite",
+    "slug": "delapouite/island",
+    "candidats": 1
+  },
+  {
+    "fichier": "joyau.svg",
+    "auteur": "lorc",
+    "slug": "lorc/gems",
+    "candidats": 1
+  },
+  {
+    "fichier": "kraken.svg",
+    "auteur": "delapouite",
+    "slug": "delapouite/kraken-tentacle",
+    "candidats": 1
+  },
+  {
+    "fichier": "laurier.svg",
+    "auteur": "lorc",
+    "slug": "lorc/laurels",
+    "candidats": 1
+  },
+  {
+    "fichier": "lune.svg",
+    "auteur": "lorc",
+    "slug": "lorc/moon",
+    "candidats": 1
+  },
+  {
+    "fichier": "magicienne.svg",
+    "auteur": "delapouite",
+    "slug": "delapouite/wizard-face",
+    "candidats": 1
+  },
+  {
+    "fichier": "medaille.svg",
+    "auteur": "lorc",
+    "slug": "lorc/medal",
+    "candidats": 1
+  },
+  {
+    "fichier": "montagne.svg",
+    "auteur": "lorc",
+    "slug": "lorc/mountains",
+    "candidats": 1
+  },
+  {
+    "fichier": "mouette.svg",
+    "auteur": "delapouite",
+    "slug": "delapouite/seagull",
+    "candidats": 1
+  },
+  {
+    "fichier": "mousse.svg",
+    "auteur": "delapouite",
+    "slug": "delapouite/pirate-hat",
+    "candidats": 1
+  },
+  {
+    "fichier": "muet.svg",
+    "auteur": "delapouite",
+    "slug": "delapouite/speaker-off",
+    "candidats": 1
+  },
+  {
+    "fichier": "musique.svg",
+    "auteur": "delapouite",
+    "slug": "delapouite/musical-notes",
+    "candidats": 1
+  },
+  {
+    "fichier": "noeud.svg",
+    "auteur": "delapouite",
+    "slug": "delapouite/knot",
+    "candidats": 1
+  },
+  {
+    "fichier": "or.svg",
+    "auteur": "delapouite",
+    "slug": "delapouite/coins",
+    "candidats": 1
+  },
+  {
+    "fichier": "palmier.svg",
+    "auteur": "delapouite",
+    "slug": "delapouite/palm-tree",
+    "candidats": 1
+  },
+  {
+    "fichier": "parchemin.svg",
+    "auteur": "lorc",
+    "slug": "lorc/scroll-unfurled",
+    "candidats": 1
+  },
+  {
+    "fichier": "perroquet.svg",
+    "auteur": "lorc",
+    "slug": "lorc/parrot-head",
+    "candidats": 1
+  },
+  {
+    "fichier": "phare.svg",
+    "auteur": "delapouite",
+    "slug": "delapouite/lighthouse",
+    "candidats": 1
+  },
+  {
+    "fichier": "pirate.svg",
+    "auteur": "delapouite",
+    "slug": "delapouite/pirate-captain",
+    "candidats": 1
+  },
+  {
+    "fichier": "plume.svg",
+    "auteur": "lorc",
+    "slug": "lorc/quill-ink",
+    "candidats": 1
+  },
+  {
+    "fichier": "plume2.svg",
+    "auteur": "lorc",
+    "slug": "lorc/feather",
+    "candidats": 1
+  },
+  {
+    "fichier": "potion.svg",
+    "auteur": "lorc",
+    "slug": "lorc/potion-ball",
+    "candidats": 1
+  },
+  {
+    "fichier": "poubelle.svg",
+    "auteur": "delapouite",
+    "slug": "delapouite/trash-can",
+    "candidats": 1
+  },
+  {
+    "fichier": "roue.svg",
+    "auteur": "delapouite",
+    "slug": "delapouite/ship-wheel",
+    "candidats": 1
+  },
+  {
+    "fichier": "sablier.svg",
+    "auteur": "lorc",
+    "slug": "lorc/hourglass",
+    "candidats": 1
+  },
+  {
+    "fichier": "soleil.svg",
+    "auteur": "badges",
+    "slug": "badges/sun",
+    "candidats": 1
+  },
+  {
+    "fichier": "sorciere.svg",
+    "auteur": "cathelineau",
+    "slug": "cathelineau/witch-face",
+    "candidats": 1
+  },
+  {
+    "fichier": "tete-mort.svg",
+    "auteur": "lorc",
+    "slug": "lorc/skull-crossed-bones",
+    "candidats": 1
+  },
+  {
+    "fichier": "tortue.svg",
+    "auteur": "delapouite",
+    "slug": "delapouite/sea-turtle",
+    "candidats": 1
+  },
+  {
+    "fichier": "tour.svg",
+    "auteur": "delapouite",
+    "slug": "delapouite/tower-flag",
+    "candidats": 1
+  },
+  {
+    "fichier": "trophee.svg",
+    "auteur": "lorc",
+    "slug": "lorc/trophy",
+    "candidats": 1
+  },
+  {
+    "fichier": "vagues.svg",
+    "auteur": "lorc",
+    "slug": "lorc/waves",
+    "candidats": 1
+  },
+  {
+    "fichier": "voilier.svg",
+    "auteur": "delapouite",
+    "slug": "delapouite/sailboat",
+    "candidats": 1
+  }
+]

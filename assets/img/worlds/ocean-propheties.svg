@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Un océan de nuit sous un grand croissant de lune, avec un navire">
+  <defs>
+    <linearGradient id="nuit" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b1a3a"/><stop offset=".55" stop-color="#1b3a63"/><stop offset="1" stop-color="#2b5f7d"/>
+    </linearGradient>
+    <linearGradient id="merN" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#12395c"/><stop offset="1" stop-color="#071f33"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#nuit)"/>
+  <circle cx="612" cy="112" r="46" fill="#fdf1c9"/>
+  <circle cx="596" cy="102" r="46" fill="#132a4d"/>
+  <g fill="#fdf1c9">
+    <circle cx="120" cy="70" r="2.4"/><circle cx="180" cy="128" r="1.8"/><circle cx="250" cy="58" r="2.2"/>
+    <circle cx="320" cy="110" r="1.6"/><circle cx="392" cy="54" r="2.6"/><circle cx="470" cy="96" r="1.7"/>
+    <circle cx="530" cy="40" r="2"/><circle cx="700" cy="70" r="2.2"/><circle cx="748" cy="150" r="1.6"/>
+    <circle cx="86" cy="168" r="1.5"/><circle cx="214" cy="196" r="1.4"/><circle cx="686" cy="212" r="1.5"/>
+  </g>
+  <path d="M0 268h800v182H0z" fill="url(#merN)"/>
+  <path d="M0 286c70-14 130 10 200 4s130-16 200-6 130 14 200 4 130-8 200 2v30c-70-8-140-10-210-2s-140 10-210 0-130-10-200 0S70 322 0 316z" fill="#2f6f92" opacity=".55"/>
+  <path d="M0 348c80-12 140 8 220 2s140-14 210-4 130 12 200 2 130-6 170 0v18c-60-4-120-6-190 2s-140 8-210 0-130-8-200 0S70 378 0 372z" fill="#4d90ac" opacity=".35"/>
+  <g transform="translate(214 214)">
+    <path d="M0 74h176l-20 22H20z" fill="#0a1726"/>
+    <rect x="84" y="-6" width="5" height="82" fill="#0a1726"/>
+    <path d="M92 0l56 52-56 6z" fill="#e9e2cf"/>
+    <path d="M80 6L24 46l56 6z" fill="#d8cfb6"/>
+    <path d="M84-6l5-18 5 18z" fill="#d8cfb6"/>
+  </g>
+  <g fill="#fdf1c9" opacity=".9">
+    <path d="M540 300l-4-10-4 10 10-6h-12z"/>
+  </g>
+  <path d="M180 402c30-12 62-12 92 0-30 10-62 10-92 0z" fill="#fdf1c9" opacity=".12"/>
+</svg>

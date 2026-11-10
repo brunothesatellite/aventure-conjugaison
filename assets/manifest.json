@@ -1,0 +1,927 @@
+{
+  "version": 1,
+  "genereLe": "2026-11-10",
+  "note": "Chaque fichier d'assets est déclaré ici avec sa licence, son auteur et sa source. Les chemins sont relatifs au dossier assets/. Les SVG game-icons.net ont été livrés avec un fond plein, retiré par tools/preparer-icones.js ; ils sont utilisés comme masques CSS et recolorés par le texte.",
+  "assets": [
+    {
+      "type": "icone",
+      "id": "icon-ampoule",
+      "file": "img/icons/ampoule.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Lorc",
+      "source": "https://game-icons.net/1x1/lorc/bulb.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-ancre",
+      "file": "img/icons/ancre.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Lorc",
+      "source": "https://game-icons.net/1x1/lorc/anchor.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-barque",
+      "file": "img/icons/barque.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Delapouite",
+      "source": "https://game-icons.net/1x1/delapouite/boat-horizon.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-bouclier",
+      "file": "img/icons/bouclier.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Delapouite",
+      "source": "https://game-icons.net/badges.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-boussole",
+      "file": "img/icons/boussole.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Lorc",
+      "source": "https://game-icons.net/1x1/lorc/compass.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-cache-oeil",
+      "file": "img/icons/cache-oeil.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Delapouite",
+      "source": "https://game-icons.net/1x1/delapouite/eyepatch.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-cadenas",
+      "file": "img/icons/cadenas.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Lorc",
+      "source": "https://game-icons.net/1x1/lorc/padlock.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-canon",
+      "file": "img/icons/canon.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Lorc",
+      "source": "https://game-icons.net/1x1/lorc/cannon.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-carnet",
+      "file": "img/icons/carnet.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Delapouite",
+      "source": "https://game-icons.net/1x1/delapouite/notebook.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-carte",
+      "file": "img/icons/carte.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Lorc",
+      "source": "https://game-icons.net/1x1/lorc/treasure-map.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-chateau",
+      "file": "img/icons/chateau.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Delapouite",
+      "source": "https://game-icons.net/1x1/delapouite/castle.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-cheval",
+      "file": "img/icons/cheval.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Delapouite",
+      "source": "https://game-icons.net/1x1/delapouite/horse-head.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-chevalier",
+      "file": "img/icons/chevalier.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Sbed",
+      "source": "https://game-icons.net/1x1/sbed/helmet.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-cle",
+      "file": "img/icons/cle.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Lorc",
+      "source": "https://game-icons.net/1x1/lorc/key.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-coche",
+      "file": "img/icons/coche.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Delapouite",
+      "source": "https://game-icons.net/1x1/delapouite/check-mark.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-coffre",
+      "file": "img/icons/coffre.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Delapouite",
+      "source": "https://game-icons.net/1x1/delapouite/chest.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-couronne",
+      "file": "img/icons/couronne.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Lorc",
+      "source": "https://game-icons.net/1x1/lorc/crown.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-crabe",
+      "file": "img/icons/crabe.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Lorc",
+      "source": "https://game-icons.net/1x1/lorc/crab.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-croix",
+      "file": "img/icons/croix.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Lorc",
+      "source": "https://game-icons.net/1x1/lorc/cross-mark.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-dragonneau",
+      "file": "img/icons/dragonneau.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Lorc",
+      "source": "https://game-icons.net/1x1/lorc/dragon-head.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-drapeau",
+      "file": "img/icons/drapeau.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Delapouite",
+      "source": "https://game-icons.net/1x1/delapouite/pirate-flag.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-engrenage",
+      "file": "img/icons/engrenage.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Lorc",
+      "source": "https://game-icons.net/1x1/lorc/cog.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-epee",
+      "file": "img/icons/epee.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Lorc",
+      "source": "https://game-icons.net/1x1/lorc/broadsword.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-etoile-mer",
+      "file": "img/icons/etoile-mer.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Delapouite",
+      "source": "https://game-icons.net/1x1/delapouite/sea-star.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-etoile",
+      "file": "img/icons/etoile.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Delapouite",
+      "source": "https://game-icons.net/badges.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-feu",
+      "file": "img/icons/feu.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Lorc",
+      "source": "https://game-icons.net/1x1/lorc/campfire.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-garde",
+      "file": "img/icons/garde.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Delapouite",
+      "source": "https://game-icons.net/1x1/delapouite/closed-barbute.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-haut-parleur",
+      "file": "img/icons/haut-parleur.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Delapouite",
+      "source": "https://game-icons.net/1x1/delapouite/speaker.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-ile",
+      "file": "img/icons/ile.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Delapouite",
+      "source": "https://game-icons.net/1x1/delapouite/island.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-joyau",
+      "file": "img/icons/joyau.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Lorc",
+      "source": "https://game-icons.net/1x1/lorc/gems.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-kraken",
+      "file": "img/icons/kraken.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Delapouite",
+      "source": "https://game-icons.net/1x1/delapouite/kraken-tentacle.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-laurier",
+      "file": "img/icons/laurier.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Lorc",
+      "source": "https://game-icons.net/1x1/lorc/laurels.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-lune",
+      "file": "img/icons/lune.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Lorc",
+      "source": "https://game-icons.net/1x1/lorc/moon.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-magicienne",
+      "file": "img/icons/magicienne.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Delapouite",
+      "source": "https://game-icons.net/1x1/delapouite/wizard-face.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-medaille",
+      "file": "img/icons/medaille.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Lorc",
+      "source": "https://game-icons.net/1x1/lorc/medal.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-montagne",
+      "file": "img/icons/montagne.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Lorc",
+      "source": "https://game-icons.net/1x1/lorc/mountains.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-mouette",
+      "file": "img/icons/mouette.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Delapouite",
+      "source": "https://game-icons.net/1x1/delapouite/seagull.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-mousse",
+      "file": "img/icons/mousse.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Delapouite",
+      "source": "https://game-icons.net/1x1/delapouite/pirate-hat.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-muet",
+      "file": "img/icons/muet.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Delapouite",
+      "source": "https://game-icons.net/1x1/delapouite/speaker-off.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-musique",
+      "file": "img/icons/musique.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Delapouite",
+      "source": "https://game-icons.net/1x1/delapouite/musical-notes.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-noeud",
+      "file": "img/icons/noeud.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Delapouite",
+      "source": "https://game-icons.net/1x1/delapouite/knot.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-or",
+      "file": "img/icons/or.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Delapouite",
+      "source": "https://game-icons.net/1x1/delapouite/coins.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-palmier",
+      "file": "img/icons/palmier.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Delapouite",
+      "source": "https://game-icons.net/1x1/delapouite/palm-tree.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-parchemin",
+      "file": "img/icons/parchemin.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Lorc",
+      "source": "https://game-icons.net/1x1/lorc/scroll-unfurled.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-perroquet",
+      "file": "img/icons/perroquet.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Lorc",
+      "source": "https://game-icons.net/1x1/lorc/parrot-head.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-phare",
+      "file": "img/icons/phare.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Delapouite",
+      "source": "https://game-icons.net/1x1/delapouite/lighthouse.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-pirate",
+      "file": "img/icons/pirate.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Delapouite",
+      "source": "https://game-icons.net/1x1/delapouite/pirate-captain.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-plume",
+      "file": "img/icons/plume.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Lorc",
+      "source": "https://game-icons.net/1x1/lorc/quill-ink.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-plume2",
+      "file": "img/icons/plume2.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Lorc",
+      "source": "https://game-icons.net/1x1/lorc/feather.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-potion",
+      "file": "img/icons/potion.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Lorc",
+      "source": "https://game-icons.net/1x1/lorc/potion-ball.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-poubelle",
+      "file": "img/icons/poubelle.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Delapouite",
+      "source": "https://game-icons.net/1x1/delapouite/trash-can.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-roue",
+      "file": "img/icons/roue.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Delapouite",
+      "source": "https://game-icons.net/1x1/delapouite/ship-wheel.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-sablier",
+      "file": "img/icons/sablier.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Lorc",
+      "source": "https://game-icons.net/1x1/lorc/hourglass.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-soleil",
+      "file": "img/icons/soleil.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Delapouite",
+      "source": "https://game-icons.net/badges.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-sorciere",
+      "file": "img/icons/sorciere.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Cathelineau",
+      "source": "https://game-icons.net/1x1/cathelineau/witch-face.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-tete-mort",
+      "file": "img/icons/tete-mort.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Lorc",
+      "source": "https://game-icons.net/1x1/lorc/skull-crossed-bones.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-tortue",
+      "file": "img/icons/tortue.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Delapouite",
+      "source": "https://game-icons.net/1x1/delapouite/sea-turtle.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-tour",
+      "file": "img/icons/tour.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Delapouite",
+      "source": "https://game-icons.net/1x1/delapouite/tower-flag.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-trophee",
+      "file": "img/icons/trophee.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Lorc",
+      "source": "https://game-icons.net/1x1/lorc/trophy.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-vagues",
+      "file": "img/icons/vagues.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Lorc",
+      "source": "https://game-icons.net/1x1/lorc/waves.html"
+    },
+    {
+      "type": "icone",
+      "id": "icon-voilier",
+      "file": "img/icons/voilier.svg",
+      "licence": "CC BY 3.0",
+      "auteur": "Delapouite",
+      "source": "https://game-icons.net/1x1/delapouite/sailboat.html"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-ampoule",
+      "file": "img/emoji/ampoule.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-ancre",
+      "file": "img/emoji/ancre.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-arc",
+      "file": "img/emoji/arc.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-bouclier",
+      "file": "img/emoji/bouclier.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-bougie",
+      "file": "img/emoji/bougie.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-boussole",
+      "file": "img/emoji/boussole.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-cadenas",
+      "file": "img/emoji/cadenas.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-carte",
+      "file": "img/emoji/carte.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-chapeau",
+      "file": "img/emoji/chapeau.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-chateau",
+      "file": "img/emoji/chateau.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-cheval",
+      "file": "img/emoji/cheval.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-cible",
+      "file": "img/emoji/cible.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-coche",
+      "file": "img/emoji/coche.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-coquillage",
+      "file": "img/emoji/coquillage.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-crabe",
+      "file": "img/emoji/crabe.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-croix",
+      "file": "img/emoji/croix.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-dragon",
+      "file": "img/emoji/dragon.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-epee",
+      "file": "img/emoji/epee.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-etincelles",
+      "file": "img/emoji/etincelles.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-etoile",
+      "file": "img/emoji/etoile.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-feu",
+      "file": "img/emoji/feu.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-fiole",
+      "file": "img/emoji/fiole.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-flamme",
+      "file": "img/emoji/flamme.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-ile",
+      "file": "img/emoji/ile.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-joyau",
+      "file": "img/emoji/joyau.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-livre",
+      "file": "img/emoji/livre.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-lune",
+      "file": "img/emoji/lune.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-magicienne",
+      "file": "img/emoji/magicienne.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-mappemonde",
+      "file": "img/emoji/mappemonde.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-medaille",
+      "file": "img/emoji/medaille.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-palmier",
+      "file": "img/emoji/palmier.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-parchemin",
+      "file": "img/emoji/parchemin.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-perroquet",
+      "file": "img/emoji/perroquet.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-piece",
+      "file": "img/emoji/piece.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-pirate",
+      "file": "img/emoji/pirate.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-poulpe",
+      "file": "img/emoji/poulpe.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-requin",
+      "file": "img/emoji/requin.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-sirene",
+      "file": "img/emoji/sirene.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-soleil",
+      "file": "img/emoji/soleil.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-son",
+      "file": "img/emoji/son.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-tortue",
+      "file": "img/emoji/tortue.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-trophee",
+      "file": "img/emoji/trophee.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-vague",
+      "file": "img/emoji/vague.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "emoji",
+      "id": "emoji-voilier",
+      "file": "img/emoji/voilier.svg",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "police",
+      "id": "font-baloo2-700",
+      "file": "fonts/baloo2-700.woff2",
+      "licence": "SIL Open Font License 1.1",
+      "auteur": "Ek Type",
+      "source": "https://fonts.google.com/specimen/Baloo+2"
+    },
+    {
+      "type": "police",
+      "id": "font-nunito-400-700",
+      "file": "fonts/nunito-400-700.woff2",
+      "licence": "SIL Open Font License 1.1",
+      "auteur": "Vernon Adams, Cyreal, Jacques Le Bailly",
+      "source": "https://fonts.google.com/specimen/Nunito"
+    },
+    {
+      "type": "illustration",
+      "id": "monde-crique-exploits",
+      "file": "img/worlds/crique-exploits.svg",
+      "licence": "Œuvre originale du projet",
+      "auteur": "Bruno Thesatellite",
+      "source": "https://github.com/brunothesatellite/aventure-conjugaison"
+    },
+    {
+      "type": "illustration",
+      "id": "monde-ile-present",
+      "file": "img/worlds/ile-present.svg",
+      "licence": "Œuvre originale du projet",
+      "auteur": "Bruno Thesatellite",
+      "source": "https://github.com/brunothesatellite/aventure-conjugaison"
+    },
+    {
+      "type": "illustration",
+      "id": "monde-ocean-propheties",
+      "file": "img/worlds/ocean-propheties.svg",
+      "licence": "Œuvre originale du projet",
+      "auteur": "Bruno Thesatellite",
+      "source": "https://github.com/brunothesatellite/aventure-conjugaison"
+    },
+    {
+      "type": "illustration",
+      "id": "monde-vallee-souvenirs",
+      "file": "img/worlds/vallee-souvenirs.svg",
+      "licence": "Œuvre originale du projet",
+      "auteur": "Bruno Thesatellite",
+      "source": "https://github.com/brunothesatellite/aventure-conjugaison"
+    },
+    {
+      "type": "licence",
+      "id": "licence-icons",
+      "file": "licenses/CC-BY-3.0.txt",
+      "licence": "CC BY 3.0",
+      "auteur": "—",
+      "source": "https://game-icons.net"
+    },
+    {
+      "type": "licence",
+      "id": "licence-emoji",
+      "file": "licenses/twemoji-CC-BY-4.0.txt",
+      "licence": "CC BY 4.0",
+      "auteur": "Twitter, Inc. et contributeurs de Twemoji",
+      "source": "https://github.com/jdecked/twemoji"
+    },
+    {
+      "type": "licence",
+      "id": "licence-baloo",
+      "file": "licenses/baloo2-OFL.txt",
+      "licence": "SIL Open Font License 1.1",
+      "auteur": "Ek Type",
+      "source": "https://fonts.google.com/specimen/Baloo+2"
+    },
+    {
+      "type": "licence",
+      "id": "licence-nunito",
+      "file": "licenses/nunito-OFL.txt",
+      "licence": "SIL Open Font License 1.1",
+      "auteur": "Vernon Adams, Cyreal, Jacques Le Bailly",
+      "source": "https://fonts.google.com/specimen/Nunito"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Une vallée brumeuse avec une vieille tour en ruine">
+  <defs>
+    <linearGradient id="ciel2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b9a6b8"/><stop offset=".55" stop-color="#d9c3ad"/><stop offset="1" stop-color="#e8d6b8"/>
+    </linearGradient>
+    <linearGradient id="brume" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f4e9d6" stop-opacity=".1"/><stop offset="1" stop-color="#f4e9d6" stop-opacity=".85"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#ciel2)"/>
+  <circle cx="196" cy="104" r="44" fill="#f7e8cf" opacity=".55"/>
+  <path d="M0 250l120-96 88 66 74-52 104 92 96-70 118 84 200-30v206H0z" fill="#8f7f92" opacity=".55"/>
+  <path d="M0 300l96-58 82 44 92-54 84 58 104-42 96 56 92-40 154 30v156H0z" fill="#75687c"/>
+  <path d="M0 356c90-26 160-8 240-18s150-30 228-16 160 22 232 12 74-8 100-4v120H0z" fill="#5b5166"/>
+  <g fill="#4a4254">
+    <path d="M520 348V214c0-10 8-18 18-18h10c10 0 18 8 18 18v134z"/>
+    <path d="M510 214h66v12h-66z"/>
+    <path d="M506 356h74v14h-74z"/>
+    <rect x="536" y="238" width="14" height="22" rx="6" fill="#2f2a38"/>
+  </g>
+  <path d="M540 196l16-30 16 30z" fill="#3f3949"/>
+  <g fill="#3f3949" opacity=".8">
+    <path d="M300 340V268c0-9 7-16 16-16h8c9 0 16 7 16 16v72z"/>
+    <path d="M310 252l8-16 8 16z"/>
+  </g>
+  <g stroke="#4a4254" stroke-width="5" fill="none" stroke-linecap="round">
+    <path d="M120 372c8-26 4-44-4-58M160 372c6-22 3-38-3-50M660 378c8-24 5-40-2-52"/>
+  </g>
+  <rect y="286" width="800" height="164" fill="url(#brume)"/>
+  <g fill="#f4e9d6" opacity=".35">
+    <ellipse cx="220" cy="322" rx="130" ry="22"/>
+    <ellipse cx="600" cy="340" rx="150" ry="24"/>
+  </g>
+</svg>

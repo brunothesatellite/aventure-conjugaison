@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Une île ensoleillée avec un petit fort et un voilier">
+  <defs>
+    <linearGradient id="ciel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffe9b8"/><stop offset=".5" stop-color="#ffd08a"/><stop offset="1" stop-color="#ffbe80"/>
+    </linearGradient>
+    <linearGradient id="mer" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#35b3c4"/><stop offset="1" stop-color="#0a6577"/>
+    </linearGradient>
+    <linearGradient id="sable" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f7e3b5"/><stop offset="1" stop-color="#e2c489"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#ciel)"/>
+  <circle cx="632" cy="112" r="54" fill="#fff6d8" opacity=".95"/>
+  <circle cx="632" cy="112" r="78" fill="#fff2c4" opacity=".28"/>
+  <path d="M0 246h800v204H0z" fill="url(#mer)"/>
+  <path d="M0 262c60-10 110 10 170 2s120-14 190-4 130 12 200 2 160-6 240 4v38c-70-8-150-12-230-2s-140 8-210-2-130-10-200 0S70 296 0 288z" fill="#7fd6dc" opacity=".35"/>
+  <path d="M0 330c70-8 130 8 200 0s140-10 210 0 130 10 200 0 130-6 190 2v26c-70-6-140-8-210 0s-140 8-210 0-130-8-200 0S70 362 0 356z" fill="#ffffff" opacity=".18"/>
+  <ellipse cx="286" cy="336" rx="196" ry="46" fill="#0a6577" opacity=".35"/>
+  <path d="M92 330c40-26 96-42 168-42 92 0 168 18 208 44-40 22-116 34-206 34-86 0-150-12-170-36z" fill="url(#sable)"/>
+  <path d="M112 322c42-18 92-28 152-28 74 0 134 12 172 30-46 14-104 20-166 20-64 0-122-6-158-22z" fill="#f0d29b" opacity=".7"/>
+  <g fill="#2f7d4f">
+    <path d="M372 268c-10-34-6-64 8-86 8 26 10 56 4 88z"/>
+    <ellipse cx="380" cy="178" rx="46" ry="12" transform="rotate(-16 380 178)"/>
+    <ellipse cx="380" cy="178" rx="46" ry="12" transform="rotate(18 380 178)"/>
+    <ellipse cx="380" cy="178" rx="42" ry="11" transform="rotate(-52 380 178)"/>
+    <ellipse cx="380" cy="178" rx="42" ry="11" transform="rotate(54 380 178)"/>
+  </g>
+  <g>
+    <path d="M196 300V246h26v54z" fill="#e8dcc2"/>
+    <path d="M240 300V226h30v74z" fill="#f2e7cf"/>
+    <path d="M196 246l15-18 15 18z" fill="#b4553c"/>
+    <path d="M240 226l15-18 15 18z" fill="#b4553c"/>
+    <rect x="212" y="266" width="10" height="14" rx="4" fill="#5a4a38"/>
+    <rect x="252" y="248" width="9" height="13" rx="4" fill="#5a4a38"/>
+    <path d="M255 200v-30l24 8-24 8z" fill="#c0392b"/>
+    <rect x="253" y="170" width="3" height="34" fill="#4e2e14"/>
+  </g>
+  <g fill="#2f7d4f">
+    <path d="M604 300c10-30 6-54-4-72-6 24-8 48-2 72z"/>
+    <ellipse cx="600" cy="228" rx="34" ry="9" transform="rotate(-14 600 228)"/>
+    <ellipse cx="600" cy="228" rx="34" ry="9" transform="rotate(16 600 228)"/>
+    <ellipse cx="600" cy="228" rx="30" ry="8" transform="rotate(-50 600 228)"/>
+    <ellipse cx="600" cy="228" rx="30" ry="8" transform="rotate(52 600 228)"/>
+  </g>
+  <g transform="translate(492 196)">
+    <path d="M0 64h86l-12 16H12z" fill="#6b4226"/>
+    <rect x="40" y="4" width="4" height="64" fill="#6b4226"/>
+    <path d="M46 8l34 34-34 4z" fill="#fdf6e3"/>
+    <path d="M38 12L6 38l32 4z" fill="#f4e6c6"/>
+  </g>
+  <g fill="#fdf6e3" opacity=".85">
+    <path d="M120 120c14-16 40-16 52 0-14-6-38-6-52 0z"/>
+    <path d="M170 104c12-14 34-14 44 0-12-5-32-5-44 0z"/>
+  </g>
+</svg>

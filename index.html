@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr" data-taille="normal" data-animations="oui">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>La Quête des Verbes — conjugaison CE2</title>
+  <meta name="description" content="Traverse l'Archipel des Temps et répare la Boussole brisée : un jeu de conjugaison pour le CE2, sans compte et sans publicité.">
+  <meta name="theme-color" content="#fdf6e3">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" href="assets/img/emoji/boussole.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+</head>
+<body>
+
+  <a class="evitement" href="#principal">Aller au contenu</a>
+
+  <main class="app" id="principal">
+    <section class="screen" id="screen-home" aria-label="Accueil"></section>
+    <section class="screen" id="screen-map" aria-label="Carte de l'archipel"></section>
+    <section class="screen" id="screen-ile" aria-label="Île"></section>
+    <section class="screen" id="screen-quete" aria-label="Quête"></section>
+    <section class="screen" id="screen-resultat" aria-label="Résultat de la quête"></section>
+    <section class="screen" id="screen-boutique" aria-label="Boutique"></section>
+    <section class="screen" id="screen-carnet" aria-label="Carnet de bord"></section>
+    <section class="screen" id="screen-reglages" aria-label="Réglages"></section>
+    <section class="screen" id="screen-parent" aria-label="Espace parent"></section>
+  </main>
+
+  <noscript>
+    <div class="carte" style="max-width:560px;margin:40px auto">
+      <h1>JavaScript est nécessaire</h1>
+      <p>Cette aventure fonctionne entièrement dans ton navigateur, sans serveur. Active JavaScript pour jouer.</p>
+    </div>
+  </noscript>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="pluie" class="pluie" aria-hidden="true"></div>
+  <div id="modale" class="modale" hidden></div>
+
+  <!-- 1. Contenu : registre, verbes, phrases, aventures, progression -->
+  <script src="content/registry.js"></script>
+
+  <script src="content/verbs/aller.js"></script>
+  <script src="content/verbs/arriver.js"></script>
+  <script src="content/verbs/avoir.js"></script>
+  <script src="content/verbs/chanter.js"></script>
+  <script src="content/verbs/choisir.js"></script>
+  <script src="content/verbs/dire.js"></script>
+  <script src="content/verbs/etre.js"></script>
+  <script src="content/verbs/faire.js"></script>
+  <script src="content/verbs/finir.js"></script>
+  <script src="content/verbs/grandir.js"></script>
+  <script src="content/verbs/jouer.js"></script>
+  <script src="content/verbs/manger.js"></script>
+  <script src="content/verbs/parler.js"></script>
+  <script src="content/verbs/pouvoir.js"></script>
+  <script src="content/verbs/prendre.js"></script>
+  <script src="content/verbs/trouver.js"></script>
+  <script src="content/verbs/venir.js"></script>
+  <script src="content/verbs/voir.js"></script>
+  <script src="content/verbs/voler.js"></script>
+  <script src="content/verbs/vouloir.js"></script>
+
+  <script src="content/phrases/present.js"></script>
+  <script src="content/phrases/imparfait.js"></script>
+  <script src="content/phrases/futur.js"></script>
+  <script src="content/phrases/passe-compose.js"></script>
+
+  <script src="content/adventures/ile-present.js"></script>
+  <script src="content/adventures/vallee-souvenirs.js"></script>
+  <script src="content/adventures/ocean-propheties.js"></script>
+  <script src="content/adventures/crique-exploits.js"></script>
+
+  <script src="content/curriculum.js"></script>
+
+  <!-- 2. Moteur : sauvegarde, état, audio, mémoire, exercices -->
+  <script src="engine/storage.js"></script>
+  <script src="engine/state.js"></script>
+  <script src="engine/audio.js"></script>
+  <script src="engine/srs.js"></script>
+  <script src="engine/morphologie.js"></script>
+  <script src="engine/feedback.js"></script>
+  <script src="engine/distractors.js"></script>
+  <script src="engine/exercises.js"></script>
+  <script src="engine/rewards.js"></script>
+  <script src="engine/session.js"></script>
+
+  <!-- 3. Interface : briques, routeur, écrans -->
+  <script src="ui/components.js"></script>
+  <script src="ui/router.js"></script>
+  <script src="ui/screens/home.js"></script>
+  <script src="ui/screens/map.js"></script>
+  <script src="ui/screens/ile.js"></script>
+  <script src="ui/screens/quete.js"></script>
+  <script src="ui/screens/resultat.js"></script>
+  <script src="ui/screens/boutique.js"></script>
+  <script src="ui/screens/carnet.js"></script>
+  <script src="ui/screens/reglages.js"></script>
+  <script src="ui/screens/parent.js"></script>
+
+  <!-- 4. Démarrage -->
+  <script src="main.js"></script>
+</body>
+</html>

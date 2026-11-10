@@ -1,0 +1,88 @@
+/* ============================================================
+   tokens.css — variables de design (couleurs, tailles, polices)
+   Aucune dépendance externe : tout est local et hors ligne.
+   ============================================================ */
+
+@font-face {
+  font-family: "Baloo 2";
+  src: url("../fonts/baloo2-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("../fonts/nunito-400-700.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Papier & bois */
+  --parchemin: #fdf6e3;
+  --parchemin-2: #f6e8cc;
+  --parchemin-3: #ecd7ae;
+  --bois: #7c4a21;
+  --bois-fonce: #4e2e14;
+  --bois-clair: #a9713c;
+  --or: #d4a017;
+  --or-clair: #f2c14e;
+  --or-fonce: #8a6a10;
+  --mer: #0e7490;
+  --mer-fonce: #075966;
+  --encre: #2b2118;
+  --encre-doux: #5a4a38;
+  --succes: #15803d;
+  --succes-clair: #dcfce7;
+  --erreur: #b45309;
+  --erreur-clair: #fef3c7;
+  --violet: #6d28d9;
+
+  /* Pronoms (repère de couleur constant) */
+  --p-je: #1e3a8a;
+  --p-il: #2563eb;
+  --p-nous: #047857;
+  --p-ils: #6d28d9;
+
+  /* Formes */
+  --r: 14px;
+  --r-lg: 22px;
+  --r-pilule: 999px;
+  --ombre: 0 4px 0 rgba(78, 46, 20, 0.22), 0 10px 26px rgba(78, 46, 20, 0.16);
+  --ombre-douce: 0 2px 0 rgba(78, 46, 20, 0.16), 0 6px 14px rgba(78, 46, 20, 0.1);
+  --ombre-enfonce: inset 0 2px 0 rgba(255, 255, 255, 0.25), inset 0 -3px 0 rgba(0, 0, 0, 0.18);
+
+  /* Typographie */
+  --police-titre: "Baloo 2", "Trebuchet MS", system-ui, sans-serif;
+  --police-texte: "Nunito", "Segoe UI", system-ui, sans-serif;
+  --taille-base: 18px;
+  --taille-petit: 0.86rem;
+  --taille-grand: 1.18rem;
+  --taille-question: 1.55rem;
+
+  /* Divers */
+  --largeur: 1080px;
+  --transition: 160ms ease;
+  --motif-papier: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='140' height='140' filter='url(%23n)' opacity='0.055'/></svg>");
+}
+
+/* Tailles de texte (réglage enfant) */
+html[data-taille="petit"] {
+  --taille-base: 16px;
+  --taille-question: 1.35rem;
+}
+html[data-taille="grand"] {
+  --taille-base: 21px;
+  --taille-question: 1.8rem;
+}
+
+/* Animations désactivées */
+html[data-animations="non"] *,
+html[data-animations="non"] *::before,
+html[data-animations="non"] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+}
