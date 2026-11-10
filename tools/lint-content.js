@@ -176,7 +176,12 @@ function figerAleatoire(valeur) {
   vm.runInContext("Math.random = function () { return " + valeur + "; };", sandbox);
 }
 
-function verifierExercices(valeur, etiquette) {
+function verifierExercices(valeur, etiquette, toutesIles) {
+  /* On teste deux moments du jeu : l'île du Présent seule (les autres
+     temps ne sont pas encore connus) et toutes les îles débloquées. */
+  Q.jeu.ileDebloquee = toutesIles
+    ? function () { return true; }
+    : function (id) { return id === Q.curriculum().ordre[0]; };
   figerAleatoire(valeur);
   toutes.forEach(function (p) {
     var res = Q.distracteurs.verifier(p);
@@ -185,6 +190,9 @@ function verifierExercices(valeur, etiquette) {
     }
     if (res.options.length < 3) {
       erreur("Phrase " + p.id + " : seulement " + res.options.length + " options");
+    }
+    if (res.suspects && res.suspects.length) {
+      erreur("Phrase " + p.id + " : forme inventée (" + res.suspects.join(" | ") + ")");
     }
 
     var exercice = Q.exercices.construire(p, "lint");
@@ -216,8 +224,8 @@ function verifierExercices(valeur, etiquette) {
   });
 }
 
-verifierExercices(0, "assemblage forcé");
-verifierExercices(0.99, "QCM forcé");
+verifierExercices(0, "assemblage forcé, début de jeu", false);
+verifierExercices(0.99, "QCM forcé, toutes les îles", true);
 
 /* 5. Couverture minimale : chaque île doit pouvoir remplir une quête. */
 Object.keys(Q.content.adventures).forEach(function (id) {

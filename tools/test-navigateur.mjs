@@ -198,6 +198,30 @@ const rapport = await evaluate(`(async () => {
   ok(Q.etat.pin === "1234", "PIN enregistré");
   ok(document.body.textContent.includes("Récompenses réelles"), "tableau de bord parent affiché");
 
+  // Récompense réelle avec une icône choisie dans la liste.
+  document.querySelector('[data-rec-texte="0"]').value = "15 minutes de console";
+  document.querySelector('[data-rec-prix="0"]').value = "200";
+  document.querySelector('[data-rec-icone="0"]').value = "sablier";
+  document.querySelector('[data-rec-save="0"]').click();
+  await pause(60);
+  ok(Q.etat.recompenses[0] && Q.etat.recompenses[0].icone === "sablier", "icône de récompense enregistrée");
+  ok(!!document.querySelector('[data-rec-apercu="0"] svg'), "aperçu de l'icône affiché dans l'espace parent");
+
+  Q.router.go("boutique");
+  await pause(60);
+  ok(!!document.querySelector('[data-recompense="0"]'), "récompense visible à la boutique");
+  ok(!!document.querySelector(".article__visuel svg"), "icône de récompense affichée à la boutique");
+
+  // Verrouillage : le code doit être redemandé au prochain appui long.
+  Q.router.go("parent");
+  await pause(60);
+  document.querySelector('[data-action="verrouiller"]').click();
+  await pause(60);
+  ok(Q.parentDebloque === false, "espace parent verrouillé");
+  Q.router.go("parent");
+  await pause(60);
+  ok(!!document.getElementById("points"), "le code est redemandé après verrouillage");
+
   // Assemblage : seule la terminaison est demandée, elle doit être acceptée.
   const phraseAsm = Q.phraseParId("jouer-present-nous-01");
   Q.etat.quest = {

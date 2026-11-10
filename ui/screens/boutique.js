@@ -32,7 +32,7 @@
     var recompenses = (Q.etat.recompenses || []).length
       ? Q.etat.recompenses.map(function (r, i) {
           return '<div class="article">' +
-            '<div class="article__visuel">' + Q.ui.emoji("parchemin", "récompense") + "</div>" +
+            '<div class="article__visuel">' + Q.ui.icon(Q.iconeRecompense(r, i)) + "</div>" +
             '<div class="article__nom">' + Q.ui.echapper(r.texte) + "</div>" +
             '<div class="article__desc">À montrer à un parent une fois échangé.</div>' +
             '<div class="article__prix">' + Q.ui.piece() + " " + r.prix + "</div>" +
@@ -80,6 +80,7 @@
           titre: "Parchemin de réussite",
           contenu: '<div class="parchemin-recompense">' +
             '<p class="discret">La Quête des Verbes</p>' +
+            '<div class="parchemin-recompense__icone">' + Q.ui.icon(Q.iconeRecompense(r.recompense, i)) + "</div>" +
             "<h3>" + Q.ui.echapper(r.recompense.texte) + "</h3>" +
             "<p>Accordé à <strong>" + Q.ui.echapper(Q.etat.profil.nom) + "</strong></p>" +
             "<p>pour " + r.recompense.prix + " pièces d'or durement gagnées.</p>" +

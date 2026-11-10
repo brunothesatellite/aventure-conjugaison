@@ -778,9 +778,38 @@
 
 .ligne-recompense {
   display: grid;
-  grid-template-columns: 1fr 110px auto;
+  grid-template-columns: minmax(170px, 250px) minmax(0, 1fr) 92px auto;
   gap: 8px;
   align-items: center;
+  margin-bottom: 8px;
+}
+.rec-icone {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+.rec-icone__apercu {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  border: 2px solid var(--parchemin-3);
+  background: #fffdf7;
+  color: var(--bois-fonce);
+}
+.rec-icone__apercu .ico { width: 26px; height: 26px; }
+.rec-icone select {
+  min-height: 44px;
+  padding: 6px 8px;
+  border-radius: 10px;
+  border: 2px solid var(--parchemin-3);
+  background: #fffdf7;
+  width: 100%;
+  font-size: 0.85rem;
+  color: var(--encre);
 }
 .ligne-recompense input {
   min-height: 44px;
@@ -881,6 +910,12 @@
 .parchemin-recompense::before { top: -8px; }
 .parchemin-recompense::after { bottom: -8px; }
 .parchemin-recompense h3 { margin: 6px 0; }
+.parchemin-recompense__icone {
+  display: grid;
+  place-items: center;
+  color: var(--or-fonce);
+}
+.parchemin-recompense__icone .ico { width: 58px; height: 58px; }
 .parchemin-recompense__tampon {
   display: inline-block;
   margin-top: 10px;
@@ -962,6 +997,7 @@
   .texte-phrase { font-size: 1.35rem; }
   .option { font-size: 1.15rem; }
   .ligne-recompense { grid-template-columns: 1fr 90px; }
+  .rec-icone { grid-column: 1 / -1; }
   .ligne-recompense .btn { grid-column: 1 / -1; }
   .ile-entete { min-height: 170px; }
 }

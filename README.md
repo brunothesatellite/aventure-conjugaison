@@ -43,7 +43,8 @@ avec un travail explicite des régularités et des exceptions.
 Une quête = **7 questions** : deux révisions espacées, l'entraînement du jour, puis un défi
 qui mélange les temps déjà vus. Deux types d'exercices alternent :
 
-- **choix multiple** entre 3 ou 4 formes (les distracteurs ciblent les erreurs classiques) ;
+- **choix multiple** entre 3 formes : une autre personne du verbe, un autre temps déjà vu,
+  ou une faute typique (jamais de forme inventée) ;
 - **assemblage** : on choisit la bonne terminaison à coller au radical.
 
 ![Écran de quête](docs/captures/quete.png)
@@ -70,7 +71,10 @@ bouton et appuyez sur Entrée). Au premier accès, créez un **code à 4 chiffre
 Vous y trouverez :
 
 - les statistiques de progression et les types d'erreurs les plus fréquents ;
-- trois **récompenses réelles** à personnaliser (texte + prix en or) ;
+- trois **récompenses réelles** à personnaliser (texte, prix en or et **icône** choisie
+  parmi une liste : temps d'écran, film, sortie, cadeau, balade…) ;
+- un bouton **Verrouiller l'espace** : le code sera redemandé au prochain appui long,
+  sans attendre de fermer le jeu ;
 - l'export et l'import de la sauvegarde (fichier JSON) ;
 - le changement de code et l'effacement complet.
 
@@ -150,6 +154,7 @@ utilisable dans un hook Git.
 | Commande | Rôle |
 |---|---|
 | `node tools/lint-content.js` | Valide verbes, phrases, aventures et exercices |
+| `node tools/audit-distracteurs.js` | Relit les mauvais choix des 170 questions (familles A/B/C) |
 | `node tools/preparer-icones.js` | Retire le fond plein des SVG game-icons (idempotent) |
 | `node tools/generer-icones-inline.js` | Régénère les pictos intégrés (`assets/icons-inline.js`) |
 | `node tools/generer-manifest.js` | Régénère `assets/manifest.json` et `CREDITS.md` |

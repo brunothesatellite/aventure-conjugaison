@@ -72,6 +72,42 @@
     ]
   };
 
+  /* Icônes proposées aux parents pour personnaliser les récompenses.
+     Toutes existent déjà dans assets/img/icons (thème du jeu). */
+  var ICONES_RECOMPENSE = [
+    { id: "sablier", nom: "Temps d'écran" },
+    { id: "haut-parleur", nom: "Film / dessin animé" },
+    { id: "musique", nom: "Musique / chanson" },
+    { id: "potion", nom: "Friandise / goûter" },
+    { id: "carte", nom: "Jeu de société" },
+    { id: "ile", nom: "Sortie en famille" },
+    { id: "soleil", nom: "Activité dehors" },
+    { id: "lune", nom: "Soirée tranquille" },
+    { id: "cheval", nom: "Balade / sport" },
+    { id: "voilier", nom: "Vacances / mer" },
+    { id: "tortue", nom: "Animal / zoo" },
+    { id: "coffre", nom: "Cadeau surprise" },
+    { id: "joyau", nom: "Petit cadeau" },
+    { id: "carnet", nom: "Livre / histoire" },
+    { id: "plume", nom: "Dessin / création" },
+    { id: "roue", nom: "Vélo / trottinette" },
+    { id: "feu", nom: "Feu de camp / barbecue" },
+    { id: "montagne", nom: "Randonnée" },
+    { id: "cle", nom: "Choisir le programme" },
+    { id: "trophee", nom: "Défi / exploit" }
+  ];
+
+  var ICONES_DEFAUT = ["sablier", "carte", "coffre"];
+
+  Q.iconesRecompense = ICONES_RECOMPENSE;
+
+  /* Icône d'une récompense, avec repli pour les anciennes sauvegardes. */
+  Q.iconeRecompense = function (r, index) {
+    var id = r && r.icone;
+    var existe = ICONES_RECOMPENSE.some(function (x) { return x.id === id; });
+    return existe ? id : (ICONES_DEFAUT[index] || "coffre");
+  };
+
   Q.badges = {
     liste: BADGES,
 

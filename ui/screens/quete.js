@@ -264,8 +264,15 @@
       if (type === "eliminer") {
         quest.aides.eliminer = (quest.aides.eliminer || 0) + 1;
         bouton.disabled = true;
-        var mauvais = Q.distracteurs.pour(phrase, 1)[0];
-        var cible = el.querySelector('[data-choix="' + CSS.escape(String(mauvais)) + '"], [data-terminaison="' + CSS.escape(String(mauvais)) + '"]');
+        /* On retire un mauvais choix réellement affiché (et non un
+           distracteur régénéré, qui pourrait ne pas être à l'écran). */
+        var bonne = q.type === "assemblage" ? q.terminaison : q.reponse;
+        var mauvais = Q.distracteurs.melanger((q.options || []).filter(function (o) {
+          return String(o).toLowerCase() !== String(bonne).toLowerCase();
+        }))[0];
+        var cible = mauvais
+          ? el.querySelector('[data-choix="' + CSS.escape(String(mauvais)) + '"], [data-terminaison="' + CSS.escape(String(mauvais)) + '"]')
+          : null;
         if (cible) { cible.classList.add("option--retiree"); cible.disabled = true; }
         Q.ui.toast("Le dragonneau a soufflé un mauvais choix !");
       }

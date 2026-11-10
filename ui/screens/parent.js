@@ -106,7 +106,17 @@
 
     var recompenses = [0, 1, 2].map(function (i) {
       var r = Q.etat.recompenses[i] || { texte: "", prix: [150, 300, 500][i] };
-      return '<div class="ligne-recompense" style="margin-bottom:8px">' +
+      var icone = Q.iconeRecompense(r, i);
+      return '<div class="ligne-recompense">' +
+        '<div class="rec-icone">' +
+          '<span class="rec-icone__apercu" data-rec-apercu="' + i + '" aria-hidden="true">' + Q.ui.icon(icone) + "</span>" +
+          '<select class="champ" data-rec-icone="' + i + '" aria-label="Icône de la récompense ' + (i + 1) + '">' +
+            Q.iconesRecompense.map(function (ic) {
+              return '<option value="' + ic.id + '"' + (ic.id === icone ? " selected" : "") + ">" +
+                Q.ui.echapper(ic.nom) + "</option>";
+            }).join("") +
+          "</select>" +
+        "</div>" +
         '<input type="text" data-rec-texte="' + i + '" maxlength="60" placeholder="Ex. : 15 minutes de console" value="' + Q.ui.echapper(r.texte) + '">' +
         '<input type="number" data-rec-prix="' + i + '" min="10" step="10" value="' + r.prix + '" aria-label="Prix en pièces">' +
         '<button class="btn btn--secondaire" data-rec-save="' + i + '">Enregistrer</button>' +
@@ -148,6 +158,7 @@
           '<label class="btn btn--secondaire" style="margin:0">Importer un fichier<input type="file" accept="application/json,.json" id="fichier-import" class="sr-only"></label>' +
         "</div>" +
         '<div class="rangee espace-haut-sm">' +
+          '<button class="btn btn--secondaire" data-action="verrouiller">' + Q.ui.icon("cadenas") + " Verrouiller l'espace</button>" +
           '<button class="btn btn--secondaire" data-action="pin">Changer le code</button>' +
           '<button class="btn btn--danger" data-action="reset">Tout effacer</button>' +
         "</div>" +
@@ -159,14 +170,25 @@
         var i = parseInt(b.getAttribute("data-rec-save"), 10);
         var texte = el.querySelector('[data-rec-texte="' + i + '"]').value.trim();
         var prix = parseInt(el.querySelector('[data-rec-prix="' + i + '"]').value, 10) || 150;
+        var choix = el.querySelector('[data-rec-icone="' + i + '"]');
+        var icone = Q.iconeRecompense({ icone: choix ? choix.value : null }, i);
         if (!texte) {
           Q.etat.recompenses[i] = null;
         } else {
-          Q.etat.recompenses[i] = { texte: texte, prix: Math.max(10, prix) };
+          Q.etat.recompenses[i] = { texte: texte, prix: Math.max(10, prix), icone: icone };
         }
         Q.etat.recompenses = Q.etat.recompenses.filter(Boolean);
         Q.jeu.sauver();
         Q.ui.toast("Récompense enregistrée.", "ok");
+      });
+    });
+
+    /* Aperçu immédiat de l'icône choisie. */
+    Array.prototype.forEach.call(el.querySelectorAll("[data-rec-icone]"), function (sel) {
+      sel.addEventListener("change", function () {
+        var i = parseInt(sel.getAttribute("data-rec-icone"), 10);
+        var apercu = el.querySelector('[data-rec-apercu="' + i + '"]');
+        if (apercu) apercu.innerHTML = Q.ui.icon(Q.iconeRecompense({ icone: sel.value }, i));
       });
     });
 
@@ -203,6 +225,16 @@
           });
       };
       lecteur.readAsText(f);
+    });
+
+    var verrouiller = el.querySelector('[data-action="verrouiller"]');
+    if (verrouiller) verrouiller.addEventListener("click", function () {
+      Q.parentDebloque = false;
+      saisiePin = "";
+      Q.jeu.sauver();
+      Q.audio.son("page");
+      Q.ui.toast("Espace parent verrouillé : le code sera redemandé.", "ok");
+      Q.router.go("map");
     });
 
     var pin = el.querySelector('[data-action="pin"]');
