@@ -23,15 +23,20 @@
     }).join("");
 
     var pret = Q.jeu.gardienDebloque(a.id);
-    var gardienHtml = '<div class="carte carte--bois espace-haut">' +
+    var dejaVaincu = Q.etat.aiguilles.indexOf(a.temps) !== -1;
+    var gardienHtml = '<div class="carte carte--bois' + (dejaVaincu ? " gardien--vaincu" : "") + ' espace-haut">' +
       '<div class="rangee">' +
         '<span class="article__visuel" style="background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.35)">' + Q.ui.icon(a.gardien.icone) + "</span>" +
         "<div style=\"flex:1;min-width:200px\">" +
-          '<h3 style="margin:0">' + Q.ui.echapper(a.gardien.nom) + "</h3>" +
+          '<h3 style="margin:0">' + Q.ui.echapper(a.gardien.nom) +
+            (dejaVaincu
+              ? ' <span class="gardien__vaincu">' + Q.ui.icon("coche") + " Vaincu</span>"
+              : "") +
+          "</h3>" +
           '<p class="discret" style="color:#f3e5c8;margin:2px 0 0">' + Q.ui.echapper(a.gardien.description) + "</p>" +
         "</div>" +
         '<button class="btn btn--primaire" data-gardien="1"' + (pret ? "" : " disabled") + ">" +
-          (pret ? "Défier" : "Termine les 4 niveaux") + "</button>" +
+          (pret ? (dejaVaincu ? "Défier à nouveau" : "Défier") : "Termine les 4 niveaux") + "</button>" +
       "</div></div>";
 
     el.innerHTML = Q.ui.hud() +

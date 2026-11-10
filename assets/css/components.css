@@ -132,6 +132,26 @@
   border-color: var(--bois-fonce);
 }
 .carte--bois h2, .carte--bois h3 { color: #fff7e6; }
+.carte--bois.gardien--vaincu {
+  border-color: var(--or);
+  box-shadow: 0 0 0 3px rgba(242, 193, 78, 0.4), var(--ombre);
+}
+.gardien__vaincu {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--succes-clair);
+  color: #14532d;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  vertical-align: middle;
+}
+.gardien__vaincu .ico { width: 13px; height: 13px; }
 
 .titre-section {
   display: flex;

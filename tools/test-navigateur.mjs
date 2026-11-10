@@ -366,6 +366,20 @@ const rapport = await evaluate(`(async () => {
   await pause(80);
   ok(!!document.querySelector(".encart--defi"), "défi : bandeau explicatif affiché");
 
+  // Gardien déjà vaincu : repère visuel, défi toujours possible.
+  Q.aventure("ile-present").niveaux.forEach(function (n) {
+    Q.etat.progression[n.id] = { etoiles: 3, meilleur: 7, quetes: 1 };
+  });
+  Q.etat.aiguilles = ["present"];
+  Q.router.go("ile", { id: "ile-present" });
+  await pause(80);
+  ok(!!document.querySelector(".gardien--vaincu"), "gardien vaincu : carte marquée");
+  ok(/Vaincu/.test((document.querySelector(".gardien__vaincu") || {}).textContent || ""),
+    "gardien vaincu : pastille affichée");
+  const boutonGardien = document.querySelector("[data-gardien]");
+  ok(boutonGardien && !boutonGardien.disabled && /Défier à nouveau/.test(boutonGardien.textContent),
+    "gardien vaincu : défi toujours possible");
+
   // Lot 1 assemblage : uniquement des terminaisons compatibles avec le radical.
   const vraiHasard = Math.random;
   Math.random = function () { return 0; };
