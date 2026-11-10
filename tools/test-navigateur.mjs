@@ -345,6 +345,37 @@ const rapport = await evaluate(`(async () => {
   await pause(60);
   ok(/terminaison commence par « o »/.test(dernierToast()), "perroquet : coup de pouce sur la terminaison");
 
+  // Les 12 nouveaux badges : on remplit leurs conditions puis on vérifie.
+  const vraieStatsSrs = Q.srs.stats;
+  Q.srs.stats = function () { return { solides: 40, aRevoir: 0 }; };
+  Q.etat.compteurs.quetes = 30;
+  Q.etat.compteurs.gardiens = 2;
+  Q.etat.stats.jours = ["2026-11-01", "2026-11-02", "2026-11-03"];
+  Q.curriculum().ordre.forEach(function (id) {
+    const a = Q.aventure(id);
+    a.niveaux.forEach(function (n) {
+      Q.etat.progression[n.id] = { etoiles: 3, meilleur: 7, quetes: 2 };
+    });
+  });
+  Q.etat.journal.unshift({
+    date: Date.now(), aventure: "ile-present", niveau: null,
+    etoiles: 3, premierCoup: 7, total: 7
+  });
+  Q.badges.verifier();
+  Q.srs.stats = vraieStatsSrs;
+
+  const badgesAttendus = [
+    "apprenti-conteur", "vieux-loup-de-mer", "habitue-du-port",
+    "chasseur-d-etoiles", "ciel-etoile", "roi-de-l-imparfait",
+    "maitre-du-futur", "as-du-passe-compose", "chasseur-de-gardiens",
+    "sans-une-egratignure", "memoire-legendaire", "revanche"
+  ];
+  const badgesManquants = badgesAttendus.filter(function (id) {
+    return Q.etat.badges.indexOf(id) === -1;
+  });
+  ok(badgesManquants.length === 0,
+    "12 nouveaux badges débloqués" + (badgesManquants.length ? " (manquants : " + badgesManquants.join(", ") + ")" : ""));
+
   return out;
 })()`);
 

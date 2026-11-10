@@ -4,6 +4,31 @@
 (function (Q) {
   "use strict";
 
+  function totalEtoiles(s) {
+    var total = 0;
+    Q.curriculum().ordre.forEach(function (id) {
+      var a = Q.aventure(id);
+      if (!a) return;
+      a.niveaux.forEach(function (n) {
+        total += ((s.progression || {})[n.id] || {}).etoiles || 0;
+      });
+    });
+    return total;
+  }
+
+  function niveauRejoueReussi(s) {
+    var ok = false;
+    Q.curriculum().ordre.forEach(function (id) {
+      var a = Q.aventure(id);
+      if (!a) return;
+      a.niveaux.forEach(function (n) {
+        var p = (s.progression || {})[n.id] || {};
+        if ((p.quetes || 0) >= 2 && (p.etoiles || 0) >= 3) ok = true;
+      });
+    });
+    return ok;
+  }
+
   var BADGES = [
     {
       id: "moussaillon-present", nom: "Moussaillon du Présent", desc: "Terminer le premier niveau de l'Île du Présent",
@@ -56,6 +81,58 @@
     {
       id: "amiral", nom: "Amiral des Verbes", desc: "Réunir les quatre aiguilles de la Boussole",
       icone: "laurier", test: function (s) { return s.aiguilles.length >= 4; }
+    },
+    {
+      id: "apprenti-conteur", nom: "Apprenti conteur", desc: "Terminer 10 quêtes",
+      icone: "plume2", test: function (s) { return ((s.compteurs || {}).quetes || 0) >= 10; }
+    },
+    {
+      id: "vieux-loup-de-mer", nom: "Vieux loup de mer", desc: "Terminer 30 quêtes",
+      icone: "barque", test: function (s) { return ((s.compteurs || {}).quetes || 0) >= 30; }
+    },
+    {
+      id: "habitue-du-port", nom: "Habitué du port", desc: "Terminer une quête sur 3 jours différents",
+      icone: "phare", test: function (s) { return ((s.stats || {}).jours || []).length >= 3; }
+    },
+    {
+      id: "chasseur-d-etoiles", nom: "Chasseur d'étoiles", desc: "Réunir 24 étoiles",
+      icone: "etoile", test: function (s) { return totalEtoiles(s) >= 24; }
+    },
+    {
+      id: "ciel-etoile", nom: "Ciel étoilé", desc: "Réunir 36 étoiles",
+      icone: "lune", test: function (s) { return totalEtoiles(s) >= 36; }
+    },
+    {
+      id: "roi-de-l-imparfait", nom: "Roi de l'Imparfait", desc: "Obtenir les 12 étoiles de la Vallée des Souvenirs",
+      icone: "montagne", test: function () { return Q.jeu.etoilesIle("vallee-souvenirs") >= 12; }
+    },
+    {
+      id: "maitre-du-futur", nom: "Maître du Futur", desc: "Obtenir les 12 étoiles de l'Océan des Prophéties",
+      icone: "vagues", test: function () { return Q.jeu.etoilesIle("ocean-propheties") >= 12; }
+    },
+    {
+      id: "as-du-passe-compose", nom: "As du Passé composé", desc: "Obtenir les 12 étoiles de la Crique des Exploits",
+      icone: "tete-mort", test: function () { return Q.jeu.etoilesIle("crique-exploits") >= 12; }
+    },
+    {
+      id: "chasseur-de-gardiens", nom: "Chasseur de Gardiens", desc: "Battre 2 Gardiens",
+      icone: "epee", test: function (s) { return ((s.compteurs || {}).gardiens || 0) >= 2; }
+    },
+    {
+      id: "sans-une-egratignure", nom: "Sans une égratignure", desc: "Battre un Gardien sans aucune erreur du premier coup",
+      icone: "chevalier", test: function (s) {
+        return (s.journal || []).some(function (j) {
+          return j.niveau === null && j.total === 7 && j.premierCoup === 7;
+        });
+      }
+    },
+    {
+      id: "memoire-legendaire", nom: "Mémoire légendaire", desc: "Rendre solides 40 conjugaisons",
+      icone: "joyau", test: function () { return Q.srs.stats().solides >= 40; }
+    },
+    {
+      id: "revanche", nom: "Revanche", desc: "Rejouer un niveau et y obtenir 3 étoiles",
+      icone: "roue", test: function (s) { return niveauRejoueReussi(s); }
     }
   ];
 
