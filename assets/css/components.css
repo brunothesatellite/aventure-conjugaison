@@ -178,6 +178,66 @@
 
 .accueil__logo .emoji { width: 1.05em; height: 1.05em; vertical-align: -0.09em; }
 .accueil__sous-titre { color: var(--encre-doux); margin-bottom: 22px; }
+
+/* ---------- Choix du joueur ---------- */
+.profils-liste { display: grid; gap: 10px; margin-bottom: 4px; }
+.profil-choix {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 3px solid var(--parchemin-3);
+  border-radius: var(--r);
+  background: #fffdf7;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.profil-choix:hover,
+.profil-choix:focus-visible {
+  border-color: var(--or);
+  transform: translateY(-1px);
+}
+.profil-choix--actif {
+  border-color: var(--or);
+  background: #fff8e3;
+  box-shadow: 0 3px 0 rgba(212, 160, 23, 0.25);
+}
+.profil-choix__avatar {
+  width: 52px;
+  height: 52px;
+  flex: none;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--parchemin);
+  border: 2px solid var(--or-clair);
+}
+.profil-choix__avatar img { width: 38px; height: 38px; }
+.profil-choix__corps { display: grid; gap: 1px; flex: 1; min-width: 0; }
+.profil-choix__nom {
+  font-family: var(--police-titre);
+  font-weight: 700;
+  color: var(--bois-fonce);
+}
+.profil-choix__actif {
+  display: inline-block;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--succes-clair);
+  color: #14532d;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.profil-choix__meta { font-size: 0.78rem; color: var(--encre-doux); }
+.profil-choix__action { font-weight: 700; color: var(--or-fonce); white-space: nowrap; }
+@media (max-width: 420px) {
+  .profil-choix__action { display: none; }
+}
 .champ {
   width: 100%;
   min-height: 56px;

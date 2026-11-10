@@ -184,9 +184,10 @@ const rapport = await evaluate(`(async () => {
   ok(document.querySelectorAll(".resultat__etoiles .etoile--pleine").length === 3, "3 étoiles affichées");
   ok(Q.etat.serie.record === 7, "série record de 7");
 
-  const brut = localStorage.getItem("quete-verbes:v1");
-  ok(!!brut, "sauvegarde écrite");
-  ok(JSON.parse(brut).profil.nom === "Léa", "nom sauvegardé");
+  const brut = localStorage.getItem("quete-verbes:v2");
+  const magasin = brut ? JSON.parse(brut) : null;
+  ok(!!magasin && !!magasin.actif && !!magasin.profils[magasin.actif], "sauvegarde multi-profils écrite");
+  ok(magasin.profils[magasin.actif].etat.profil.nom === "Léa", "nom sauvegardé");
 
   // Tous les écrans doivent se rendre sans erreur.
   for (const nom of ["boutique", "carnet", "reglages", "map", "parent"]) {
@@ -379,6 +380,50 @@ const rapport = await evaluate(`(async () => {
   const boutonGardien = document.querySelector("[data-gardien]");
   ok(boutonGardien && !boutonGardien.disabled && /Défier à nouveau/.test(boutonGardien.textContent),
     "gardien vaincu : défi toujours possible");
+
+  // Profils multiples : changer de joueur ne perd rien.
+  const idLea = Q.profils.actif;
+  const orLea = Q.etat.or;
+  Q.jeu.nouveau("Noé", "pirate");
+  ok(Q.etat.profil.nom === "Noé", "deuxième profil créé");
+  ok(Q.jeu.listerProfils().length === 2, "deux profils listés");
+  Q.jeu.activerProfil(idLea);
+  ok(Q.etat.profil.nom === "Léa" && Q.etat.or === orLea, "retour à Léa sans perte");
+
+  Q.router.go("profils");
+  await pause(60);
+  ok(document.querySelectorAll("[data-profil]").length === 2, "écran des joueurs liste les profils");
+  ok(!!document.querySelector("#fichier-restauration"), "restauration disponible");
+
+  const idRest = Q.jeu.importerEtat({
+    version: 1,
+    profil: { nom: "Restauré", avatar: "pirate", creeLe: Date.now() },
+    or: 42
+  });
+  ok(!!idRest && Q.etat.profil.nom === "Restauré" && Q.etat.or === 42,
+    "sauvegarde restaurée en nouveau profil");
+  Q.jeu.activerProfil(idLea);
+
+  const idNoe = Q.jeu.listerProfils().filter(function (p) { return p.nom === "Noé"; })[0].id;
+  Q.jeu.activerProfil(idNoe);
+  Q.jeu.reinitialiser();
+  ok(Q.jeu.listerProfils().length === 2, "profil supprimé de la liste");
+  const corbeille = Q.jeu.listerCorbeille();
+  ok(corbeille.length >= 1 && corbeille[0].nom === "Noé", "profil placé dans la corbeille");
+  const idNoeRestaure = Q.jeu.restaurerProfilCorbeille(corbeille[0].id);
+  ok(!!idNoeRestaure && Q.etat.profil.nom === "Noé", "profil restauré depuis la corbeille");
+  Q.jeu.activerProfil(idLea);
+  ok(Q.etat.profil.nom === "Léa", "Léa active à la fin");
+
+  // Panne d'écriture : l'échec doit être signalé, pas silencieux.
+  const vraieEcriture = Q.storage.ecrireStore;
+  Q.storage.ecrireStore = function () { return false; };
+  Q.sauvegardeAvertie = false;
+  Q.jeu.sauver();
+  Q.storage.ecrireStore = vraieEcriture;
+  ok(Q.sauvegardeKO === true, "échec de sauvegarde signalé");
+  Q.jeu.sauver();
+  ok(Q.sauvegardeKO === false, "sauvegarde rétablie après l'échec");
 
   // Lot 1 assemblage : uniquement des terminaisons compatibles avec le radical.
   const vraiHasard = Math.random;

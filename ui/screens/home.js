@@ -4,12 +4,25 @@
 
   var AVATARS = ["chevalier", "magicienne", "pirate", "sirene", "explorateur", "mousse"];
 
-  Q.screens.home = function (el) {
+  Q.screens.home = function (el, params) {
     var p = Q.etat.profil;
-    var choix = p ? p.avatar : "chevalier";
+    var creation = !!(params && params.nouveau) || !p;
+
+    /* Si des profils existent mais qu'aucun n'est actif, on passe
+       par l'écran « Qui joue ? » plutôt que d'écraser une sauvegarde. */
+    if (!creation && !p) {
+      Q.router.go("profils");
+      return;
+    }
+    if (!p && Q.jeu.listerProfils().length) {
+      Q.router.go("profils");
+      return;
+    }
+
+    var choix = creation ? "chevalier" : p.avatar;
 
     var contenu;
-    if (p) {
+    if (!creation && p) {
       var rang = Q.jeu.rang();
       contenu = '<div class="centre">' +
         '<div class="hud__avatar" style="width:92px;height:92px;margin:0 auto 10px;font-size:2rem">' + Q.ui.emoji(Q.ui.avatarEmoji(p.avatar), "") + "</div>" +
@@ -21,9 +34,10 @@
         (Q.etat.quest && !Q.etat.quest.fini
           ? '<button class="btn btn--mer btn--bloc" data-action="quete">Reprendre la quête en cours</button>'
           : "") +
-        '<button class="btn btn--fantome btn--bloc" data-action="nouveau">Changer de joueur</button>' +
+        '<button class="btn btn--fantome btn--bloc" data-action="joueurs">Changer de joueur</button>' +
         "</div></div>";
     } else {
+      var plusieurs = Q.jeu.listerProfils().length > 0;
       contenu = '<label class="label" for="prenom">Ton prénom</label>' +
         '<input class="champ" id="prenom" maxlength="18" placeholder="Ex. : Léa" autocomplete="off" aria-label="Ton prénom">' +
         '<span class="label">Choisis ton avatar</span>' +
@@ -34,6 +48,10 @@
         }).join("") + "</div>" +
         '<button class="btn btn--primaire btn--lg btn--bloc espace-haut" data-action="commencer">' +
         Q.ui.emoji("ancre", "") + " Commencer l'aventure</button>" +
+        '<div class="pile espace-haut-sm">' +
+        (plusieurs ? '<button class="btn btn--fantome btn--bloc" data-action="joueurs">Revenir aux joueurs</button>' : "") +
+        '<button class="btn btn--fantome btn--bloc" data-action="restaurer">Restaurer une sauvegarde</button>' +
+        "</div>" +
         '<p class="discret centre" style="margin-top:14px">Pas de compte, pas de publicité : tout reste sur cet appareil.</p>';
     }
 
@@ -74,14 +92,7 @@
         if (a === "commencer") commencer();
         if (a === "reprendre") Q.router.go("map");
         if (a === "quete") Q.router.go("quete");
-        if (a === "nouveau") {
-          Q.ui.confirmer("Changer de joueur ?", "La progression de ce joueur sera conservée dans ce navigateur, mais un seul profil est actif à la fois.", "Changer")
-            .then(function (ok) {
-              if (!ok) return;
-              Q.jeu.reinitialiser();
-              Q.router.rafraichir();
-            });
-        }
+        if (a === "joueurs" || a === "restaurer") Q.router.go("profils");
       });
     });
 

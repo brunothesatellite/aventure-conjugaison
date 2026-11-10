@@ -31,7 +31,8 @@
       "</div>" +
       '<div class="carte espace-haut"><h2>Ma partie</h2>' +
         '<p class="discret">Profil : ' + Q.ui.echapper(Q.etat.profil ? Q.etat.profil.nom : "—") + " · " + Q.etat.or + " pièces d'or</p>" +
-        '<button class="btn btn--danger" data-action="reset">Effacer la progression</button>' +
+        '<button class="btn btn--secondaire" data-action="joueurs">Changer de joueur</button>' +
+        '<p class="discret espace-haut-sm">La suppression d\'un joueur se fait dans l\'espace parent (cadenas sur la carte).</p>' +
       "</div>";
 
     Array.prototype.forEach.call(el.querySelectorAll("[data-bascule]"), function (b) {
@@ -59,14 +60,9 @@
       Q.audio.parler("Bonjour ! Je suis la voix de la Quête des Verbes.");
     });
 
-    var reset = el.querySelector('[data-action="reset"]');
-    if (reset) reset.addEventListener("click", function () {
-      Q.ui.confirmer("Effacer la progression ?", "Tout sera perdu : or, badges, étoiles et révisions. Cette action est définitive.", "Tout effacer")
-        .then(function (ok) {
-          if (!ok) return;
-          Q.jeu.reinitialiser();
-          Q.router.go("home");
-        });
+    var joueurs = el.querySelector('[data-action="joueurs"]');
+    if (joueurs) joueurs.addEventListener("click", function () {
+      Q.router.go("profils");
     });
   };
 })(window.Quete);

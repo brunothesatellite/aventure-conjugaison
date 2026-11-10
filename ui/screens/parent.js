@@ -126,6 +126,9 @@
     el.innerHTML = Q.ui.boutonRetour("map") +
       '<div class="titre-section espace-haut-sm"><h1 style="margin:0">Espace parent</h1></div>' +
       '<p class="discret">Aucune donnée ne quitte cet appareil. Tout est stocké dans le navigateur.</p>' +
+      ((Q.sauvegardeKO || !Q.storage.disponible)
+        ? '<div class="encart encart--attention">La sauvegarde locale est indisponible ou a échoué. Exporte la progression avant de fermer le navigateur.</div>'
+        : "") +
 
       '<div class="carte">' +
         '<h2>Progression</h2>' +
@@ -154,13 +157,14 @@
 
       '<div class="carte espace-haut"><h2>Sauvegarde</h2>' +
         '<div class="rangee">' +
-          '<button class="btn btn--secondaire" data-action="exporter">Exporter la sauvegarde</button>' +
+          '<button class="btn btn--secondaire" data-action="exporter">Exporter ce joueur</button>' +
+          '<button class="btn btn--secondaire" data-action="exporter-tout">Exporter tous les joueurs</button>' +
           '<label class="btn btn--secondaire" style="margin:0">Importer un fichier<input type="file" accept="application/json,.json" id="fichier-import" class="sr-only"></label>' +
         "</div>" +
         '<div class="rangee espace-haut-sm">' +
           '<button class="btn btn--secondaire" data-action="verrouiller">' + Q.ui.icon("cadenas") + " Verrouiller l'espace</button>" +
           '<button class="btn btn--secondaire" data-action="pin">Changer le code</button>' +
-          '<button class="btn btn--danger" data-action="reset">Tout effacer</button>' +
+          '<button class="btn btn--danger" data-action="reset">Supprimer ce joueur</button>' +
         "</div>" +
         '<div class="encart encart--attention espace-haut-sm">Le code PIN évite les clics par erreur, il ne protège pas contre un enfant déterminé. Pour une vraie protection, gardez l\'appareil hors de portée.</div>' +
       "</div>";
@@ -192,19 +196,34 @@
       });
     });
 
-    var exporter = el.querySelector('[data-action="exporter"]');
-    if (exporter) exporter.addEventListener("click", function () {
-      var contenu = Q.storage.exporter(Q.etat);
+    function telecharger(contenu, nom) {
       var blob = new Blob([contenu], { type: "application/json" });
       var url = URL.createObjectURL(blob);
       var a = document.createElement("a");
       a.href = url;
-      a.download = "quete-des-verbes-" + new Date().toISOString().slice(0, 10) + ".json";
+      a.download = nom;
       document.body.appendChild(a);
       a.click();
       a.remove();
       setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+    }
+
+    var exporter = el.querySelector('[data-action="exporter"]');
+    if (exporter) exporter.addEventListener("click", function () {
+      telecharger(
+        Q.storage.exporter(Q.etat),
+        "quete-des-verbes-" + new Date().toISOString().slice(0, 10) + ".json"
+      );
       Q.ui.toast("Sauvegarde exportée.", "ok");
+    });
+
+    var exporterTout = el.querySelector('[data-action="exporter-tout"]');
+    if (exporterTout) exporterTout.addEventListener("click", function () {
+      telecharger(
+        Q.storage.exporterStore(Q.profils),
+        "quete-des-verbes-tous-les-joueurs-" + new Date().toISOString().slice(0, 10) + ".json"
+      );
+      Q.ui.toast("Tous les joueurs ont été exportés.", "ok");
     });
 
     var importInput = el.querySelector("#fichier-import");
@@ -215,16 +234,20 @@
       lecteur.onload = function () {
         var donnees = Q.storage.importer(String(lecteur.result));
         if (!donnees) { Q.ui.toast("Fichier illisible.", "ko"); return; }
-        Q.ui.confirmer("Importer cette sauvegarde ?", "La progression actuelle sera remplacée.", "Importer")
-          .then(function (ok) {
-            if (!ok) return;
-            Q.storage.ecrire(donnees);
-            Q.jeu.charger();
-            Q.ui.toast("Sauvegarde importée.", "ok");
-            Q.router.go("map");
-          });
+        Q.ui.confirmer(
+          "Restaurer cette sauvegarde ?",
+          "Un nouveau profil sera créé et deviendra actif. Les profils existants sont conservés.",
+          "Restaurer"
+        ).then(function (ok) {
+          if (!ok) return;
+          var id = donnees.profils ? Q.jeu.importerStore(donnees) : Q.jeu.importerEtat(donnees);
+          if (!id) { Q.ui.toast("Ce fichier ne contient pas de profil.", "ko"); return; }
+          Q.ui.toast("Profil restauré : " + Q.etat.profil.nom, "ok");
+          Q.router.go("home");
+        });
       };
       lecteur.readAsText(f);
+      importInput.value = "";
     });
 
     var verrouiller = el.querySelector('[data-action="verrouiller"]');
@@ -247,13 +270,17 @@
 
     var reset = el.querySelector('[data-action="reset"]');
     if (reset) reset.addEventListener("click", function () {
-      Q.ui.confirmer("Tout effacer ?", "Progression, or, badges et sauvegarde seront définitivement supprimés.", "Tout effacer")
-        .then(function (ok) {
-          if (!ok) return;
-          Q.jeu.reinitialiser();
-          Q.parentDebloque = false;
-          Q.router.go("home");
-        });
+      var nom = (Q.etat.profil && Q.etat.profil.nom) || "ce joueur";
+      Q.ui.confirmer(
+        "Supprimer " + nom + " ?",
+        "Sa progression sera placée dans la corbeille : tu pourras la restaurer depuis l'écran des joueurs. Les autres profils sont conservés.",
+        "Supprimer"
+      ).then(function (ok) {
+        if (!ok) return;
+        var suivant = Q.jeu.reinitialiser();
+        Q.parentDebloque = false;
+        Q.router.go(suivant ? "profils" : "home");
+      });
     });
   }
 })(window.Quete);

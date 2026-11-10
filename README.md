@@ -25,6 +25,41 @@ C'est tout. Aucune installation, aucun serveur, aucune connexion : le jeu foncti
 > Sur Windows, si le double-clic ouvre un éditeur de texte, faites un clic droit sur
 > `index.html` → **Ouvrir avec** → votre navigateur.
 
+## Plusieurs joueurs sur le même appareil
+
+Au démarrage, l'écran **« Qui joue ? »** liste les profils enregistrés (avatar, prénom,
+étoiles, pièces, dernière partie). Chaque profil a sa propre progression : **changer de
+joueur ne supprime rien**.
+
+- **Nouveau joueur** crée un profil supplémentaire.
+- **Restaurer une sauvegarde** importe un fichier JSON exporté depuis l'espace parent
+  (ou depuis un autre appareil) dans un **nouveau profil**, sans écraser les existants.
+- Un profil supprimé depuis l'espace parent passe dans la **corbeille** : il peut être
+  restauré depuis l'écran des joueurs.
+
+La sauvegarde est locale (`localStorage`) et propre à chaque navigateur **et** à chaque
+origine : un profil créé en ouvrant `index.html` en local n'apparaît pas sur la version
+GitHub Pages, et inversement. Pensez à exporter régulièrement depuis l'espace parent.
+
+### Sécurité des données
+
+- La progression est enregistrée après chaque action, et une dernière fois quand l'onglet
+  est fermé ou passe en arrière-plan.
+- **Changer de joueur ne supprime plus rien.** Chaque profil est indépendant.
+- La suppression d'un joueur passe par une **corbeille** (restaurable), et non plus par
+  une effacement définitif.
+- **Importer** une sauvegarde crée un **nouveau profil** : les profils existants ne sont
+  jamais écrasés.
+- L'espace parent peut **exporter le joueur courant ou tous les joueurs**.
+- Une sauvegarde illisible est **mise de côté** dans le navigateur avant de repartir de
+  zéro ; un avertissement s'affiche.
+- Si le navigateur refuse d'écrire (quota, mode privé), l'application le signale au lieu
+  de perdre les données en silence.
+
+Risques restants, hors de contrôle de l'application : navigation privée, effacement des
+données du navigateur, changement d'appareil ou d'origine, et perte de l'appareil.
+**Le seul vrai filet de sécurité reste l'export JSON régulier.**
+
 ## Ce qu'on y apprend
 
 | Île | Temps | Verbes travaillés |
@@ -81,8 +116,10 @@ Vous y trouverez :
   parmi une liste : temps d'écran, film, sortie, cadeau, balade…) ;
 - un bouton **Verrouiller l'espace** : le code sera redemandé au prochain appui long,
   sans attendre de fermer le jeu ;
-- l'export et l'import de la sauvegarde (fichier JSON) ;
-- le changement de code et l'effacement complet.
+- l'export du joueur courant **ou de tous les joueurs**, et l'import d'une sauvegarde
+  (l'import crée un nouveau profil, sans écraser les autres) ;
+- le changement de code et la suppression du joueur courant (placé dans la corbeille,
+  restaurable depuis l'écran des joueurs).
 
 Le code PIN évite les clics par erreur ; il ne protège pas contre un enfant déterminé.
 

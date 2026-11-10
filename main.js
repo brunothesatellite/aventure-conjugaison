@@ -15,7 +15,9 @@
   };
 
   function ecranInitial() {
-    if (!Q.jeu.aProfil()) return "home";
+    if (!Q.jeu.aProfil()) {
+      return Q.jeu.listerProfils().length ? "profils" : "home";
+    }
     var q = Q.etat.quest;
     if (q && !q.fini && q.questions && q.questions.length) return "quete";
     return "map";
@@ -31,8 +33,33 @@
         Q.ui.toast("La sauvegarde est bloquée par le navigateur.", "ko");
       }, 900);
     }
+    if (Q.storage.corruption) {
+      setTimeout(function () {
+        Q.ui.toast("Une sauvegarde illisible a été mise de côté. L'ancienne version reste dans le navigateur.", "ko");
+      }, 1400);
+    }
     Q.router.go(ecranInitial());
   }
+
+  /* Filet de sécurité : on sauvegarde quand l'onglet se ferme ou passe
+     en arrière-plan (mobile). Les écritures sont synchrones. */
+  window.addEventListener("beforeunload", function () {
+    if (Q.jeu.aProfil()) Q.jeu.sauver();
+  });
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden && Q.jeu.aProfil()) Q.jeu.sauver();
+  });
+
+  /* Une autre fenêtre a écrit : on prévient, et la sauvegarde fusionne
+     au moins les profils qu'elle ne connaît pas. */
+  window.addEventListener("storage", function (e) {
+    if (e.key !== "quete-verbes:v2") return;
+    Q.sauvegardeExterne = true;
+    if (!Q.sauvegardeExterneAvertie && Q.ui && Q.ui.toast) {
+      Q.sauvegardeExterneAvertie = true;
+      Q.ui.toast("Une autre fenêtre a modifié la sauvegarde. Évite de jouer dans deux onglets à la fois.", "ko");
+    }
+  });
 
   /* Navigation globale : tout élément [data-nav] change d'écran. */
   document.addEventListener("click", function (e) {
