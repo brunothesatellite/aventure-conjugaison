@@ -12,6 +12,13 @@
       futur: { je: "ferai", tu: "feras", il: "fera", elle: "fera", nous: "ferons", vous: "ferez", ils: "feront", elles: "feront" },
       passe_compose: { je: "ai fait", tu: "as fait", il: "a fait", elle: "a fait", nous: "avons fait", vous: "avez fait", ils: "ont fait", elles: "ont fait" }
     },
+    radicaux: {
+      present: {
+        je: "fai", tu: "fai", il: "fai", elle: "fai",
+        nous: "fais",
+        ils: "fon", elles: "fon"
+      }
+    },
     pieges: ["vous faites (pas « vous faisez »)", "ils font"],
     note: "Vous faites : c'est une forme irrégulière à retenir par cœur."
   });

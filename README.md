@@ -41,7 +41,9 @@ avec un travail explicite des régularités et des exceptions.
 ## Comment se passe une quête
 
 Une quête = **7 questions** : deux révisions espacées, l'entraînement du jour, puis un défi
-qui mélange les temps déjà vus. Deux types d'exercices alternent :
+qui mélange les temps **déjà travaillés** (au moins un niveau terminé dans l'île concernée).
+Un temps seulement débloqué mais jamais joué n'apparaît pas : un bandeau « Défi » l'annonce
+quand la dernière question change de temps. Deux types d'exercices alternent :
 
 - **choix multiple** entre 3 formes : une autre personne du verbe, un autre temps déjà vu,
   ou une faute typique (jamais de forme inventée) ;
@@ -159,6 +161,7 @@ utilisable dans un hook Git.
 |---|---|
 | `node tools/lint-content.js` | Valide verbes, phrases, aventures et exercices |
 | `node tools/audit-distracteurs.js` | Relit les mauvais choix des 170 questions (familles A/B/C) |
+| `node tools/audit-assemblage.js` | Relit les questions d'assemblage : radicaux, terminaisons, QCM |
 | `node tools/preparer-icones.js` | Retire le fond plein des SVG game-icons (idempotent) |
 | `node tools/generer-icones-inline.js` | Régénère les pictos intégrés (`assets/icons-inline.js`) |
 | `node tools/generer-manifest.js` | Régénère `assets/manifest.json` et `CREDITS.md` |

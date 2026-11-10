@@ -1,11 +1,15 @@
 /* ============================================================
    morphologie.js — découpage radical / terminaison
-   Sert au type d'exercice « assemblage » et aux distracteurs.
+   Sert au type d'exercice « assemblage ».
 
    Lot 1 : seules les formes dont le découpage est CERTIFIÉ peuvent
    devenir des questions d'assemblage. Les autres basculent en QCM.
    Une terminaison proposée doit toujours partager le radical
    affiché : on ne pioche plus dans un pool global.
+
+   Lot 2 : les verbes irréguliers déclarent leurs radicaux dans
+   content/verbs/*.js (champ « radicaux »), et être déclare « ét »
+   pour l'imparfait.
    ============================================================ */
 (function (Q) {
   "use strict";
@@ -17,16 +21,6 @@
   var FUTUR = {
     etre: "ser", avoir: "aur", aller: "ir", faire: "fer", dire: "dir",
     venir: "viendr", prendre: "prendr", voir: "verr", pouvoir: "pourr", vouloir: "voudr"
-  };
-
-  /* Terminaisons certifiées, par groupe pour le présent. */
-  var FINS = {
-    present: {
-      1: { je: "e", tu: "es", il: "e", elle: "e", nous: "ons", vous: "ez", ils: "ent", elles: "ent" },
-      2: { je: "is", tu: "is", il: "it", elle: "it", nous: "issons", vous: "issez", ils: "issent", elles: "issent" }
-    },
-    imparfait: { je: "ais", tu: "ais", il: "ait", elle: "ait", nous: "ions", vous: "iez", ils: "aient", elles: "aient" },
-    futur: { je: "ai", tu: "as", il: "a", elle: "a", nous: "ons", vous: "ez", ils: "ont", elles: "ont" }
   };
 
   /* Ancien découpage heuristique, conservé pour compatibilité.
@@ -96,8 +90,17 @@
 
   /* ---------- Découpage certifié ---------- */
 
+  /* Radical déclaré dans le contenu du verbe (verbes irréguliers). */
+  function radicalCurated(temps, personne, verbe) {
+    var table = verbe && verbe.radicaux && verbe.radicaux[temps];
+    return (table && table[personne]) || null;
+  }
+
   function radicalPour(temps, personne, verbe) {
     if (!verbe || !verbe.infinitif) return null;
+
+    var cur = radicalCurated(temps, personne, verbe);
+    if (cur) return cur;
 
     if (temps === "present") {
       if (verbe.groupe === 1) {
@@ -109,11 +112,11 @@
         return r1;
       }
       if (verbe.groupe === 2) return verbe.infinitif.slice(0, -2);
-      return null; /* présent des irréguliers : QCM */
+      return null; /* irrégulier sans radical déclaré : QCM */
     }
 
     if (temps === "imparfait") {
-      if (verbe.id === "etre") return null; /* radical « ét » : lot 2 */
+      if (verbe.id === "etre") return null; /* sans radical déclaré */
       var nous = verbe.formes && verbe.formes.present && verbe.formes.present.nous;
       if (!nous || nous.slice(-3) !== "ons") return null;
       var r = nous.slice(0, -3);
@@ -132,23 +135,15 @@
     return null;
   }
 
-  function finPour(temps, personne, verbe) {
-    if (temps === "present") {
-      if (verbe.groupe === 1) return FINS.present[1][personne] || null;
-      if (verbe.groupe === 2) return FINS.present[2][personne] || null;
-      return null;
-    }
-    return (FINS[temps] && FINS[temps][personne]) || null;
-  }
-
-  /* Découpe une forme si, et seulement si, elle suit une règle
-     explicite (groupe 1/2 au présent, imparfait régulier, futur). */
+  /* Découpe une forme quand le radical est certifié (règle ou table).
+     La terminaison est simplement ce qui reste après le radical. */
   function decoupageRegulier(temps, personne, verbe) {
     var radical = radicalPour(temps, personne, verbe);
-    var fin = finPour(temps, personne, verbe);
-    if (!radical || !fin) return null;
+    if (!radical) return null;
     var forme = verbe.formes && verbe.formes[temps] && verbe.formes[temps][personne];
-    if (!forme || norm(forme) !== norm(radical + fin)) return null;
+    if (!forme || norm(forme).indexOf(norm(radical)) !== 0) return null;
+    var fin = forme.slice(radical.length);
+    if (!fin) return null;
     return { radical: radical, terminaison: fin };
   }
 
@@ -165,12 +160,12 @@
 
   function tempsDejaVus(phrase) {
     var ordre = (typeof Q.curriculum === "function" && Q.curriculum().ordre) || [];
-    var avecJeu = typeof Q.jeu !== "undefined" && Q.jeu && typeof Q.jeu.ileDebloquee === "function";
+    var avecJeu = typeof Q.jeu !== "undefined" && Q.jeu && typeof Q.jeu.ileCommencee === "function";
     var out = [];
     ordre.forEach(function (id) {
       var a = typeof Q.aventure === "function" ? Q.aventure(id) : null;
       if (!a || !a.temps || a.temps === phrase.temps) return;
-      if (avecJeu && !Q.jeu.ileDebloquee(id)) return;
+      if (avecJeu && !Q.jeu.ileCommencee(id)) return;
       if (out.indexOf(a.temps) === -1) out.push(a.temps);
     });
     if (!avecJeu) {
@@ -190,6 +185,7 @@
     }
     if (/[^s]s$/.test(fin) && fin.length > 1) ajouter(fin.slice(0, -1));
     if (/t$/.test(fin) && fin.length > 1) ajouter(fin.slice(0, -1));
+    if (fin === "x") { ajouter("s"); ajouter("t"); } /* je peux → je peus / je peut */
     if (/ez$/.test(fin) && verbe && verbe.groupe === 1) {
       ajouter(fin.slice(0, -2) + "er");
       ajouter(fin.slice(0, -2) + "é");

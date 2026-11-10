@@ -126,6 +126,27 @@ Object.keys(Q.content.verbs).forEach(function (id) {
       }
     }
   });
+
+  /* Radicaux déclarés (verbes irréguliers) : ils doivent préfixer
+     exactement la forme et laisser une terminaison non vide. */
+  if (v.radicaux) {
+    Object.keys(v.radicaux).forEach(function (t) {
+      if (!v.formes[t]) {
+        erreur("Verbe " + id + " : radicaux pour un temps inconnu " + t);
+        return;
+      }
+      PERSONNES.forEach(function (p) {
+        var rad = v.radicaux[t][p];
+        if (!rad) return;
+        var f = v.formes[t][p];
+        if (!f || f.indexOf(rad) !== 0) {
+          erreur("Verbe " + id + " : radical " + t + "/" + p + " (« " + rad + " ») ne préfixe pas « " + f + " »");
+        } else if (f === rad) {
+          erreur("Verbe " + id + " : radical " + t + "/" + p + " sans terminaison");
+        }
+      });
+    });
+  }
 });
 
 /* 2. Phrases : forme attendue et pronom */
@@ -182,6 +203,7 @@ function verifierExercices(valeur, etiquette, toutesIles) {
   Q.jeu.ileDebloquee = toutesIles
     ? function () { return true; }
     : function (id) { return id === Q.curriculum().ordre[0]; };
+  Q.jeu.ileCommencee = Q.jeu.ileDebloquee;
   figerAleatoire(valeur);
   toutes.forEach(function (p) {
     var res = Q.distracteurs.verifier(p);

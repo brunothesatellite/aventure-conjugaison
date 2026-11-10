@@ -12,6 +12,13 @@
       futur: { je: "viendrai", tu: "viendras", il: "viendra", elle: "viendra", nous: "viendrons", vous: "viendrez", ils: "viendront", elles: "viendront" },
       passe_compose: { je: "suis venu", tu: "es venu", il: "est venu", elle: "est venu", nous: "sommes venus", vous: "êtes venus", ils: "sont venus", elles: "sont venus" }
     },
+    radicaux: {
+      present: {
+        je: "vien", tu: "vien", il: "vien", elle: "vien",
+        nous: "ven", vous: "ven",
+        ils: "vienn", elles: "vienn"
+      }
+    },
     pieges: ["ils viennent", "je viendrai (futur)"],
     note: "Venir change de radical : je viens, nous venons, ils viennent."
   });

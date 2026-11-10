@@ -152,6 +152,13 @@
       return jeu.etoilesIle(ordre[pos - 1]) >= Q.curriculum().prerequisIle;
     },
 
+    /* Une île est « commencée » quand l'enfant y a terminé au moins
+       un niveau. Sert au défi mêlé : on ne mélange pas un temps
+       seulement débloqué mais jamais travaillé. */
+    ileCommencee: function (aventureId) {
+      return jeu.etoilesIle(aventureId) >= 1;
+    },
+
     niveauDebloque: function (aventureId, niveau) {
       var a = Q.aventure(aventureId);
       if (!a) return false;

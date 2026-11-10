@@ -12,6 +12,13 @@
       futur: { je: "voudrai", tu: "voudras", il: "voudra", elle: "voudra", nous: "voudrons", vous: "voudrez", ils: "voudront", elles: "voudront" },
       passe_compose: { je: "ai voulu", tu: "as voulu", il: "a voulu", elle: "a voulu", nous: "avons voulu", vous: "avez voulu", ils: "ont voulu", elles: "ont voulu" }
     },
+    radicaux: {
+      present: {
+        je: "veu", tu: "veu", il: "veu", elle: "veu",
+        nous: "voul", vous: "voul",
+        ils: "veul", elles: "veul"
+      }
+    },
     pieges: ["je veux / nous voulons", "ils veulent"],
     note: "Vouloir : je veux, nous voulons, ils veulent. Le radical change au pluriel."
   });

@@ -22,6 +22,39 @@
     if (!bonne) return "";
 
     if (q.type === "assemblage") {
+      var autres = (q.options || []).filter(function (o) {
+        return String(o).toLowerCase() !== bonne.toLowerCase();
+      }).map(function (o) { return String(o).toLowerCase(); });
+      if (!autres.length) return "";
+
+      var n = bonne.length;
+      var premiere = bonne.charAt(0).toLowerCase();
+      var derniere = bonne.slice(-1).toLowerCase();
+
+      /* D'abord la première lettre : souvent suffisante entre
+         terminaisons (-ons / -ez / -ent). */
+      if (autres.every(function (o) { return o.charAt(0) !== premiere; })) {
+        return "La terminaison commence par « " + bonne.charAt(0) + " ».";
+      }
+
+      var longueurUnique = autres.every(function (o) { return o.length !== n; });
+      var finUnique = autres.every(function (o) { return o.slice(-1) !== derniere; });
+
+      /* Longueur + dernière lettre : très discriminant sans donner
+         toute la terminaison (ex. « 2 lettres et finit par s »). */
+      if (longueurUnique && finUnique) {
+        return "La terminaison a " + n + " lettres et se termine par « " + bonne.slice(-1) + " ».";
+      }
+      if (longueurUnique) return "La terminaison a " + n + " lettres.";
+      if (finUnique) return "La terminaison se termine par « " + bonne.slice(-1) + " ».";
+
+      /* Sinon, la plus petite fin qui la distingue des autres. */
+      for (var k = 1; k <= bonne.length; k++) {
+        var fin = bonne.slice(-k);
+        if (autres.every(function (o) { return o.slice(-k) !== fin.toLowerCase(); })) {
+          return "La terminaison se termine par « " + fin + " ».";
+        }
+      }
       return "La terminaison commence par « " + bonne.charAt(0) + " ».";
     }
 
@@ -82,6 +115,10 @@
             '<span class="discret">' + Q.ui.tempsLabel(q.temps) + "</span>" +
             '<span class="discret">' + (SOURCE_LABEL[q.source] || "") + "</span>" +
           "</div>" +
+
+          (q.source === "defi"
+            ? '<div class="encart encart--defi">Défi : une question sur un temps que tu as déjà travaillé.</div>'
+            : "") +
 
           '<p class="texte-phrase" id="phrase">' +
             Q.ui.phraseHTML(q.texte, { reponse: q.termine ? q.reponse : null }) +

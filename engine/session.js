@@ -68,9 +68,10 @@
         questions.push(Q.exercices.construire(c, "cible"));
       }
 
-      /* 3. Défi mêlé : un autre temps déjà débloqué */
+      /* 3. Défi mêlé : un autre temps DÉJÀ TRAVAILLÉ (au moins un
+         niveau terminé dans son île), pas seulement débloqué. */
       var autreTemps = Q.curriculum().ordre
-        .filter(function (id) { return id !== options.aventureId && Q.jeu.ileDebloquee(id); })
+        .filter(function (id) { return id !== options.aventureId && Q.jeu.ileCommencee(id); })
         .map(function (id) { return Q.aventure(id).temps; })
         .filter(function (t) { return t !== a.temps; });
       if (autreTemps.length) {

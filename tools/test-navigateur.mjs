@@ -343,7 +343,28 @@ const rapport = await evaluate(`(async () => {
   await pause(80);
   document.querySelector('[data-aide="lettre"]').click();
   await pause(60);
-  ok(/terminaison commence par « o »/.test(dernierToast()), "perroquet : coup de pouce sur la terminaison");
+  ok(/se termine par « ns »/.test(dernierToast()), "perroquet : coup de pouce sur la terminaison");
+
+  // Défi mêlé : uniquement un temps déjà travaillé, pas seulement débloqué.
+  Q.etat.progression = {};
+  const nivPres = Q.aventure("ile-present").niveaux;
+  [3, 3, 2, 0].forEach(function (n, i) {
+    if (nivPres[i]) Q.etat.progression[nivPres[i].id] = { etoiles: n, meilleur: 7, quetes: 1 };
+  });
+  const qSansDefi = Q.session.construire({ aventureId: "ile-present", niveauId: "present-1", mode: "niveau" });
+  ok(qSansDefi.questions.every(function (q) { return q.temps === "present"; }),
+    "défi : pas de temps seulement débloqué");
+  const nivImp = Q.aventure("vallee-souvenirs").niveaux[0].id;
+  Q.etat.progression[nivImp] = { etoiles: 1, meilleur: 4, quetes: 1 };
+  const qAvecDefi = Q.session.construire({ aventureId: "ile-present", niveauId: "present-1", mode: "niveau" });
+  const questionsDefi = qAvecDefi.questions.filter(function (q) { return q.source === "defi"; });
+  ok(questionsDefi.length === 1 && questionsDefi[0].temps === "imparfait",
+    "défi : temps déjà travaillé accepté");
+  Q.etat.quest = qAvecDefi;
+  Q.etat.quest.index = qAvecDefi.questions.length - 1;
+  Q.router.go("quete");
+  await pause(80);
+  ok(!!document.querySelector(".encart--defi"), "défi : bandeau explicatif affiché");
 
   // Lot 1 assemblage : uniquement des terminaisons compatibles avec le radical.
   const vraiHasard = Math.random;

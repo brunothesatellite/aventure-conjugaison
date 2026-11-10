@@ -12,6 +12,13 @@
       futur: { je: "verrai", tu: "verras", il: "verra", elle: "verra", nous: "verrons", vous: "verrez", ils: "verront", elles: "verront" },
       passe_compose: { je: "ai vu", tu: "as vu", il: "a vu", elle: "a vu", nous: "avons vu", vous: "avez vu", ils: "ont vu", elles: "ont vu" }
     },
+    radicaux: {
+      present: {
+        je: "voi", tu: "voi", il: "voi", elle: "voi",
+        nous: "voy", vous: "voy",
+        ils: "voi", elles: "voi"
+      }
+    },
     pieges: ["nous voyons (un y)", "je verrai (deux r)"],
     note: "Voir : nous voyons avec un y, mais je verrai au futur avec deux r."
   });

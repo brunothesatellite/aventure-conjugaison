@@ -12,6 +12,13 @@
       futur: { je: "prendrai", tu: "prendras", il: "prendra", elle: "prendra", nous: "prendrons", vous: "prendrez", ils: "prendront", elles: "prendront" },
       passe_compose: { je: "ai pris", tu: "as pris", il: "a pris", elle: "a pris", nous: "avons pris", vous: "avez pris", ils: "ont pris", elles: "ont pris" }
     },
+    radicaux: {
+      present: {
+        je: "prend", tu: "prend",
+        nous: "pren", vous: "pren",
+        ils: "prenn", elles: "prenn"
+      }
+    },
     pieges: ["je prends (avec un d)", "ils prennent (deux n)"],
     note: "Prendre : un d au singulier (je prends, il prend), deux n au pluriel (ils prennent)."
   });

@@ -12,6 +12,13 @@
       futur: { je: "dirai", tu: "diras", il: "dira", elle: "dira", nous: "dirons", vous: "direz", ils: "diront", elles: "diront" },
       passe_compose: { je: "ai dit", tu: "as dit", il: "a dit", elle: "a dit", nous: "avons dit", vous: "avez dit", ils: "ont dit", elles: "ont dit" }
     },
+    radicaux: {
+      present: {
+        je: "di", tu: "di", il: "di", elle: "di",
+        nous: "dis",
+        ils: "dis", elles: "dis"
+      }
+    },
     pieges: ["vous dites (pas « vous disez »)", "ils disent"],
     note: "Vous dites : c'est le grand piège du verbe dire."
   });

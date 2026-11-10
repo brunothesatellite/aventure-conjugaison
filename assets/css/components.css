@@ -1019,6 +1019,14 @@
 }
 .encart--attention { border-color: #f0c88f; background: #fff7e8; color: #7c4a10; }
 .encart--info { border-color: #a8d8e0; background: #eefafc; color: #08505c; }
+.encart--defi {
+  border-style: solid;
+  border-color: var(--or);
+  background: #fff4d6;
+  color: var(--bois-fonce);
+  font-weight: 700;
+  margin: 0 0 12px;
+}
 
 .espace-haut { margin-top: 18px; }
 .espace-haut-sm { margin-top: 10px; }
