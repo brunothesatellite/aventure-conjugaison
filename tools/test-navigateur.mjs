@@ -142,6 +142,11 @@ const rapport = await evaluate(`(async () => {
   ok(Math.max.apply(null, prixDeco) >= 1500, "au moins un déguisement très cher");
   ok(Q.catalogue.cosmetiques.every((c) => !!c.icone), "chaque déguisement a une icône");
 
+  ok(Q.formePC(Q.verbe("aller"), "elle") === "est allée" &&
+    Q.formePC(Q.verbe("arriver"), "elles") === "sont arrivées" &&
+    Q.formePC(Q.verbe("venir"), "elle") === "est venue",
+    "accords être au passé composé");
+
   Q.jeu.nouveau("Léa", "magicienne");
   ok(Q.jeu.aProfil(), "profil créé");
   Q.router.go("map");

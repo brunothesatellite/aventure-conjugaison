@@ -107,18 +107,25 @@ Object.keys(Q.content.verbs).forEach(function (id) {
   TEMPS.forEach(function (t) {
     if (!v.formes[t]) return;
     var formes = v.formes[t];
-    /* Les variantes il/elle et ils/elles doivent être identiques au présent. */
-    if (formes.il !== formes.elle) erreur("Verbe " + id + " : " + t + " il ≠ elle");
-    if (formes.ils !== formes.elles && t !== "passe_compose") {
-      attention("Verbe " + id + " : " + t + " ils ≠ elles");
+    /* Les variantes il/elle et ils/elles sont identiques hors passé
+       composé. Au passé composé, l'accord avec être les distingue. */
+    if (t !== "passe_compose") {
+      if (formes.il !== formes.elle) erreur("Verbe " + id + " : " + t + " il ≠ elle");
+      if (formes.ils !== formes.elles) {
+        attention("Verbe " + id + " : " + t + " ils ≠ elles");
+      }
     }
-    /* Cohérence de l'auxiliaire au passé composé. */
+    /* Cohérence de l'auxiliaire au passé composé et accord du participe. */
     if (t === "passe_compose") {
       var aux = { avoir: /^(ai|as|a|avons|avez|ont)\b/, etre: /^(suis|es|est|sommes|êtes|sont)\b/ }[v.auxiliaire];
       if (aux) {
         PERSONNES.forEach(function (p) {
           if (!aux.test(formes[p])) {
             erreur("Verbe " + id + " : passé composé de " + p + " (« " + formes[p] + " ») incohérent avec l'auxiliaire " + v.auxiliaire);
+          }
+          var attendu = Q.formePC(v, p);
+          if (attendu && formes[p] !== attendu) {
+            erreur("Verbe " + id + " : accord du passé composé " + p + " (« " + formes[p] + " », attendu « " + attendu + " »)");
           }
         });
       } else {

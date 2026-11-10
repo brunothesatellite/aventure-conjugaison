@@ -10,7 +10,7 @@
       present: { je: "vais", tu: "vas", il: "va", elle: "va", nous: "allons", vous: "allez", ils: "vont", elles: "vont" },
       imparfait: { je: "allais", tu: "allais", il: "allait", elle: "allait", nous: "allions", vous: "alliez", ils: "allaient", elles: "allaient" },
       futur: { je: "irai", tu: "iras", il: "ira", elle: "ira", nous: "irons", vous: "irez", ils: "iront", elles: "iront" },
-      passe_compose: { je: "suis allé", tu: "es allé", il: "est allé", elle: "est allé", nous: "sommes allés", vous: "êtes allés", ils: "sont allés", elles: "sont allés" }
+      passe_compose: { je: "suis allé", tu: "es allé", il: "est allé", elle: "est allée", nous: "sommes allés", vous: "êtes allés", ils: "sont allés", elles: "sont allées" }
     },
     radicaux: { present: { nous: "all", vous: "all" } },
     pieges: ["je vais / nous allons", "j'irai (futur)"],

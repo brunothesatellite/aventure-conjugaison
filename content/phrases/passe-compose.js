@@ -34,13 +34,13 @@
     { id: "avoir-pc-ils-01", verbe: "avoir", temps: "passe_compose", personne: "ils", difficulte: 2, texte: "Ils {trou} beaucoup de chance." },
 
     /* Auxiliaire être : l'accord est explicitement travaillé */
-    { id: "arriver-pc-elle-01", verbe: "arriver", temps: "passe_compose", personne: "elle", difficulte: 3, texte: "Elle {trou} la première sur l'île.", reponse: "est arrivée", tags: ["etre", "accord"] },
-    { id: "arriver-pc-elles-01", verbe: "arriver", temps: "passe_compose", personne: "elles", difficulte: 3, texte: "Elles {trou} avant la nuit.", reponse: "sont arrivées", tags: ["etre", "accord"] },
+    { id: "arriver-pc-elle-01", verbe: "arriver", temps: "passe_compose", personne: "elle", difficulte: 3, texte: "Elle {trou} la première sur l'île.", tags: ["etre", "accord"] },
+    { id: "arriver-pc-elles-01", verbe: "arriver", temps: "passe_compose", personne: "elles", difficulte: 3, texte: "Elles {trou} avant la nuit.", tags: ["etre", "accord"] },
     { id: "arriver-pc-ils-01", verbe: "arriver", temps: "passe_compose", personne: "ils", difficulte: 2, texte: "Ils {trou} au port avant midi.", tags: ["etre"] },
-    { id: "aller-pc-je-01", verbe: "aller", temps: "passe_compose", personne: "je", difficulte: 2, texte: "Je {trou} voir le vieux phare.", tags: ["etre"] },
-    { id: "aller-pc-elles-01", verbe: "aller", temps: "passe_compose", personne: "elles", difficulte: 3, texte: "Elles {trou} à la taverne du port.", reponse: "sont allées", tags: ["etre", "accord"] },
+    { id: "aller-pc-ils-01", verbe: "aller", temps: "passe_compose", personne: "ils", difficulte: 2, texte: "Ils {trou} voir le vieux phare.", tags: ["etre"] },
+    { id: "aller-pc-elles-01", verbe: "aller", temps: "passe_compose", personne: "elles", difficulte: 3, texte: "Elles {trou} à la taverne du port.", tags: ["etre", "accord"] },
     { id: "venir-pc-il-01", verbe: "venir", temps: "passe_compose", personne: "il", difficulte: 2, texte: "Il {trou} nous aider hier soir.", tags: ["etre"] },
-    { id: "venir-pc-elles-01", verbe: "venir", temps: "passe_compose", personne: "elles", difficulte: 3, texte: "Elles {trou} avec un message.", reponse: "sont venues", tags: ["etre", "accord"] },
+    { id: "venir-pc-elles-01", verbe: "venir", temps: "passe_compose", personne: "elles", difficulte: 3, texte: "Elles {trou} avec un message.", tags: ["etre", "accord"] },
 
     { id: "jouer-pc-je-01", verbe: "jouer", temps: "passe_compose", personne: "je", difficulte: 1, texte: "J'{trou} aux cartes avec les marins.", tags: ["elision"] },
     { id: "finir-pc-ils-01", verbe: "finir", temps: "passe_compose", personne: "ils", difficulte: 1, texte: "Ils {trou} leur repas en silence." },

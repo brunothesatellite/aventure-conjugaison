@@ -4,9 +4,9 @@
    ============================================================ */
 (function (Q) {
   Q.registerPhrases("futur", [
-    { id: "etre-futur-je-01", verbe: "etre", temps: "futur", personne: "je", difficulte: 2, texte: "Je {trou} le roi de ce royaume !", tags: ["auxiliaire", "radical"] },
-    { id: "etre-futur-tu-01", verbe: "etre", temps: "futur", personne: "tu", difficulte: 2, texte: "Tu {trou} récompensé pour ton courage.", tags: ["auxiliaire"] },
-    { id: "etre-futur-nous-01", verbe: "etre", temps: "futur", personne: "nous", difficulte: 2, texte: "Nous {trou} bientôt arrivés à bon port.", tags: ["auxiliaire"] },
+    { id: "etre-futur-je-01", verbe: "etre", temps: "futur", personne: "je", difficulte: 2, texte: "Je {trou} à la tête du royaume !", tags: ["auxiliaire", "radical"] },
+    { id: "etre-futur-tu-01", verbe: "etre", temps: "futur", personne: "tu", difficulte: 2, texte: "Tu {trou} notre capitaine pour cette traversée.", tags: ["auxiliaire"] },
+    { id: "etre-futur-nous-01", verbe: "etre", temps: "futur", personne: "nous", difficulte: 2, texte: "Nous {trou} bientôt à bon port.", tags: ["auxiliaire"] },
     { id: "avoir-futur-il-01", verbe: "avoir", temps: "futur", personne: "il", difficulte: 2, texte: "Il {trou} droit à la couronne.", tags: ["auxiliaire", "radical"] },
     { id: "avoir-futur-vous-01", verbe: "avoir", temps: "futur", personne: "vous", difficulte: 2, texte: "Vous {trou} de l'or en abondance.", tags: ["auxiliaire"] },
     { id: "avoir-futur-ils-01", verbe: "avoir", temps: "futur", personne: "ils", difficulte: 2, texte: "Ils {trou} la chance de voir la sirène.", tags: ["auxiliaire"] },
@@ -15,7 +15,7 @@
     { id: "aller-futur-nous-01", verbe: "aller", temps: "futur", personne: "nous", difficulte: 2, texte: "Nous {trou} explorer les îles du sud." },
     { id: "aller-futur-ils-01", verbe: "aller", temps: "futur", personne: "ils", difficulte: 2, texte: "Ils {trou} chercher le trésor du volcan." },
 
-    { id: "faire-futur-tu-01", verbe: "faire", temps: "futur", personne: "tu", difficulte: 3, texte: "Tu {trou} un excellent capitaine.", tags: ["radical"] },
+    { id: "faire-futur-tu-01", verbe: "faire", temps: "futur", personne: "tu", difficulte: 3, texte: "Tu {trou} partie de l'équipage.", tags: ["radical"] },
     { id: "faire-futur-ils-01", verbe: "faire", temps: "futur", personne: "ils", difficulte: 3, texte: "Ils {trou} route vers l'archipel." },
 
     { id: "dire-futur-vous-01", verbe: "dire", temps: "futur", personne: "vous", difficulte: 2, texte: "Vous {trou} au roi ce que vous avez vu." },
@@ -41,15 +41,15 @@
 
     { id: "finir-futur-tu-01", verbe: "finir", temps: "futur", personne: "tu", difficulte: 2, texte: "Tu {trou} ta carte avant la nuit." },
     { id: "choisir-futur-elle-01", verbe: "choisir", temps: "futur", personne: "elle", difficulte: 2, texte: "Elle {trou} une route plus sûre." },
-    { id: "grandir-futur-ils-01", verbe: "grandir", temps: "futur", personne: "ils", difficulte: 2, texte: "Ils {trou} en courage au fil des saisons." },
+    { id: "grandir-futur-ils-01", verbe: "grandir", temps: "futur", personne: "ils", difficulte: 2, texte: "Ils {trou} avec courage au fil des saisons." },
 
-    { id: "trouver-futur-vous-01", verbe: "trouver", temps: "futur", personne: "vous", difficulte: 1, texte: "Vous {trou} le trésor, j'en suis sûr." },
+    { id: "trouver-futur-vous-01", verbe: "trouver", temps: "futur", personne: "vous", difficulte: 1, texte: "Vous {trou} le trésor, c'est certain." },
     { id: "voler-futur-tu-01", verbe: "voler", temps: "futur", personne: "tu", difficulte: 1, texte: "Tu {trou} vers l'île au lever du jour." },
     { id: "arriver-futur-nous-01", verbe: "arriver", temps: "futur", personne: "nous", difficulte: 1, texte: "Nous {trou} avant la tempête." },
 
     { id: "jouer-futur-tu-01", verbe: "jouer", temps: "futur", personne: "tu", difficulte: 1, texte: "Tu {trou} au prochain tournoi." },
     { id: "parler-futur-nous-01", verbe: "parler", temps: "futur", personne: "nous", difficulte: 1, texte: "Nous {trou} de notre voyage." },
-    { id: "trouver-futur-je-01", verbe: "trouver", temps: "futur", personne: "je", difficulte: 1, texte: "Je {trou} le chemin tout seul." },
+    { id: "trouver-futur-je-01", verbe: "trouver", temps: "futur", personne: "je", difficulte: 1, texte: "Je {trou} le chemin sans aide." },
     { id: "finir-futur-je-01", verbe: "finir", temps: "futur", personne: "je", difficulte: 2, texte: "Je {trou} ma carte du trésor." },
     { id: "choisir-futur-vous-01", verbe: "choisir", temps: "futur", personne: "vous", difficulte: 2, texte: "Vous {trou} le bon port." },
     { id: "grandir-futur-tu-01", verbe: "grandir", temps: "futur", personne: "tu", difficulte: 2, texte: "Tu {trou} encore cette année." },

@@ -109,6 +109,23 @@
     return v.formes[phrase.temps][phrase.personne] || "";
   };
 
+  /* Forme correcte du passé composé, avec l'accord du participe
+     lorsque l'auxiliaire est être. Sert au lint et aux contrôles. */
+  Q.formePC = function (verbe, personne) {
+    if (!verbe || !verbe.formes || !verbe.formes.passe_compose) return null;
+    var actuel = verbe.formes.passe_compose[personne];
+    var participe = verbe.participe;
+    if (!actuel || !participe) return null;
+    var aux = actuel.split(" ")[0];
+    var part = participe;
+    if (verbe.auxiliaire === "etre") {
+      if (personne === "elle") part += "e";
+      else if (personne === "elles") part += "es";
+      else if (personne === "ils" || personne === "nous" || personne === "vous") part += "s";
+    }
+    return aux + " " + part;
+  };
+
   /* ---------- Niveaux débloqués ---------- */
 
   Q.curriculum = function () {
@@ -143,6 +160,15 @@
           if (!v.formes[t][p]) erreurs.push("Verbe " + id + " : " + t + "/" + p + " manquant");
         });
       });
+      if (v.formes.passe_compose) {
+        personnes.forEach(function (p) {
+          var attendu = Q.formePC(v, p);
+          if (attendu && v.formes.passe_compose[p] !== attendu) {
+            erreurs.push("Verbe " + id + " : accord du passé composé " + p +
+              " (« " + v.formes.passe_compose[p] + " », attendu « " + attendu + " »)");
+          }
+        });
+      }
       if (v.auxiliaire === "etre" && v.formes.passe_compose) {
         var pc = v.formes.passe_compose;
         if (pc.je.indexOf("suis") !== 0 && pc.je.indexOf("ai") !== 0) {
