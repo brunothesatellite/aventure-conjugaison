@@ -53,6 +53,10 @@
     { id: "pouvoir-pc-il-01", verbe: "pouvoir", temps: "passe_compose", personne: "il", difficulte: 2, texte: "Il {trou} ouvrir la porte du fort." },
     { id: "vouloir-pc-elles-01", verbe: "vouloir", temps: "passe_compose", personne: "elles", difficulte: 2, texte: "Elles {trou} danser toute la nuit." },
     { id: "etre-pc-ils-01", verbe: "etre", temps: "passe_compose", personne: "ils", difficulte: 2, texte: "Ils {trou} très courageux." },
-    { id: "avoir-pc-je-01", verbe: "avoir", temps: "passe_compose", personne: "je", difficulte: 2, texte: "J'{trou} de la chance au large.", tags: ["elision"] }
+    { id: "avoir-pc-je-01", verbe: "avoir", temps: "passe_compose", personne: "je", difficulte: 2, texte: "J'{trou} de la chance au large.", tags: ["elision"] },
+    { id: "chanter-pc-je-01", verbe: "chanter", temps: "passe_compose", personne: "je", difficulte: 1, texte: "J'{trou} une chanson de corsaire.", tags: ["elision"] },
+    { id: "chanter-pc-ils-01", verbe: "chanter", temps: "passe_compose", personne: "ils", difficulte: 1, texte: "Ils {trou} toute la nuit sur le pont." },
+    { id: "parler-pc-tu-01", verbe: "parler", temps: "passe_compose", personne: "tu", difficulte: 1, texte: "Tu {trou} au perroquet du capitaine." },
+    { id: "parler-pc-elles-01", verbe: "parler", temps: "passe_compose", personne: "elles", difficulte: 2, texte: "Elles {trou} du trésor pendant des heures." }
   ]);
 })(window.Quete);

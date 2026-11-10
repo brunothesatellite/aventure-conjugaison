@@ -11,7 +11,7 @@
     intro: "Le ciel est noir, la mer est calme. Les étoiles dessinent demain : tu partiras, tu trouveras, tu reviendras.",
     niveaux: [
       { id: "futur-1", titre: "Les Étoiles de Demain", groupe: "Les auxiliaires", verbes: ["etre", "avoir"], difficulte: 1 },
-      { id: "futur-2", titre: "La Flèche du Temps", groupe: "1er groupe (-er)", verbes: ["chanter", "jouer", "parler", "trouver"], difficulte: 2 },
+      { id: "futur-2", titre: "La Flèche du Temps", groupe: "1er groupe (-er)", verbes: ["chanter", "jouer", "parler", "trouver", "manger", "voler", "arriver"], difficulte: 2 },
       { id: "futur-3", titre: "La Voile des Serments", groupe: "2e groupe et verbes en -dre", verbes: ["finir", "choisir", "grandir", "prendre", "voir"], difficulte: 2 },
       { id: "futur-4", titre: "Les Prophéties du Kraken", groupe: "3e groupe irréguliers", verbes: ["pouvoir", "vouloir", "faire", "aller", "dire", "venir"], difficulte: 3 }
     ],

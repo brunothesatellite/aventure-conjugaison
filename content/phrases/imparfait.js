@@ -56,6 +56,12 @@
     { id: "parler-imparfait-je-01", verbe: "parler", temps: "imparfait", personne: "je", difficulte: 2, texte: "Je {trou} aux mouettes du port." },
     { id: "grandir-imparfait-il-01", verbe: "grandir", temps: "imparfait", personne: "il", difficulte: 2, texte: "Il {trou} au milieu des pirates." },
     { id: "venir-imparfait-je-01", verbe: "venir", temps: "imparfait", personne: "je", difficulte: 2, texte: "Je {trou} chaque semaine au marché." },
-    { id: "dire-imparfait-ils-01", verbe: "dire", temps: "imparfait", personne: "ils", difficulte: 2, texte: "Ils {trou} que la mer était calme." }
+    { id: "dire-imparfait-ils-01", verbe: "dire", temps: "imparfait", personne: "ils", difficulte: 2, texte: "Ils {trou} que la mer était calme." },
+    { id: "pouvoir-imparfait-nous-01", verbe: "pouvoir", temps: "imparfait", personne: "nous", difficulte: 2, texte: "Nous {trou} à peine voir la côte." },
+    { id: "vouloir-imparfait-elles-01", verbe: "vouloir", temps: "imparfait", personne: "elles", difficulte: 2, texte: "Elles {trou} toujours plus d'or." },
+    { id: "prendre-imparfait-je-01", verbe: "prendre", temps: "imparfait", personne: "je", difficulte: 2, texte: "Je {trou} le chemin des contrebandiers." },
+    { id: "trouver-imparfait-ils-01", verbe: "trouver", temps: "imparfait", personne: "ils", difficulte: 2, texte: "Ils {trou} des pièces dans la vase." },
+    { id: "voler-imparfait-elle-01", verbe: "voler", temps: "imparfait", personne: "elle", difficulte: 2, texte: "Elle {trou} vers les nuages." },
+    { id: "arriver-imparfait-elle-01", verbe: "arriver", temps: "imparfait", personne: "elle", difficulte: 1, texte: "Elle {trou} toujours la première." }
   ]);
 })(window.Quete);

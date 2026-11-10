@@ -69,7 +69,7 @@ données du navigateur, changement d'appareil ou d'origine, et perte de l'appare
 | L'Océan des Prophéties | Futur simple | radicaux irréguliers, terminaisons en -rai/-ras/-ront |
 | La Crique des Exploits | Passé composé | auxiliaires être et avoir, accords, participes passés |
 
-**20 verbes**, **170 phrases** contextualisées (pirates, trésors, voyage), **16 niveaux**
+**20 verbes**, **187 phrases** contextualisées (pirates, trésors, voyage), **16 niveaux**
 et **4 Gardiens**. Le programme suit les repères du CE2 : reconnaissance, puis production,
 avec un travail explicite des régularités et des exceptions.
 
@@ -197,7 +197,7 @@ utilisable dans un hook Git.
 | Commande | Rôle |
 |---|---|
 | `node tools/lint-content.js` | Valide verbes, phrases, aventures et exercices |
-| `node tools/audit-distracteurs.js` | Relit les mauvais choix des 170 questions (familles A/B/C) |
+| `node tools/audit-distracteurs.js` | Relit les mauvais choix des 187 questions (familles A/B/C) |
 | `node tools/audit-assemblage.js` | Relit les questions d'assemblage : radicaux, terminaisons, QCM |
 | `node tools/preparer-icones.js` | Retire le fond plein des SVG game-icons (idempotent) |
 | `node tools/generer-icones-inline.js` | Régénère les pictos intégrés (`assets/icons-inline.js`) |

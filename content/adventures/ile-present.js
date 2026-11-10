@@ -11,9 +11,9 @@
     intro: "Bienvenue sur l'île des corsaires ! L'aiguille du Présent est plantée dans le sable, tout près du fort.",
     niveaux: [
       { id: "present-1", titre: "Les Ancres de l'Esprit", groupe: "Les auxiliaires", verbes: ["etre", "avoir"], difficulte: 1 },
-      { id: "present-2", titre: "La Forêt des Verbes Verts", groupe: "1er groupe (-er)", verbes: ["jouer", "manger", "chanter", "parler"], difficulte: 1 },
+      { id: "present-2", titre: "La Forêt des Verbes Verts", groupe: "1er groupe (-er)", verbes: ["jouer", "manger", "chanter", "parler", "trouver", "voler", "arriver"], difficulte: 1 },
       { id: "present-3", titre: "Les Remparts du Donjon", groupe: "2e groupe (-ir)", verbes: ["finir", "choisir", "grandir"], difficulte: 2 },
-      { id: "present-4", titre: "Le Repaire des Flibustiers", groupe: "3e groupe", verbes: ["aller", "faire", "dire", "venir"], difficulte: 2 }
+      { id: "present-4", titre: "Le Repaire des Flibustiers", groupe: "3e groupe", verbes: ["aller", "faire", "dire", "venir", "prendre", "voir", "pouvoir", "vouloir"], difficulte: 2 }
     ],
     gardien: {
       nom: "Le Crabe Chronomètre",

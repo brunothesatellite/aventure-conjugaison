@@ -64,6 +64,10 @@
     { id: "vouloir-present-elles-01", verbe: "vouloir", temps: "present", personne: "elles", difficulte: 3, texte: "Elles {trou} apprendre la navigation." },
     { id: "trouver-present-vous-01", verbe: "trouver", temps: "present", personne: "vous", difficulte: 1, texte: "Vous {trou} une clé rouillée sous le pont." },
     { id: "voler-present-il-01", verbe: "voler", temps: "present", personne: "il", difficulte: 2, texte: "Il {trou} dans le ciel au-dessus du port.", tags: ["sens"] },
-    { id: "arriver-present-ils-01", verbe: "arriver", temps: "present", personne: "ils", difficulte: 1, texte: "Ils {trou} enfin sur l'île." }
+    { id: "arriver-present-ils-01", verbe: "arriver", temps: "present", personne: "ils", difficulte: 1, texte: "Ils {trou} enfin sur l'île." },
+    { id: "trouver-present-ils-01", verbe: "trouver", temps: "present", personne: "ils", difficulte: 2, texte: "Ils {trou} un coffre sous le sable." },
+    { id: "voler-present-elles-01", verbe: "voler", temps: "present", personne: "elles", difficulte: 2, texte: "Elles {trou} au-dessus des vagues." },
+    { id: "arriver-present-elle-01", verbe: "arriver", temps: "present", personne: "elle", difficulte: 1, texte: "Elle {trou} enfin au port." },
+    { id: "chanter-present-elle-01", verbe: "chanter", temps: "present", personne: "elle", difficulte: 1, texte: "Elle {trou} une chanson pour l'équipage." }
   ]);
 })(window.Quete);

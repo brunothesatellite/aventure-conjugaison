@@ -55,6 +55,9 @@
     { id: "grandir-futur-tu-01", verbe: "grandir", temps: "futur", personne: "tu", difficulte: 2, texte: "Tu {trou} encore cette année." },
     { id: "prendre-futur-ils-01", verbe: "prendre", temps: "futur", personne: "ils", difficulte: 2, texte: "Ils {trou} la mer au lever du jour." },
     { id: "pouvoir-futur-je-01", verbe: "pouvoir", temps: "futur", personne: "je", difficulte: 3, texte: "Je {trou} nager jusqu'à l'île." },
-    { id: "dire-futur-ils-01", verbe: "dire", temps: "futur", personne: "ils", difficulte: 2, texte: "Ils {trou} la vérité au conseil." }
+    { id: "dire-futur-ils-01", verbe: "dire", temps: "futur", personne: "ils", difficulte: 2, texte: "Ils {trou} la vérité au conseil." },
+    { id: "manger-futur-nous-01", verbe: "manger", temps: "futur", personne: "nous", difficulte: 1, texte: "Nous {trou} du poisson grillé." },
+    { id: "voler-futur-elles-01", verbe: "voler", temps: "futur", personne: "elles", difficulte: 2, texte: "Elles {trou} vers les étoiles." },
+    { id: "arriver-futur-elle-01", verbe: "arriver", temps: "futur", personne: "elle", difficulte: 1, texte: "Elle {trou} avant la tempête." }
   ]);
 })(window.Quete);
