@@ -14,11 +14,18 @@
       .replace(/"/g, "&quot;");
   };
 
+  /* Les pictos sont intégrés en SVG inline (assets/icons-inline.js).
+     Un SVG chargé comme masque CSS est bloqué en file:// : les icônes
+     devenaient invisibles au double-clic sur index.html. */
+  ui.svg = function (nom, classe) {
+    var ico = Q.iconesSVG && Q.iconesSVG[nom];
+    if (!ico) return '<span class="' + (classe || "") + '" aria-hidden="true"></span>';
+    return '<svg class="' + (classe || "") + '" viewBox="' + ico.vb +
+      '" fill="currentColor" aria-hidden="true" focusable="false">' + ico.c + "</svg>";
+  };
+
   ui.icon = function (nom, classe) {
-    var url = "assets/img/icons/" + nom + ".svg";
-    return '<span class="ico ' + (classe || "") + '" aria-hidden="true" style="' +
-      "-webkit-mask-image:url('" + url + "');mask-image:url('" + url + "');" +
-      '"></span>';
+    return ui.svg(nom, "ico" + (classe ? " " + classe : ""));
   };
 
   ui.emoji = function (nom, alt, classe) {
@@ -52,9 +59,7 @@
   ui.etoiles = function (n, max) {
     var html = '<span class="etoiles" role="img" aria-label="' + n + " étoile" + (n > 1 ? "s" : "") + " sur " + (max || 3) + '">';
     for (var i = 0; i < (max || 3); i++) {
-      html += '<span class="etoile ' + (i < n ? "etoile--pleine" : "") + '" style="' +
-        "-webkit-mask-image:url('assets/img/icons/etoile.svg');mask-image:url('assets/img/icons/etoile.svg');" +
-        '"></span>';
+      html += ui.svg("etoile", "etoile" + (i < n ? " etoile--pleine" : ""));
     }
     return html + "</span>";
   };
@@ -79,7 +84,9 @@
     var avant = ui.echapper(morceaux[0]);
     var apres = ui.echapper(morceaux.slice(1).join(""));
 
-    var trouve = avant.match(/^(J'|Je|Tu|Il|Elle|On|Nous|Vous|Ils|Elles)/i);
+    /* Les formes longues d'abord : « Elles » avant « Elle », sinon le
+       « s » final resterait hors du mot coloré. */
+    var trouve = avant.match(/^(J'|Elles|Elle|Ils|Il|Nous|Vous|Tu|Je|On)/i);
     if (trouve) {
       var mot = trouve[1];
       var base = mot.replace("'", "").toLowerCase();

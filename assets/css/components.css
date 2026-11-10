@@ -293,21 +293,14 @@
 
 /* ---------- Étoiles ---------- */
 .etoiles { display: inline-flex; gap: 3px; align-items: center; }
-/* Même technique que .ico : le SVG sert de masque et la couleur
-   du texte remplit la forme. */
+/* Étoile en SVG inline (couleur du texte). */
 .etoile {
   display: inline-block;
   width: 1.1em;
   height: 1.1em;
   flex: none;
   color: #d9cbb0;
-  background-color: currentColor;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
-  -webkit-mask-size: contain;
-  mask-size: contain;
+  fill: currentColor;
 }
 .etoile--pleine { color: var(--or); filter: drop-shadow(0 1px 0 rgba(138, 106, 16, 0.6)); }
 

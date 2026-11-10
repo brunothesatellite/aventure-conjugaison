@@ -7,6 +7,11 @@ Chaque île cache une aiguille : présent, imparfait, futur, passé composé.
 
 ![Écran d'accueil](docs/captures/accueil.png)
 
+## Jouer
+
+- **En ligne** : <https://brunothesatellite.github.io/aventure-conjugaison/>
+- **Hors ligne** : téléchargez le dépôt et double-cliquez sur `index.html` (voir ci-dessous).
+
 ## Lancer le jeu
 
 1. Téléchargez le dépôt (bouton **Code → Download ZIP**) ou clonez-le :
@@ -146,6 +151,7 @@ utilisable dans un hook Git.
 |---|---|
 | `node tools/lint-content.js` | Valide verbes, phrases, aventures et exercices |
 | `node tools/preparer-icones.js` | Retire le fond plein des SVG game-icons (idempotent) |
+| `node tools/generer-icones-inline.js` | Régénère les pictos intégrés (`assets/icons-inline.js`) |
 | `node tools/generer-manifest.js` | Régénère `assets/manifest.json` et `CREDITS.md` |
 | `node tools/test-navigateur.mjs` | Test de bout en bout dans Edge (voir ci-dessous) |
 
@@ -179,6 +185,7 @@ content/                tout le contenu pédagogique
 engine/                 moteur de jeu (état, sauvegarde, exercices, SRS, audio)
 ui/                     briques d'interface et écrans
 assets/                 CSS, polices, pictos, émojis, décors
+  icons-inline.js       pictos intégrés en SVG (généré, compatibles file://)
   manifest.json         inventaire des assets (licence, auteur, source)
 tools/                  linter et scripts de maintenance
 docs/captures/          captures d'écran du README
@@ -189,6 +196,9 @@ docs/captures/          captures d'écran du README
 - **Aucun serveur, aucun build.** Des scripts classiques et un espace de noms
   `window.Quete` : le jeu s'ouvre par double-clic, y compris hors ligne.
 - **Aucun CDN.** Polices, pictos et émojis sont auto-hébergés.
+- **Pictos en SVG inline.** Un SVG chargé comme masque CSS est bloqué par les navigateurs
+  en `file://` : les icônes étaient invisibles au double-clic. Elles sont donc intégrées au
+  jeu (`assets/icons-inline.js`) et gardent la couleur du texte (`currentColor`).
 - **Aucun pistage.** Pas de compte, pas d'analytics, pas de cookies.
 - **Sons générés** avec l'API Web Audio et la synthèse vocale du navigateur : aucun
   fichier audio à télécharger.

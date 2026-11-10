@@ -124,7 +124,10 @@
       if (!question || question.termine) return null;
 
       question.essais = (question.essais || 0) + 1;
-      var correct = String(choix).toLowerCase() === String(question.reponse).toLowerCase();
+      /* En assemblage, l'enfant ne choisit que la terminaison :
+         on la compare à la terminaison attendue, pas à la forme entière. */
+      var attendu = question.type === "assemblage" ? question.terminaison : question.reponse;
+      var correct = String(choix).toLowerCase() === String(attendu).toLowerCase();
 
       if (correct) {
         question.termine = true;

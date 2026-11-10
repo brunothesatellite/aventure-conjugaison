@@ -48,7 +48,7 @@ const pageUrl = pathToFileURL(path.join(RACINE, "index.html")).href;
 
 const edge = spawn(NAVIGATEUR, [
   "--headless=new", "--disable-gpu", "--no-first-run", "--no-default-browser-check",
-  "--allow-file-access-from-files", "--autoplay-policy=no-user-gesture-required",
+  "--autoplay-policy=no-user-gesture-required",
   "--remote-debugging-port=" + PORT, "--user-data-dir=" + profile, "about:blank"
 ], { stdio: "ignore" });
 
@@ -128,7 +128,10 @@ const rapport = await evaluate(`(async () => {
   const pause = (ms) => new Promise((r) => setTimeout(r, ms));
   const ok = (cond, msg) => { if (!cond) throw new Error("ÉCHEC: " + msg); out.etapes.push(msg); };
   const actif = (nom) => document.getElementById("screen-" + nom).classList.contains("actif");
-  const choix = (q) => document.querySelector('[data-choix="' + CSS.escape(q.reponse) + '"], [data-terminaison="' + CSS.escape(q.reponse) + '"]');
+  const choix = (q) => {
+    const val = q.type === "assemblage" ? q.terminaison : q.reponse;
+    return document.querySelector('[data-choix="' + CSS.escape(val) + '"], [data-terminaison="' + CSS.escape(val) + '"]');
+  };
 
   ok(!!window.Quete, "espace Quete chargé");
   ok(actif("home"), "écran d'accueil actif sans profil");
@@ -140,6 +143,8 @@ const rapport = await evaluate(`(async () => {
   ok(actif("map"), "carte affichée");
   ok(document.querySelectorAll("[data-ile]").length === 4, "4 îles sur la carte");
   ok(document.querySelectorAll("[data-ile][disabled]").length === 3, "3 îles verrouillées au départ");
+  ok(document.querySelector("[data-nav] .ico").tagName.toLowerCase() === "svg",
+    "pictos en SVG inline (lisibles en file://)");
 
   document.querySelector('[data-ile="ile-present"]').click();
   await pause(60);
@@ -193,6 +198,25 @@ const rapport = await evaluate(`(async () => {
   ok(Q.etat.pin === "1234", "PIN enregistré");
   ok(document.body.textContent.includes("Récompenses réelles"), "tableau de bord parent affiché");
 
+  // Assemblage : seule la terminaison est demandée, elle doit être acceptée.
+  const phraseAsm = Q.phraseParId("jouer-present-nous-01");
+  Q.etat.quest = {
+    aventureId: "ile-present", niveauId: "present-1", mode: "niveau", temps: "present",
+    creeLe: Date.now(), index: 0, aides: { eliminer: 0, regle: 0, indice: 0 }, fini: false,
+    questions: [{
+      id: phraseAsm.id, phraseId: phraseAsm.id, verbe: "jouer", infinitif: "jouer", temps: "present",
+      personne: "nous", texte: phraseAsm.texte, reponse: "jouons", difficulte: 1, source: "cible",
+      explication: "", type: "assemblage", radical: "jou", terminaison: "ons",
+      options: ["as", "ont", "ons", "ai"], consigne: "Assemble le verbe : choisis la bonne terminaison."
+    }]
+  };
+  Q.router.go("quete");
+  await pause(80);
+  choix(Q.etat.quest.questions[0]).click();
+  await pause(60);
+  ok(Q.etat.quest.questions[0].reussi === true, "assemblage : la bonne terminaison est acceptée");
+  ok(!!document.querySelector(".terminaison--bonne"), "assemblage : terminaison marquée correcte");
+
   // Quête ratée volontairement : 2 essais puis copie.
   Q.router.go("map");
   await pause(60);
@@ -202,7 +226,8 @@ const rapport = await evaluate(`(async () => {
   for (let n = 0; n < 2; n++) {
     const q = Q.etat.quest.questions[0];
     const boutons = Array.from(document.querySelectorAll(".option:not([disabled]), .terminaison:not([disabled])"));
-    const faux = boutons.find((b) => (b.getAttribute("data-choix") || b.getAttribute("data-terminaison")) !== q.reponse);
+    const attendu = q.type === "assemblage" ? q.terminaison : q.reponse;
+    const faux = boutons.find((b) => (b.getAttribute("data-choix") || b.getAttribute("data-terminaison")) !== attendu);
     if (!faux) throw new Error("Aucun mauvais choix disponible (n=" + n + ")");
     faux.click();
     await pause(40);

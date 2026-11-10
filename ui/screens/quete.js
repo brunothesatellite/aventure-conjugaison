@@ -191,7 +191,8 @@
       if (r.essais >= 2) {
         /* Correction active : on révèle, puis l'enfant recopie. */
         desactiverTout();
-        var bonne = el.querySelector('[data-choix="' + CSS.escape(q.reponse) + '"], [data-terminaison="' + CSS.escape(q.reponse) + '"]');
+        var bonneValeur = q.type === "assemblage" ? q.terminaison : q.reponse;
+        var bonne = el.querySelector('[data-choix="' + CSS.escape(bonneValeur) + '"], [data-terminaison="' + CSS.escape(bonneValeur) + '"]');
         marquer(bonne, q.type === "assemblage" ? "terminaison--bonne" : "option--bonne");
         zone.innerHTML += '<div class="rangee espace-haut-sm">' +
           '<button class="btn btn--secondaire" data-copier="1">' + Q.ui.icon("plume") + " Je recopie la bonne réponse</button>" +
@@ -244,7 +245,7 @@
       zone.innerHTML = feedbackHTML(f, q.reussi ? "ok" : "ko") +
         '<div class="rangee rangee--droite espace-haut-sm">' +
         '<button class="btn btn--primaire" data-suite="1">Continuer →</button></div>';
-      var bonne = el.querySelector('[data-choix="' + CSS.escape(q.reponse) + '"], [data-terminaison="' + CSS.escape(q.reponse) + '"]');
+      var bonne = el.querySelector('[data-choix="' + CSS.escape(q.reponse) + '"], [data-terminaison="' + CSS.escape(q.type === "assemblage" ? q.terminaison : q.reponse) + '"]');
       if (bonne) bonne.classList.add(q.type === "assemblage" ? "terminaison--bonne" : "option--bonne");
       lierSuite();
     }

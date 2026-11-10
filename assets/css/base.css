@@ -115,19 +115,14 @@ button, input, select, textarea {
 .pronom--nous { color: var(--p-nous); text-decoration: underline double; text-decoration-thickness: 2px; text-underline-offset: 3px; }
 .pronom--ils { color: var(--p-ils); text-decoration: underline wavy; text-decoration-thickness: 2px; text-underline-offset: 3px; }
 
-/* Icônes monochromes teintées (game-icons) */
+/* Icônes monochromes teintées (game-icons), intégrées en SVG inline
+   par assets/icons-inline.js. */
 .ico {
   display: inline-block;
   width: 1.3em;
   height: 1.3em;
   flex: none;
-  background-color: currentColor;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
-  -webkit-mask-size: contain;
-  mask-size: contain;
+  fill: currentColor;
   vertical-align: -0.18em;
 }
 
