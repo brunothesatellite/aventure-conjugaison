@@ -219,6 +219,13 @@ const rapport = await evaluate(`(async () => {
   ok(Q.etat.recompenses[0] && Q.etat.recompenses[0].icone === "sablier", "icône de récompense enregistrée");
   ok(!!document.querySelector('[data-rec-apercu="0"] svg'), "aperçu de l'icône affiché dans l'espace parent");
 
+  // Bourse trop légère : les boutons d'achat sont désactivés.
+  Q.etat.or = 10;
+  Q.router.go("boutique");
+  await pause(60);
+  const boutonsAchat = Array.from(document.querySelectorAll("#screen-boutique [data-acheter]"));
+  ok(boutonsAchat.length > 0 && boutonsAchat.every((b) => b.disabled), "achat bloqué quand la bourse est trop légère");
+
   Q.etat.or = 500;
   Q.router.go("boutique");
   await pause(60);
