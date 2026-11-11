@@ -1165,3 +1165,12 @@
   .parchemin-recompense::after { display: none; }
   .parchemin-recompense__tampon { color: #333; border-color: #333; }
 }
+
+/* ============================================================
+   Réglages : réglette de vitesse de lecture
+   ============================================================ */
+.reglette {
+  width: 100%;
+  margin: 6px 0 2px;
+  accent-color: var(--or-fonce);
+}

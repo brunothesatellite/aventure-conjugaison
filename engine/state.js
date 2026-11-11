@@ -21,7 +21,7 @@
       cosmetiques: [],
       recompenses: [],
       recompensesAchetees: [],
-      reglages: { son: true, voix: true, animations: true, taille: "normal" },
+      reglages: { son: true, voix: true, animations: true, taille: "normal", voixNom: null, voixVitesse: 0.92 },
       stats: { questions: 0, premierCoup: 0, bonnes: 0, tempsJeu: 0, erreurs: {}, jours: [] },
       serie: { actuelle: 0, record: 0 },
       journal: [],
@@ -81,7 +81,7 @@
     if (!objet(etat.srs)) etat.srs = {};
     if (!objet(etat.reglages)) etat.reglages = {};
     etat.reglages = Object.assign(
-      { son: true, voix: true, animations: true, taille: "normal" },
+      { son: true, voix: true, animations: true, taille: "normal", voixNom: null, voixVitesse: 0.92 },
       etat.reglages
     );
     if (!objet(etat.stats)) etat.stats = {};

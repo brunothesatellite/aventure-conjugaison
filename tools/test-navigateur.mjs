@@ -202,6 +202,35 @@ const rapport = await evaluate(`(async () => {
     ok(!document.getElementById("screen-" + nom).textContent.includes("Oups"), "écran " + nom + " sans erreur");
   }
 
+  // Réglages : choix de la voix (prénom seul) et vitesse de lecture.
+  Q.router.go("reglages");
+  await pause(60);
+  const selecteurVoix = document.querySelector("#choix-voix");
+  const messageVoix = /voix de cet appareil|synthèse vocale/
+    .test(document.getElementById("screen-reglages").textContent);
+  ok(!!selecteurVoix || messageVoix, "réglages : bloc voix affiché");
+
+  if (selecteurVoix && selecteurVoix.options.length > 1) {
+    const libelles = Array.prototype.slice.call(selecteurVoix.options, 1)
+      .map((o) => o.textContent.trim());
+    const courts = libelles.map((l) => l.split(" — ")[0]);
+    ok(courts.every((l) => l.length > 1 && !/Microsoft|Online|Natural|Multilingual|fr-/i.test(l)),
+      "réglages : prénoms de voix seuls");
+    ok(new Set(libelles).size === libelles.length, "réglages : libellés de voix uniques");
+  }
+
+  const reglette = document.querySelector("#vitesse-voix");
+  ok(!!reglette, "réglages : réglette de vitesse");
+  if (reglette) {
+    reglette.value = "120";
+    reglette.dispatchEvent(new Event("input"));
+    reglette.dispatchEvent(new Event("change"));
+    ok(Q.etat.reglages.voixVitesse === 1.2, "réglages : vitesse enregistrée");
+  }
+
+  Q.router.go("parent");
+  await pause(60);
+
   // Espace parent : création de PIN puis tableau de bord.
   document.getElementById("pin1").value = "1234";
   document.getElementById("pin2").value = "1234";
@@ -519,7 +548,8 @@ const apres = await evaluate(`(async () => {
     ecran: document.querySelector(".screen.actif") && document.querySelector(".screen.actif").id,
     queteEnCours: !!(Q.etat.quest && !Q.etat.quest.fini),
     recompensesAchetees: (Q.etat.recompensesAchetees || []).length,
-    iconeRecompense: (Q.etat.recompensesAchetees[0] || {}).icone
+    iconeRecompense: (Q.etat.recompensesAchetees[0] || {}).icone,
+    vitesseVoix: (Q.etat.reglages || {}).voixVitesse
   };
 })()`);
 
@@ -527,7 +557,7 @@ console.log("Après rechargement :", JSON.stringify(apres));
 
 const attendu = {
   profil: "Léa", etoiles: 3, queteEnCours: true,
-  recompensesAchetees: 1, iconeRecompense: "sablier"
+  recompensesAchetees: 1, iconeRecompense: "sablier", vitesseVoix: 1.2
 };
 const ecarts = Object.keys(attendu).filter((cle) => apres[cle] !== attendu[cle]);
 if (apres.or < 300) ecarts.push("or (" + apres.or + ")");

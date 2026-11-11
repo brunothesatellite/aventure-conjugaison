@@ -1,11 +1,14 @@
 /* ============================================================
    audio.js — synthèse vocale + petits sons générés (aucun fichier)
+
+   La voix et la vitesse sont lues dans les réglages à chaque
+   lecture : changer la voix prend effet immédiatement, sans
+   rechargement, et le choix est sauvegardé avec le profil.
    ============================================================ */
 (function (Q) {
   "use strict";
 
   var ctx = null;
-  var voix = null;
 
   function contexte() {
     if (!ctx) {
@@ -32,23 +35,76 @@
     osc.stop(c.currentTime + debut + duree + 0.02);
   }
 
-  function choisirVoix() {
-    if (!("speechSynthesis" in window)) return null;
-    var liste = window.speechSynthesis.getVoices() || [];
-    var fr = liste.filter(function (v) { return (v.lang || "").toLowerCase().indexOf("fr") === 0; });
+  /* ---------- Voix ---------- */
+
+  function syntheseDisponible() {
+    return "speechSynthesis" in window && typeof window.SpeechSynthesisUtterance === "function";
+  }
+
+  function toutesLesVoix() {
+    if (!syntheseDisponible()) return [];
+    try {
+      return (window.speechSynthesis.getVoices() || []).slice();
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function voixFrancaises() {
+    return toutesLesVoix().filter(function (v) {
+      return String(v.lang || "").toLowerCase().indexOf("fr") === 0;
+    });
+  }
+
+  function voixParNom(nom) {
+    if (!nom) return null;
+    var liste = toutesLesVoix();
+    for (var i = 0; i < liste.length; i++) {
+      if (liste[i].name === nom) return liste[i];
+    }
+    return null;
+  }
+
+  function voixAutomatique() {
+    var fr = voixFrancaises();
     if (!fr.length) return null;
-    var preferee = fr.filter(function (v) { return /Amelie|Amélie|Audrey|Thomas|Google|Microsoft/i.test(v.name); });
+    var preferee = fr.filter(function (v) {
+      return /Amelie|Amélie|Audrey|Thomas|Google|Microsoft/i.test(v.name);
+    });
     return preferee[0] || fr[0];
   }
 
-  if ("speechSynthesis" in window) {
-    window.speechSynthesis.onvoiceschanged = function () { voix = choisirVoix(); };
-    voix = choisirVoix();
+  function voixCourante() {
+    var reg = (Q.etat && Q.etat.reglages) || {};
+    return voixParNom(reg.voixNom) || voixAutomatique();
+  }
+
+  function vitesse() {
+    var v = Number((Q.etat && Q.etat.reglages && Q.etat.reglages.voixVitesse));
+    if (!v || v < 0.5 || v > 1.6) return 0.92;
+    return v;
+  }
+
+  /* « Microsoft VivienneMultilingual Online (Natural) - French (France) (fr-FR) »
+     → « Vivienne ». On ne garde que le prénom : le nom technique est
+     illisible dans un menu. */
+  var VENDEURS = /^(Microsoft|Google|Apple|Amazon|Mozilla|eSpeak|Samsung|Huawei|Nuance)\s+/i;
+  var MOTS_TECH = /\b(online|natural|multilingual|neural|standard|compact|mobile|desktop|premium|enhanced|continuous|vocoder|voice)\b/gi;
+  var LANGUES = /^(fran[cç]ais|french|fr|english|anglais|espa[nñ]ol|deutsch|italiano)$/i;
+
+  function nomCourt(nom) {
+    var s = String(nom || "").split(" - ")[0];
+    s = s.replace(/\([^)]*\)/g, " ");
+    s = s.replace(VENDEURS, "");
+    s = s.replace(/Multilingual/gi, " ");
+    s = s.replace(MOTS_TECH, " ");
+    s = s.replace(/\s+/g, " ").trim();
+    var mot = s.split(" ")[0] || "";
+    if (!mot || LANGUES.test(mot)) mot = s || String(nom || "");
+    return mot.charAt(0).toUpperCase() + mot.slice(1);
   }
 
   Q.audio = {
-    disponible: !!contexte,
-
     son: function (nom) {
       if (!Q.etat.reglages.son) return;
       switch (nom) {
@@ -79,17 +135,17 @@
     },
 
     parler: function (texte) {
-      if (!Q.etat.reglages.voix || !("speechSynthesis" in window)) return;
+      if (!Q.etat.reglages.voix || !syntheseDisponible()) return;
       var propre = String(texte || "").replace(/\{trou\}/g, " ... ").replace(/[«»]/g, " ");
       if (!propre.trim()) return;
       try {
         window.speechSynthesis.cancel();
         var u = new SpeechSynthesisUtterance(propre);
-        u.lang = "fr-FR";
-        u.rate = 0.92;
+        var v = voixCourante();
+        u.lang = (v && v.lang) || "fr-FR";
+        u.rate = vitesse();
         u.pitch = 1.02;
-        if (!voix) voix = choisirVoix();
-        if (voix) u.voice = voix;
+        if (v) u.voice = v;
         window.speechSynthesis.speak(u);
       } catch (e) {
         /* silencieux : la voix est un bonus, jamais un blocage */
@@ -104,6 +160,26 @@
     reveiller: function () {
       var c = contexte();
       if (c && c.state === "suspended") c.resume();
-    }
+    },
+
+    /* ---------- API pour l'écran Réglages ---------- */
+
+    syntheseDisponible: syntheseDisponible,
+
+    /* Voix françaises installées sur l'appareil, avec un libellé court. */
+    listerVoix: function () {
+      return voixFrancaises().map(function (v) {
+        return { nom: v.name, langue: v.lang, court: nomCourt(v.name) };
+      });
+    },
+
+    /* La voix réellement utilisée (pour l'affichage). */
+    voixUtilisee: function () {
+      var v = voixCourante();
+      return v ? { nom: v.name, langue: v.lang, court: nomCourt(v.name) } : null;
+    },
+
+    /* Libellé court d'une voix : « Microsoft Julie Online (Natural) » → « Julie ». */
+    nomCourt: nomCourt
   };
 })(window.Quete);

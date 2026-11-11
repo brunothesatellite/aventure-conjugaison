@@ -123,7 +123,8 @@ Vous y trouverez :
 
 Le code PIN évite les clics par erreur ; il ne protège pas contre un enfant déterminé.
 
-Les réglages (taille du texte, animations, voix) sont accessibles depuis la carte.
+Les réglages (taille du texte, animations, choix de la voix et vitesse de lecture) sont
+accessibles depuis la carte.
 Tout est local : aucune donnée n'est envoyée nulle part.
 
 ## Ajouter du contenu
