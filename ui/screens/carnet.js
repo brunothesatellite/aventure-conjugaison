@@ -22,9 +22,36 @@
         '<div style="height:100%;width:' + v + '%;background:linear-gradient(90deg,#15803d,#4ade80)"></div></div></div>';
     }).join("");
 
+    var tousLesExercices = Q.revoir.liste();
+    var exercices = tousLesExercices.slice(0, 8);
+    var exercicesHtml = exercices.length
+      ? '<div class="revoir">' + exercices.map(function (x) {
+          var p = x.phrase;
+          var e = x.entree;
+          var fois = e.fois || 1;
+          return '<div class="revoir-item">' +
+            '<div class="revoir__ligne">' +
+              "<span>" + Q.ui.phraseHTML(p.texte, {}) + "</span>" +
+              '<span class="pousse revoir__bonne">' + Q.ui.echapper(Q.formeAttendue(p)) + "</span>" +
+            "</div>" +
+            '<div class="revoir-item__meta">' +
+              Q.ui.echapper(Q.ui.tempsLabel(e.temps)) +
+              ' · raté ' + fois + " fois" +
+              (e.derniere ? " · le " + Q.ui.dateFr(e.derniere) : "") +
+            "</div>" +
+          "</div>";
+        }).join("") +
+        (tousLesExercices.length > exercices.length
+          ? '<p class="discret espace-haut-sm">… et ' + (tousLesExercices.length - exercices.length) + " autre" +
+            (tousLesExercices.length - exercices.length > 1 ? "s" : "") + " exercice" +
+            (tousLesExercices.length - exercices.length > 1 ? "s" : "") + " à revoir.</p>"
+          : "") +
+        "</div>"
+      : '<p class="discret">Aucun exercice raté à revoir. Continue comme ça !</p>';
+
     var erreurs = Object.keys(s.erreurs || {}).sort(function (a, b) { return s.erreurs[b] - s.erreurs[a]; }).slice(0, 5);
     var erreursHtml = erreurs.length
-      ? '<table class="tableau"><thead><tr><th>Point à revoir</th><th>Fois</th></tr></thead><tbody>' +
+      ? '<table class="tableau"><thead><tr><th>Type d\'erreur</th><th>Fois</th></tr></thead><tbody>' +
         erreurs.map(function (k) {
           return "<tr><td>" + Q.ui.echapper(Q.feedback.typesErreurs[k] || k) + "</td><td>" + s.erreurs[k] + "</td></tr>";
         }).join("") + "</tbody></table>"
@@ -80,7 +107,8 @@
         (achats.length ? ' <span class="discret">(' + achats.length + ")</span>" : "") + "</h2>" +
         historique + "</div>" +
       '<div class="carte espace-haut"><h2>Ma maîtrise par temps</h2>' + maitrise + "</div>" +
-      '<div class="carte espace-haut"><h2>Ce qu\'il faut revoir</h2>' + erreursHtml + "</div>" +
+      '<div class="carte espace-haut"><h2>Ce qu\'il faut revoir</h2>' + exercicesHtml +
+        '<h3 class="espace-haut-sm">Types d\'erreurs déjà rencontrées</h3>' + erreursHtml + "</div>" +
       '<div class="carte espace-haut"><h2>' + Q.ui.icon("carnet") + " Mon journal</h2>" + journal + "</div>";
 
     /* Réafficher le parchemin d'une récompense déjà échangée. */

@@ -720,6 +720,22 @@
 .revoir__ligne:last-child { border-bottom: 0; }
 .revoir__bonne { color: var(--succes); font-weight: 700; }
 
+/* Détail des exercices ratés (carnet de bord) */
+.revoir-item {
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--parchemin-3);
+}
+.revoir-item:last-child { border-bottom: 0; }
+.revoir-item .revoir__ligne {
+  padding: 0;
+  border-bottom: 0;
+}
+.revoir-item__meta {
+  color: var(--encre-doux);
+  font-size: var(--taille-petit);
+  margin-top: 2px;
+}
+
 /* ---------- Boutique / journal ---------- */
 .grille-articles {
   display: grid;

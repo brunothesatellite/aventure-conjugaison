@@ -141,6 +141,7 @@
           Q.etat.serie.actuelle += 1;
           Q.etat.serie.record = Math.max(Q.etat.serie.record, Q.etat.serie.actuelle);
           Q.etat.stats.premierCoup += 1;
+          Q.revoir.reussi(question);
           Q.srs.enregistrer(question.verbe, question.temps, question.personne, true);
         } else {
           Q.srs.enregistrer(question.verbe, question.temps, question.personne, true);
@@ -158,6 +159,7 @@
         question.copiee = false;
         Q.etat.serie.actuelle = 0;
         Q.srs.enregistrer(question.verbe, question.temps, question.personne, false);
+        Q.revoir.enregistrer(question);
         Q.feedback.analyser(Q.phraseParId(question.phraseId), choix);
       }
       Q.jeu.sauver();

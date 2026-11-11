@@ -336,6 +336,18 @@ const rapport = await evaluate(`(async () => {
   ok(!!document.querySelector("[data-suite]"), "bouton Continuer après copie");
   ok(document.querySelector("#phrase .trou--rempli") !== null, "bonne réponse révélée dans la phrase");
 
+  // Le carnet détaille les exercices ratés avec la phrase complète.
+  const rate = Q.etat.quest.questions[0];
+  const phraseRatee = Q.phraseParId(rate.phraseId);
+  Q.router.go("carnet");
+  await pause(80);
+  const blocRevoir = document.querySelector("#screen-carnet .revoir");
+  ok(!!blocRevoir, "carnet : exercices ratés détaillés");
+  ok(!!blocRevoir && blocRevoir.textContent.includes(Q.formeAttendue(phraseRatee)),
+    "carnet : phrase complète de l'exercice raté et bonne forme");
+  ok(!!blocRevoir && /raté 1 fois/.test(blocRevoir.textContent), "carnet : nombre de ratés affiché");
+  ok(!!blocRevoir && /Présent/.test(blocRevoir.textContent), "carnet : temps de l'exercice rappelé");
+
   // Aides : perroquet (coup de pouce) et dragonneau (élimination).
   Q.etat.or = 500;
   Q.achat.acheter("familier", "perroquet");

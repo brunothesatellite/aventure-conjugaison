@@ -23,6 +23,7 @@
       recompensesAchetees: [],
       reglages: { son: true, voix: true, animations: true, taille: "normal", voixNom: null, voixVitesse: 0.92 },
       stats: { questions: 0, premierCoup: 0, bonnes: 0, tempsJeu: 0, erreurs: {}, jours: [] },
+      aRevoir: [],
       serie: { actuelle: 0, record: 0 },
       journal: [],
       pin: null,
@@ -65,6 +66,11 @@
           return { texte: r.texte, prix: r.prix, icone: r.icone || null, date: r.achetee };
         });
     }
+    /* Migration : la liste des exercices ratés n'existait pas avant.
+       On la reconstitue à partir des cartes déjà en échec. */
+    if (!Array.isArray(sauve && sauve.aRevoir) && !etat.aRevoir.length && Q.revoir) {
+      etat.aRevoir = Q.revoir.depuisSrs(12);
+    }
     etat.version = VERSION;
     return etat;
   }
@@ -93,6 +99,10 @@
     if (!Array.isArray(etat.stats.jours)) etat.stats.jours = [];
     if (!objet(etat.serie)) etat.serie = { actuelle: 0, record: 0 };
     if (!objet(etat.compteurs)) etat.compteurs = { quetes: 0, gardiens: 0, indices: 0 };
+    if (!Array.isArray(etat.aRevoir)) etat.aRevoir = [];
+    etat.aRevoir = etat.aRevoir.filter(function (e) {
+      return objet(e) && typeof e.id === "string" && e.id;
+    });
     ["aiguilles", "badges", "familiers", "cosmetiques", "recompenses", "recompensesAchetees", "journal"].forEach(function (k) {
       if (!Array.isArray(etat[k])) etat[k] = [];
     });

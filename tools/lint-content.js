@@ -33,6 +33,7 @@ var FICHIERS = [
     "engine/storage.js",
     "engine/state.js",
     "engine/srs.js",
+    "engine/revoir.js",
     "engine/morphologie.js",
     "engine/feedback.js",
     "engine/distractors.js",
