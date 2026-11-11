@@ -29,7 +29,8 @@
           var p = x.phrase;
           var e = x.entree;
           var fois = e.fois || 1;
-          return '<div class="revoir-item">' +
+          var revu = e.reussiLe && (!e.derniere || e.reussiLe >= e.derniere);
+          return '<div class="revoir-item' + (revu ? " revoir-item--revu" : "") + '">' +
             '<div class="revoir__ligne">' +
               "<span>" + Q.ui.phraseHTML(p.texte, {}) + "</span>" +
               '<span class="pousse revoir__bonne">' + Q.ui.echapper(Q.formeAttendue(p)) + "</span>" +
@@ -38,6 +39,7 @@
               Q.ui.echapper(Q.ui.tempsLabel(e.temps)) +
               ' · raté ' + fois + " fois" +
               (e.derniere ? " · le " + Q.ui.dateFr(e.derniere) : "") +
+              (revu ? ' · <span class="revoir-item__ok">' + Q.ui.icon("coche") + " revu</span>" : "") +
             "</div>" +
           "</div>";
         }).join("") +

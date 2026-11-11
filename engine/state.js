@@ -24,6 +24,7 @@
       reglages: { son: true, voix: true, animations: true, taille: "normal", voixNom: null, voixVitesse: 0.92 },
       stats: { questions: 0, premierCoup: 0, bonnes: 0, tempsJeu: 0, erreurs: {}, jours: [] },
       aRevoir: [],
+      aRevoirInit: true,
       serie: { actuelle: 0, record: 0 },
       journal: [],
       pin: null,
@@ -67,9 +68,9 @@
         });
     }
     /* Migration : la liste des exercices ratés n'existait pas avant.
-       On la reconstitue à partir des cartes déjà en échec. */
-    if (!Array.isArray(sauve && sauve.aRevoir) && !etat.aRevoir.length && Q.revoir) {
-      etat.aRevoir = Q.revoir.depuisSrs(12);
+       On la reconstitue une fois à partir des cartes déjà en échec. */
+    if (!(sauve && sauve.aRevoirInit) && Q.revoir) {
+      Q.revoir.amorcer(etat);
     }
     etat.version = VERSION;
     return etat;

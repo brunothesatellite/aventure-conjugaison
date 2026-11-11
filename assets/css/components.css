@@ -735,6 +735,17 @@
   font-size: var(--taille-petit);
   margin-top: 2px;
 }
+.revoir-item--revu .revoir__ligne { opacity: 0.85; }
+.revoir-item__ok {
+  color: var(--succes);
+  font-weight: 700;
+  white-space: nowrap;
+}
+.revoir-item__ok svg {
+  width: 14px;
+  height: 14px;
+  vertical-align: -2px;
+}
 
 /* ---------- Boutique / journal ---------- */
 .grille-articles {

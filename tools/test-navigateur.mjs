@@ -348,6 +348,22 @@ const rapport = await evaluate(`(async () => {
   ok(!!blocRevoir && /raté 1 fois/.test(blocRevoir.textContent), "carnet : nombre de ratés affiché");
   ok(!!blocRevoir && /Présent/.test(blocRevoir.textContent), "carnet : temps de l'exercice rappelé");
 
+  // La même phrase réussie plus tard reste listée, marquée « revu ».
+  const questionRatee = Q.exercices.construire(phraseRatee, "cible");
+  Q.etat.quest = {
+    aventureId: "ile-present", niveauId: "present-1", mode: "niveau", temps: "present",
+    creeLe: Date.now(), index: 0, aides: { eliminer: 0, regle: 0, indice: 0 }, fini: false,
+    questions: [questionRatee]
+  };
+  Q.router.go("quete");
+  await pause(80);
+  choix(Q.etat.quest.questions[0]).click();
+  await pause(60);
+  Q.router.go("carnet");
+  await pause(60);
+  const blocRevu = document.querySelector("#screen-carnet .revoir");
+  ok(!!blocRevu && /revu/.test(blocRevu.textContent), "carnet : exercice raté marqué revu après une réussite");
+
   // Aides : perroquet (coup de pouce) et dragonneau (élimination).
   Q.etat.or = 500;
   Q.achat.acheter("familier", "perroquet");
