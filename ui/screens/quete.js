@@ -91,6 +91,50 @@
       return quest.questions[quest.index];
     }
 
+    /* Le petit monde de l'enfant : son avatar, tous les
+       déguisements achetés et tous les badges obtenus, en bas
+       de chaque question. */
+    function bandeauPerso() {
+      var p = Q.etat.profil || { nom: "Moussaillon", avatar: "chevalier" };
+      var objets = (Q.etat.cosmetiques || []).map(function (id) {
+        return Q.catalogue.cosmetiques.filter(function (c) { return c.id === id; })[0];
+      }).filter(Boolean);
+      var badges = (Q.etat.badges || []).map(function (id) {
+        return Q.badges.parId(id);
+      }).filter(Boolean);
+
+      var liste = objets.map(function (c) {
+        var nom = Q.ui.echapper(c.nom);
+        return '<button type="button" class="bandeau-perso__item" data-apercu="cosmetique:' + c.id + '"' +
+          ' aria-label="' + nom + '">' + Q.ui.visuelArticle(c.icone, "") + "</button>";
+      }).join("");
+
+      var listeBadges = badges.map(function (b) {
+        var nom = Q.ui.echapper(b.nom);
+        return '<button type="button" class="bandeau-perso__item bandeau-perso__item--badge"' +
+          ' data-apercu="badge:' + b.id + '" aria-label="' + nom + '">' +
+          Q.ui.icon(b.icone) + "</button>";
+      }).join("");
+
+      return '<div class="bandeau-perso">' +
+        '<div class="bandeau-perso__ligne">' +
+          '<span class="bandeau-perso__avatar" role="img" aria-label="Avatar : ' + Q.ui.echapper(p.nom) + '">' +
+            Q.ui.emoji(Q.ui.avatarEmoji(p.avatar), "") +
+          "</span>" +
+          (objets.length
+            ? '<span class="bandeau-perso__sep" aria-hidden="true"></span>' +
+              '<span class="bandeau-perso__liste" aria-label="Déguisements achetés">' + liste + "</span>"
+            : '<span class="bandeau-perso__vide">Aucun déguisement acheté pour le moment.</span>') +
+        "</div>" +
+        (badges.length
+          ? '<div class="bandeau-perso__ligne">' +
+              '<span class="bandeau-perso__repere" aria-hidden="true">' + Q.ui.icon("trophee") + "</span>" +
+              '<span class="bandeau-perso__liste" aria-label="Badges obtenus">' + listeBadges + "</span>" +
+            "</div>"
+          : "") +
+      "</div>";
+    }
+
     function dessiner() {
       var q = questionCourante();
       if (!q) { Q.router.go("map"); return; }
@@ -135,6 +179,7 @@
           reponseZone +
           aides +
           '<div class="zone-feedback" id="zone-feedback"></div>' +
+          bandeauPerso() +
         "</div>" +
       "</div>";
 
@@ -209,7 +254,15 @@
       var ecouter = el.querySelector('[data-action="ecouter"]');
       if (ecouter) {
         ecouter.addEventListener("click", function () {
-          Q.audio.parler(q.texte.replace("{trou}", " ... ") + ". Verbe " + q.infinitif + ".");
+          Q.audio.reveiller();
+          /* Tant que l'exercice n'est pas terminé, le trou reste un
+             silence. Une fois la réponse trouvée (ou recopiée), on
+             lit la phrase entière, avec la bonne forme. */
+          if (q.termine) {
+            Q.audio.parler(String(q.texte).replace("{trou}", q.reponse));
+          } else {
+            Q.audio.parler(q.texte + ". Verbe " + q.infinitif + ".");
+          }
         });
       }
       var quitter = el.querySelector('[data-action="quitter"]');
@@ -219,6 +272,7 @@
             .then(function (ok) { if (ok) Q.router.go("map"); });
         });
       }
+      Q.ui.lierApercus(el);
     }
 
     function marquer(button, classe) {

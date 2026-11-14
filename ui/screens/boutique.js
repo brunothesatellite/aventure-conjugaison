@@ -95,12 +95,7 @@
     });
 
     function visuelDe(icone) {
-      /* « picto: » = icône monochrome du jeu ; sinon c'est un Twemoji. */
-      if (icone.indexOf("picto:") === 0) {
-        return Q.ui.icon(icone.slice("picto:".length), "ico--article");
-      }
-      var map = { perroquet: "perroquet", dragonneau: "dragon", cheval: "cheval", mousse: "chapeau" };
-      return Q.ui.emoji(map[icone] || icone, "");
+      return Q.ui.visuelArticle(icone, "ico--article");
     }
 
     function manque(prix) {

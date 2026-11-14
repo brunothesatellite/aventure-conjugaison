@@ -24,13 +24,14 @@
 
     var pret = Q.jeu.gardienDebloque(a.id);
     var dejaVaincu = Q.etat.aiguilles.indexOf(a.temps) !== -1;
+    var victoires = dejaVaincu ? Math.max(1, Q.jeu.victoiresGardien(a.id)) : 0;
     var gardienHtml = '<div class="carte carte--bois' + (dejaVaincu ? " gardien--vaincu" : "") + ' espace-haut">' +
       '<div class="rangee">' +
         '<span class="article__visuel" style="background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.35)">' + Q.ui.icon(a.gardien.icone) + "</span>" +
         "<div style=\"flex:1;min-width:200px\">" +
           '<h3 style="margin:0">' + Q.ui.echapper(a.gardien.nom) +
             (dejaVaincu
-              ? ' <span class="gardien__vaincu">' + Q.ui.icon("coche") + " Vaincu</span>"
+              ? ' <span class="gardien__vaincu">' + Q.ui.icon("coche") + " Vaincu · " + victoires + " fois</span>"
               : "") +
           "</h3>" +
           '<p class="discret" style="color:#f3e5c8;margin:2px 0 0">' + Q.ui.echapper(a.gardien.description) + "</p>" +

@@ -129,6 +129,126 @@
     return map[id] || "Moussaillon";
   };
 
+  /* Visuel d'un article de la boutique (familier ou déguisement) :
+     « picto: » = icône monochrome du jeu, sinon un Twemoji. */
+  ui.visuelArticle = function (icone, classe) {
+    icone = String(icone || "");
+    if (icone.indexOf("picto:") === 0) {
+      return ui.icon(icone.slice("picto:".length), classe);
+    }
+    var map = { perroquet: "perroquet", dragonneau: "dragon", cheval: "cheval", mousse: "chapeau" };
+    return ui.emoji(map[icone] || icone, "", classe);
+  };
+
+  /* ---------- Aperçu flottant (déguisements, badges) ----------
+
+     Une seule bulle pour toute l'application : au survol (souris)
+     ou au focus (clavier), une carte façon boutique / carnet
+     apparaît au-dessus de l'icône. Sur écran tactile, un appui
+     l'ouvre et un appui ailleurs la referme. */
+
+  var bulleApercu = null;
+
+  function creerBulle() {
+    if (bulleApercu && document.body.contains(bulleApercu)) return bulleApercu;
+    bulleApercu = document.createElement("div");
+    bulleApercu.className = "apercu-fixe";
+    bulleApercu.setAttribute("role", "tooltip");
+    bulleApercu.hidden = true;
+    document.body.appendChild(bulleApercu);
+    return bulleApercu;
+  }
+
+  function htmlApercu(type, id) {
+    if (type === "badge") {
+      var b = Q.badges && Q.badges.parId(id);
+      if (!b) return "";
+      return '<div class="apercu apercu--badge">' +
+        '<span class="apercu__visuel">' + ui.icon(b.icone) + "</span>" +
+        '<span class="apercu__nom">' + ui.echapper(b.nom) + "</span>" +
+        '<span class="apercu__desc">' + ui.echapper(b.desc) + "</span>" +
+        "</div>";
+    }
+    var c = (Q.catalogue.cosmetiques || []).filter(function (x) { return x.id === id; })[0];
+    if (!c) return "";
+    return '<div class="apercu apercu--article">' +
+      '<span class="apercu__visuel">' + ui.visuelArticle(c.icone, "") + "</span>" +
+      '<span class="apercu__nom">' + ui.echapper(c.nom) + "</span>" +
+      '<span class="apercu__desc">' + ui.echapper(c.desc) + "</span>" +
+      '<span class="pastille-possede">' + ui.icon("coche") + " possédé</span>" +
+      "</div>";
+  }
+
+  function placerBulle(cible) {
+    var bulle = creerBulle();
+    var r = cible.getBoundingClientRect();
+    var b = bulle.getBoundingClientRect();
+    var marge = 8;
+    var gauche = r.left + r.width / 2 - b.width / 2;
+    gauche = Math.max(marge, Math.min(gauche, window.innerWidth - b.width - marge));
+    var haut = r.top - b.height - marge;
+    if (haut < marge) haut = Math.min(window.innerHeight - b.height - marge, r.bottom + marge);
+    bulle.style.left = Math.round(gauche) + "px";
+    bulle.style.top = Math.round(haut) + "px";
+  }
+
+  ui.apercu = function (cible) {
+    var spec = String(cible.getAttribute("data-apercu") || "").split(":");
+    var html = htmlApercu(spec[0], spec[1]);
+    if (!html) return;
+    var bulle = creerBulle();
+    bulle.innerHTML = html;
+    bulle.style.left = "-9999px";
+    bulle.style.top = "0";
+    bulle.hidden = false;
+    bulle.__cible = cible;
+    placerBulle(cible);
+  };
+
+  ui.cacherApercu = function () {
+    if (!bulleApercu) return;
+    bulleApercu.hidden = true;
+    bulleApercu.innerHTML = "";
+    bulleApercu.__cible = null;
+  };
+
+  /* Branche l'aperçu sur tous les éléments [data-apercu] d'un écran. */
+  ui.lierApercus = function (racine) {
+    Array.prototype.forEach.call(racine.querySelectorAll("[data-apercu]"), function (b) {
+      b.addEventListener("pointerenter", function (e) {
+        if (e.pointerType === "touch") return;
+        ui.apercu(b);
+      });
+      b.addEventListener("pointerleave", function (e) {
+        if (e.pointerType === "touch") return;
+        ui.cacherApercu();
+      });
+      b.addEventListener("focus", function () {
+        var visible = true;
+        try { visible = b.matches(":focus-visible"); } catch (err) { visible = true; }
+        if (visible) ui.apercu(b);
+      });
+      b.addEventListener("blur", ui.cacherApercu);
+      b.addEventListener("click", function () {
+        /* Sur écran tactile, l'appui ouvre puis referme la carte. */
+        if (window.matchMedia && window.matchMedia("(hover: hover)").matches) return;
+        if (bulleApercu && bulleApercu.__cible === b && !bulleApercu.hidden) ui.cacherApercu();
+        else ui.apercu(b);
+      });
+    });
+  };
+
+  document.addEventListener("pointerdown", function (e) {
+    if (!bulleApercu || bulleApercu.hidden) return;
+    if (e.target && e.target.closest && e.target.closest("[data-apercu]")) return;
+    ui.cacherApercu();
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") ui.cacherApercu();
+  });
+  window.addEventListener("scroll", function () { ui.cacherApercu(); }, true);
+  window.addEventListener("resize", function () { ui.cacherApercu(); });
+
   ui.toast = function (message, type) {
     var t = document.getElementById("toast");
     if (!t) return;

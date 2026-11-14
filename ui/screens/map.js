@@ -13,6 +13,36 @@
     var dues = Q.srs.dues().length;
     var queteEnCours = Q.etat.quest && !Q.etat.quest.fini;
 
+    /* Quelle quête reprendre ? On nomme le monde et la quête. */
+    function libelleQuete(q) {
+      var a = q.aventureId ? Q.aventure(q.aventureId) : null;
+      var n = q.aventureId && q.niveauId ? Q.niveau(q.aventureId, q.niveauId) : null;
+      if (q.mode === "revision") {
+        return { monde: "L'Archipel des Temps", quete: "Révision express" };
+      }
+      if (q.mode === "gardien" && a && a.gardien) {
+        return { monde: a.nom, quete: "Défi du gardien : " + a.gardien.nom };
+      }
+      if (a && n) return { monde: a.nom, quete: n.titre };
+      if (a) return { monde: a.nom, quete: "Quête en cours" };
+      return { monde: "L'Archipel des Temps", quete: "Quête en cours" };
+    }
+
+    var bandeauQuete = "";
+    if (queteEnCours) {
+      var infos = libelleQuete(Q.etat.quest);
+      bandeauQuete = '<div class="encart encart--info rangee rangee--entre" style="margin-bottom:14px;gap:10px">' +
+        '<span class="rangee" style="gap:10px">' +
+          Q.ui.icon("carte") +
+          '<span style="text-align:left">' +
+            "<strong>Quête en cours</strong><br>" +
+            '<span class="discret">Monde : ' + Q.ui.echapper(infos.monde) +
+              " · Quête : " + Q.ui.echapper(infos.quete) + "</span>" +
+          "</span>" +
+        "</span>" +
+        '<button class="btn btn--mer" data-action="reprendre-quete">Reprendre</button></div>';
+    }
+
     var noeuds = ordre.map(function (a) {
       var debloque = Q.jeu.ileDebloquee(a.id);
       var etoiles = Q.jeu.etoilesIle(a.id);
@@ -44,9 +74,7 @@
     el.innerHTML = Q.ui.hud() +
       '<div class="titre-section"><h1 style="margin:0">Carte de l\'Archipel</h1></div>' +
       '<p class="discret" style="margin-top:-6px">Une île se débloque avec ' + Q.curriculum().prerequisIle + " étoiles sur 12. Chaque île garde une aiguille de la Boussole.</p>" +
-      (queteEnCours ? '<div class="encart encart--info rangee rangee--entre" style="margin-bottom:14px;gap:10px">' +
-        "<span>" + Q.ui.icon("carte") + " Une quête est en cours.</span>" +
-        '<button class="btn btn--mer" data-action="reprendre-quete">Reprendre</button></div>' : "") +
+      (queteEnCours ? bandeauQuete : "") +
       bandeauRevision +
       '<div class="chemin espace-haut">' + noeuds + "</div>" +
       '<div class="carte carte--souple espace-haut">' +

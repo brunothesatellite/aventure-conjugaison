@@ -17,6 +17,7 @@
         return;
       }
       Q.audio.couper();
+      if (Q.ui && Q.ui.cacherApercu) Q.ui.cacherApercu();
       Array.prototype.forEach.call(document.querySelectorAll(".screen"), function (s) {
         s.classList.remove("actif");
       });

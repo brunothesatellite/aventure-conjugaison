@@ -168,6 +168,20 @@ const rapport = await evaluate(`(async () => {
   ok(actif("quete"), "quête lancée");
   ok(Q.etat.quest.questions.length === 7, "7 questions");
   ok(document.querySelectorAll(".option, .terminaison").length >= 2, "boutons de réponse rendus");
+  ok(!!document.querySelector(".bandeau-perso"), "question : bandeau du joueur affiché");
+  const avatarQuestion = document.querySelector(".bandeau-perso__avatar img");
+  ok(avatarQuestion && /magicienne\.svg$/.test(avatarQuestion.getAttribute("src") || ""),
+    "question : avatar du profil affiché");
+
+  // Reprise : la carte nomme le monde et la quête en cours.
+  Q.router.go("map");
+  await pause(80);
+  const texteBandeau = document.querySelector("#screen-map .encart--info")?.textContent || "";
+  ok(/L'Île du Présent/.test(texteBandeau), "carte : monde de la quête en cours");
+  ok(/Les Ancres de l'Esprit/.test(texteBandeau), "carte : nom de la quête en cours");
+  document.querySelector('[data-action="reprendre-quete"]').click();
+  await pause(80);
+  ok(actif("quete"), "carte : reprise de la quête");
 
   let tours = 0;
   while (Q.etat.quest && !Q.etat.quest.fini && tours < 15) {
@@ -281,6 +295,10 @@ const rapport = await evaluate(`(async () => {
   await pause(60);
   ok(document.querySelectorAll(".rec-carnet").length === 1, "historique des récompenses visible dans le carnet");
   ok(/Échangée le/.test(document.querySelector(".rec-carnet__meta").textContent), "date de l'échange affichée");
+  const statOr = Array.from(document.querySelectorAll("#screen-carnet .stat"))
+    .find((st) => /gagnées en tout/.test(st.textContent));
+  ok(!!statOr, "carnet : or total gagné affiché");
+  ok(statOr && statOr.textContent.includes(String(Q.etat.orGagne)), "carnet : montant total d'or gagné exact");
   document.querySelector('[data-parchemin="0"]').click();
   await pause(60);
   ok(!!document.querySelector(".modale__contenu .parchemin-recompense"), "parchemin retrouvé depuis le carnet");
@@ -308,12 +326,60 @@ const rapport = await evaluate(`(async () => {
       options: ["as", "ont", "ons", "ai"], consigne: "Assemble le verbe : choisis la bonne terminaison."
     }]
   };
+  Q.etat.cosmetiques = Q.catalogue.cosmetiques.map((c) => c.id);
   Q.router.go("quete");
   await pause(80);
+
+  // Bandeau : tous les déguisements achetés, sans défilement.
+  ok(document.querySelectorAll('.bandeau-perso__item[data-apercu^="cosmetique:"]').length === Q.catalogue.cosmetiques.length,
+    "question : tous les déguisements achetés affichés");
+  ok(document.querySelectorAll(".bandeau-perso__item--badge").length === Q.etat.badges.length,
+    "question : tous les badges obtenus affichés");
+  const bandeauQuestion = document.querySelector(".bandeau-perso");
+  ok(bandeauQuestion && bandeauQuestion.scrollWidth <= bandeauQuestion.clientWidth + 1,
+    "question : bandeau sans défilement horizontal");
+
+  // Aperçu au survol : carte de badge (dorée, sans « possédé »)…
+  const itemBadge = document.querySelector(".bandeau-perso__item--badge");
+  itemBadge.dispatchEvent(new PointerEvent("pointerenter", { pointerType: "mouse" }));
+  await pause(40);
+  const bulle = document.querySelector(".apercu-fixe");
+  ok(bulle && !bulle.hidden && !!bulle.querySelector(".apercu--badge"), "aperçu : carte de badge au survol");
+  ok(bulle && !/possédé/i.test(bulle.textContent), "aperçu : badge sans mention possédé");
+  ok(bulle && bulle.textContent.trim().length > 10, "aperçu : nom et description du badge");
+  ok(bulle && getComputedStyle(bulle.querySelector(".apercu--badge")).borderTopColor !== "rgb(21, 128, 61)",
+    "aperçu : badge dans la couleur des badges, pas en vert");
+
+  // … puis carte de déguisement avec sa pastille verte.
+  const itemDeco = document.querySelector('.bandeau-perso__item[data-apercu^="cosmetique:"]');
+  itemDeco.dispatchEvent(new PointerEvent("pointerenter", { pointerType: "mouse" }));
+  await pause(40);
+  ok(bulle && !!bulle.querySelector(".apercu--article") && /possédé/i.test(bulle.textContent),
+    "aperçu : déguisement avec pastille possédé");
+  itemDeco.dispatchEvent(new PointerEvent("pointerleave", { pointerType: "mouse" }));
+  await pause(30);
+  ok(bulle && bulle.hidden, "aperçu : fermé quand le survol s'arrête");
+
+  // Audio : le trou reste muet avant la réponse, puis la phrase
+  // est lue en entier avec la bonne forme.
+  let phraseDite = "";
+  const parlerOrigine = Q.audio.parler;
+  Q.audio.parler = (t) => { phraseDite = t; };
+  document.querySelector('[data-action="ecouter"]').click();
+  await pause(40);
+  ok(/Verbe jouer/.test(phraseDite) && / \.\.\. /.test(phraseDite), "audio : le trou est tu avant la réponse");
+
   choix(Q.etat.quest.questions[0]).click();
   await pause(60);
   ok(Q.etat.quest.questions[0].reussi === true, "assemblage : la bonne terminaison est acceptée");
   ok(!!document.querySelector(".terminaison--bonne"), "assemblage : terminaison marquée correcte");
+
+  phraseDite = "";
+  document.querySelector('[data-action="ecouter"]').click();
+  await pause(40);
+  ok(/Nous jouons aux cartes de l'archipel\./.test(phraseDite) && !/Verbe/.test(phraseDite),
+    "audio : phrase entière avec la bonne réponse après réussite");
+  Q.audio.parler = parlerOrigine;
 
   // Quête ratée volontairement : 2 essais puis copie.
   Q.router.go("map");
@@ -446,6 +512,16 @@ const rapport = await evaluate(`(async () => {
   ok(!!document.querySelector(".gardien--vaincu"), "gardien vaincu : carte marquée");
   ok(/Vaincu/.test((document.querySelector(".gardien__vaincu") || {}).textContent || ""),
     "gardien vaincu : pastille affichée");
+  ok(/Vaincu · 1 fois/.test((document.querySelector(".gardien__vaincu") || {}).textContent || ""),
+    "gardien vaincu : compteur de victoires affiché");
+  const victoiresAvant = Q.jeu.victoiresGardien("ile-present");
+  Q.jeu.enregistrerQuete("ile-present", "present-1", { gardien: true, premierCoup: 7, etoiles: 3 });
+  ok(Q.jeu.victoiresGardien("ile-present") === victoiresAvant + 1, "gardien vaincu : victoire comptée");
+  Q.etat.gardiens["ile-present"] = 2;
+  Q.router.go("ile", { id: "ile-present" });
+  await pause(60);
+  ok(/Vaincu · 2 fois/.test(document.querySelector(".gardien__vaincu").textContent),
+    "gardien vaincu : nombre de victoires affiché");
   const boutonGardien = document.querySelector("[data-gardien]");
   ok(boutonGardien && !boutonGardien.disabled && /Défier à nouveau/.test(boutonGardien.textContent),
     "gardien vaincu : défi toujours possible");

@@ -692,6 +692,136 @@
 
 .zone-feedback { min-height: 0; }
 
+/* Bandeau du joueur : avatar, déguisements et badges (sans défilement) */
+.bandeau-perso {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 10px 12px;
+  border-radius: var(--r);
+  border: 2px dashed var(--parchemin-3);
+  background: rgba(255, 255, 255, 0.55);
+}
+.bandeau-perso__ligne {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 10px;
+}
+.bandeau-perso__avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--or);
+  background: var(--parchemin-2);
+  flex: none;
+}
+.bandeau-perso__avatar .emoji { width: 26px; height: 26px; vertical-align: middle; }
+.bandeau-perso__repere {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px dashed var(--or);
+  background: transparent;
+  color: var(--or-fonce);
+  flex: none;
+}
+.bandeau-perso__repere .ico { width: 22px; height: 22px; }
+.bandeau-perso__sep {
+  width: 2px;
+  height: 26px;
+  border-radius: 2px;
+  background: var(--parchemin-3);
+  flex: none;
+}
+.bandeau-perso__liste {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.bandeau-perso__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--parchemin-2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  font: inherit;
+  cursor: pointer;
+  flex: none;
+}
+.bandeau-perso__item:hover { box-shadow: 0 0 0 2px var(--or); }
+.bandeau-perso__item:focus-visible { outline: 2px solid var(--mer); outline-offset: 2px; }
+.bandeau-perso__item--badge { background: var(--or-clair); }
+.bandeau-perso__item .emoji { width: 21px; height: 21px; vertical-align: middle; }
+.bandeau-perso__item .ico { width: 19px; height: 19px; color: var(--bois-fonce); }
+.bandeau-perso__vide { color: var(--encre-doux); font-size: var(--taille-petit); }
+
+/* Aperçu flottant : carte façon boutique (déguisement) ou carnet (badge) */
+.apercu-fixe {
+  position: fixed;
+  z-index: 80;
+  width: 220px;
+  max-width: calc(100vw - 16px);
+  pointer-events: none;
+}
+.apercu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 12px 12px;
+  border-radius: var(--r);
+  border: 2px solid var(--parchemin-3);
+  background: linear-gradient(180deg, #fffcf3, var(--parchemin-2));
+  box-shadow: var(--ombre);
+  text-align: center;
+  animation: apparait 140ms ease;
+}
+.apercu--article { border-color: var(--succes); background: #f2fbf4; }
+.apercu--badge { border-color: var(--or); }
+.apercu__visuel {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px dashed var(--parchemin-3);
+  background: var(--parchemin);
+}
+.apercu--badge .apercu__visuel { border: 0; background: var(--or-clair); }
+.apercu__visuel .ico { width: 38px; height: 38px; color: var(--bois-fonce); }
+.apercu__visuel img { width: 44px; height: 44px; }
+.apercu__nom {
+  font-family: var(--police-titre);
+  font-weight: 700;
+  font-size: 0.98rem;
+  line-height: 1.15;
+  color: var(--bois-fonce);
+}
+.apercu__desc { font-size: 0.8rem; line-height: 1.35; color: var(--encre-doux); }
+.apercu .pastille-possede {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 2px;
+}
+.apercu .pastille-possede .ico { width: 13px; height: 13px; }
+
 /* ---------- Résultat ---------- */
 .resultat { max-width: 620px; margin: 0 auto; text-align: center; }
 .resultat__etoiles { display: flex; justify-content: center; gap: 10px; margin: 12px 0 6px; }
@@ -847,6 +977,13 @@
   text-align: center;
 }
 .stat__valeur { font-family: var(--police-titre); font-size: 1.6rem; font-weight: 700; color: var(--bois-fonce); }
+.stat__valeur--or {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.stat__valeur--or .emoji { width: 1em; height: 1em; vertical-align: 0; }
 .stat__label { font-size: 0.76rem; color: var(--encre-doux); text-transform: uppercase; letter-spacing: 0.05em; }
 
 /* ---------- Parent ---------- */

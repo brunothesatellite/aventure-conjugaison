@@ -29,6 +29,7 @@
       journal: [],
       pin: null,
       quest: null,
+      gardiens: {},
       compteurs: { quetes: 0, gardiens: 0, indices: 0 }
     };
   }
@@ -72,6 +73,23 @@
     if (!(sauve && sauve.aRevoirInit) && Q.revoir) {
       Q.revoir.amorcer(etat);
     }
+    /* Migration : le compteur de victoires par Gardien n'existait pas.
+       On le reconstitue avec le journal, et au moins 1 si l'aiguille
+       de l'île a déjà été gagnée. */
+    if (!(sauve && objet(sauve.gardiens))) {
+      var victoires = {};
+      (etat.journal || []).forEach(function (j) {
+        if (j && j.aventure && !j.niveau) {
+          victoires[j.aventure] = (victoires[j.aventure] || 0) + 1;
+        }
+      });
+      (Q.ordreAventures ? Q.ordreAventures() : []).forEach(function (a) {
+        if (etat.aiguilles.indexOf(a.temps) !== -1) {
+          victoires[a.id] = Math.max(victoires[a.id] || 0, 1);
+        }
+      });
+      etat.gardiens = victoires;
+    }
     etat.version = VERSION;
     return etat;
   }
@@ -100,6 +118,10 @@
     if (!Array.isArray(etat.stats.jours)) etat.stats.jours = [];
     if (!objet(etat.serie)) etat.serie = { actuelle: 0, record: 0 };
     if (!objet(etat.compteurs)) etat.compteurs = { quetes: 0, gardiens: 0, indices: 0 };
+    if (!objet(etat.gardiens)) etat.gardiens = {};
+    Object.keys(etat.gardiens).forEach(function (k) {
+      etat.gardiens[k] = Math.max(0, Math.round(Number(etat.gardiens[k]) || 0));
+    });
     if (!Array.isArray(etat.aRevoir)) etat.aRevoir = [];
     etat.aRevoir = etat.aRevoir.filter(function (e) {
       return objet(e) && typeof e.id === "string" && e.id;
@@ -433,6 +455,11 @@
       });
     },
 
+    /* Nombre de fois où le Gardien de cette île a été vaincu. */
+    victoiresGardien: function (aventureId) {
+      return Math.max(0, Math.round(Number((Q.etat.gardiens || {})[aventureId]) || 0));
+    },
+
     enregistrerQuete: function (aventureId, niveauId, resultat) {
       var p = jeu.niveauProgression(niveauId);
       p.quetes += 1;
@@ -442,7 +469,10 @@
       Q.etat.stats.jours = Q.etat.stats.jours || [];
       var jour = new Date().toISOString().slice(0, 10);
       if (Q.etat.stats.jours.indexOf(jour) === -1) Q.etat.stats.jours.push(jour);
-      if (resultat.gardien) Q.etat.compteurs.gardiens += 1;
+      if (resultat.gardien) {
+        Q.etat.compteurs.gardiens += 1;
+        Q.etat.gardiens[aventureId] = (Q.etat.gardiens[aventureId] || 0) + 1;
+      }
       Q.etat.journal.unshift({
         date: Date.now(),
         aventure: aventureId,

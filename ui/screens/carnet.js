@@ -101,6 +101,7 @@
           '<div class="stat"><div class="stat__valeur">' + (s.bonnes || 0) + '</div><div class="stat__label">bonnes réponses</div></div>' +
           '<div class="stat"><div class="stat__valeur">' + Q.etat.serie.record + '</div><div class="stat__label">record d\'affilée</div></div>' +
           '<div class="stat"><div class="stat__valeur">' + srs.solides + '</div><div class="stat__label">conjugaisons solides</div></div>' +
+          '<div class="stat"><div class="stat__valeur stat__valeur--or">' + Q.ui.piece() + " " + (Q.etat.orGagne || 0) + '</div><div class="stat__label">pièces d\'or gagnées en tout</div></div>' +
         "</div>" +
       "</div>" +
       '<div class="carte espace-haut"><h2>' + Q.ui.icon("trophee") + " Badges</h2>" +
